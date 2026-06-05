@@ -25,7 +25,19 @@ def add_book():
 
             isbn=request.form["isbn"],
 
-            title=request.form["title"]
+            title=request.form["title"],
+
+            authors=request.form["authors"],
+
+            publisher=request.form["publisher"],
+
+            year=request.form["year"] or None,
+
+            pages=request.form["pages"] or None,
+
+            language=request.form["language"],
+
+            copies=request.form["copies"] or 1
 
         )
 

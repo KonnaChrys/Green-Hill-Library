@@ -12,6 +12,8 @@ class Book(db.Model):
 
     title = db.Column(db.String(255), nullable=False)
 
+    authors = db.Column(db.String(255))
+
     publisher = db.Column(db.String(255))
 
     year = db.Column(db.Integer)

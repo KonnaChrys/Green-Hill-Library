@@ -14,8 +14,22 @@
 
         <input
             type="text"
+            id="isbn"
             name="isbn"
             class="form-control">
+
+    </div>
+
+    <button type="button" class="btn btn-success mt-2" onclick="lookupISBN()">
+      Αναζήτηση ISBN
+    </button>
+
+    <div class="mt-3">
+
+      <img
+        id="cover"
+        src=""
+        width="200">
 
     </div>
 
@@ -27,9 +41,24 @@
 
         <input
             type="text"
+            id="title"
             name="title"
             class="form-control"
             required>
+
+    </div>
+
+    <div class="mb-3">
+
+      <label class="form-label">
+          Συγγραφέας
+      </label>
+
+      <input
+        type="text"
+        id="authors"
+        name="authors"
+        class="form-control">
 
     </div>
 
@@ -41,6 +70,7 @@
 
         <input
             type="text"
+            id="publisher"
             name="publisher"
             class="form-control">
 
@@ -54,6 +84,7 @@
 
         <input
             type="number"
+            id="year"
             name="year"
             class="form-control">
 
@@ -108,5 +139,7 @@
     </button>
 
 </form>
+
+<script src="{{ url_for('static', filename='js/isbn_lookup.js') }}"></script>
 
 {% endblock %}
