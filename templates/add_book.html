@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html lang="el">
+<head>
+    <meta charset="UTF-8">
+    <title>Προσθήκη Βιβλίου</title>
+</head>
+<body>
+
+<h1>Προσθήκη Βιβλίου</h1>
+
+<form method="POST">
+
+    <label>ISBN</label>
+    <input type="text" name="isbn">
+
+    <br><br>
+
+    <label>Τίτλος</label>
+    <input type="text" name="title" required>
+
+    <label>Σελίδες</label>
+    <input type="number" name="pages">
+
+    <br><br>
+
+    <label>Γλώσσα</label>
+    <input type="text" name="language">
+
+    <br><br>
+
+    <label>Αριθμός Αντιτύπων</label>
+    <input type="number" name="copies" value="1">
+
+    <br><br>
+
+    <button type="submit">
+        Αποθήκευση
+    </button>
+
+</form>
+
+</body>
+</html>
