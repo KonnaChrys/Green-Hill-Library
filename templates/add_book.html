@@ -1,43 +1,112 @@
-<!DOCTYPE html>
-<html lang="el">
-<head>
-    <meta charset="UTF-8">
-    <title>Προσθήκη Βιβλίου</title>
-</head>
-<body>
+{% extends "base.html" %}
+
+{% block content %}
 
 <h1>Προσθήκη Βιβλίου</h1>
 
 <form method="POST">
 
-    <label>ISBN</label>
-    <input type="text" name="isbn">
+    <div class="mb-3">
 
-    <br><br>
+        <label class="form-label">
+            ISBN
+        </label>
 
-    <label>Τίτλος</label>
-    <input type="text" name="title" required>
+        <input
+            type="text"
+            name="isbn"
+            class="form-control">
 
-    <label>Σελίδες</label>
-    <input type="number" name="pages">
+    </div>
 
-    <br><br>
+    <div class="mb-3">
 
-    <label>Γλώσσα</label>
-    <input type="text" name="language">
+        <label class="form-label">
+            Τίτλος
+        </label>
 
-    <br><br>
+        <input
+            type="text"
+            name="title"
+            class="form-control"
+            required>
 
-    <label>Αριθμός Αντιτύπων</label>
-    <input type="number" name="copies" value="1">
+    </div>
 
-    <br><br>
+    <div class="mb-3">
 
-    <button type="submit">
+        <label class="form-label">
+            Εκδότης
+        </label>
+
+        <input
+            type="text"
+            name="publisher"
+            class="form-control">
+
+    </div>
+
+    <div class="mb-3">
+
+        <label class="form-label">
+            Έτος
+        </label>
+
+        <input
+            type="number"
+            name="year"
+            class="form-control">
+
+    </div>
+
+    <div class="mb-3">
+
+        <label class="form-label">
+            Σελίδες
+        </label>
+
+        <input
+            type="number"
+            name="pages"
+            class="form-control">
+
+    </div>
+
+    <div class="mb-3">
+
+        <label class="form-label">
+            Γλώσσα
+        </label>
+
+        <input
+            type="text"
+            name="language"
+            class="form-control">
+
+    </div>
+
+    <div class="mb-3">
+
+        <label class="form-label">
+            Αντίτυπα
+        </label>
+
+        <input
+            type="number"
+            name="copies"
+            value="1"
+            class="form-control">
+
+    </div>
+
+    <button
+        type="submit"
+        class="btn btn-primary">
+
         Αποθήκευση
+
     </button>
 
 </form>
 
-</body>
-</html>
+{% endblock %}

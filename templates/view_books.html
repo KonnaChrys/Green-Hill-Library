@@ -1,25 +1,44 @@
-<!DOCTYPE html>
-<html lang="el">
-<head>
-    <meta charset="UTF-8">
-    <title>Βιβλία</title>
-</head>
-<body>
+{% extends "base.html" %}
+
+{% block content %}
 
 <h1>Βιβλία</h1>
 
-<ul>
+<table class="table table-striped">
 
-{% for book in books %}
+    <thead>
 
-    <li>
-        {{ book.title }}
-        ({{ book.isbn }})
-    </li>
+        <tr>
 
-{% endfor %}
+            <th>ISBN</th>
+            <th>Τίτλος</th>
+            <th>Εκδότης</th>
+            <th>Έτος</th>
 
-</ul>
+        </tr>
 
-</body>
-</html>
+    </thead>
+
+    <tbody>
+
+        {% for book in books %}
+
+        <tr>
+
+            <td>{{ book.isbn }}</td>
+
+            <td>{{ book.title }}</td>
+
+            <td>{{ book.publisher }}</td>
+
+            <td>{{ book.year }}</td>
+
+        </tr>
+
+        {% endfor %}
+
+    </tbody>
+
+</table>
+
+{% endblock %}
