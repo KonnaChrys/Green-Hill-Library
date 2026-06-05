@@ -1,0 +1,25 @@
+<!DOCTYPE html>
+<html lang="el">
+<head>
+    <meta charset="UTF-8">
+    <title>Βιβλία</title>
+</head>
+<body>
+
+<h1>Βιβλία</h1>
+
+<ul>
+
+{% for book in books %}
+
+    <li>
+        {{ book.title }}
+        ({{ book.isbn }})
+    </li>
+
+{% endfor %}
+
+</ul>
+
+</body>
+</html>
