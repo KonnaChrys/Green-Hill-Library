@@ -33,8 +33,20 @@ async function lookupISBN() {
             data.publish_date.match(/\d{4}/)?.[0] || "" :
             "";
 
-        document.getElementById("cover").src =
-            `https://covers.openlibrary.org/b/isbn/${isbn}-L.jpg`;
+        document.querySelector('[name="pages"]').value =
+            data.number_of_pages || "";
+
+        console.log(data);
+        
+        if (data.covers && data.covers.length > 0) {
+
+            const cover = document.getElementById("cover");
+
+            cover.src =
+                `https://covers.openlibrary.org/b/id/${data.covers[0]}-L.jpg`;
+
+            cover.style.display = "block";
+        }
 
     }
 
