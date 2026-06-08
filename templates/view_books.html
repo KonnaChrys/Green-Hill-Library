@@ -2,46 +2,94 @@
 
 {% block content %}
 
-<h1>Βιβλία</h1>
+<div class="d-flex justify-content-between align-items-center mb-4">
 
-<table class="table table-striped">
+    <div class="d-flex align-items-center">
 
-    <thead>
+        <div
+            class="border rounded d-flex align-items-center justify-content-center me-3"
+            style="
+                width:70px;
+                height:70px;
+                background-color:#f8f9fa;
+            ">
 
-        <tr>
+            LOGO
 
-            <th>ISBN</th>
-            <th>Τίτλος</th>
-            <th>Συγγραφέας</th>
-            <th>Εκδότης</th>
-            <th>Έτος</th>
+        </div>
 
-        </tr>
+        <h2 class="me-4 mb-0">
 
-    </thead>
+            Βιβλία
 
-    <tbody>
+        </h2>
 
-        {% for book in books %}
+        <div style="width:350px;">
 
-        <tr>
+            <input
+                type="text"
+                class="form-control"
+                placeholder="Αναζήτηση βιβλίου...">
 
-            <td>{{ book.isbn }}</td>
+        </div>
 
-            <td>{{ book.title }}</td>
-            
-            <td>{{ book.authors }}</td>
+    </div>
 
-            <td>{{ book.publisher }}</td>
+    <button
+        class="btn btn-outline-secondary">
 
-            <td>{{ book.year }}</td>
+        Φίλτρα
 
-        </tr>
+    </button>
 
-        {% endfor %}
+</div>
 
-    </tbody>
+<div class="row">
 
-</table>
+    {% for book in books %}
+
+    <div class="col-lg-3 col-md-4 col-sm-6 mb-4">
+
+        <div class="card h-100 shadow-sm">
+
+            <img
+                src="{{ book.cover_url }}"
+                class="card-img-top"
+                style="
+                    height:300px;
+                    object-fit:cover;
+                "
+                onerror="this.src='https://placehold.co/300x450?text=No+Cover'">
+
+            <div class="card-body">
+
+                <h5 class="card-title">
+
+                    {{ book.title }}
+
+                </h5>
+
+                <p class="card-text">
+
+                    {{ book.authors }}
+
+                </p>
+
+                <p class="card-text">
+
+                    {{ book.copies }}/{{ book.copies }}
+
+                </p>
+
+            </div>
+
+        </div>
+
+    </div>
+
+    {% endfor %}
+
+</div>
+
 
 {% endblock %}

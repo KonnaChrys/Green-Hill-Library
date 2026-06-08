@@ -37,6 +37,8 @@ def add_book():
 
             language=request.form["language"],
 
+            cover_url=request.form["cover_url"],
+
             copies=request.form["copies"] or 1
 
         )

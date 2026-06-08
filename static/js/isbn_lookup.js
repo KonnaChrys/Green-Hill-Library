@@ -45,6 +45,8 @@ async function lookupISBN() {
             cover.src =
                 `https://covers.openlibrary.org/b/id/${data.covers[0]}-L.jpg`;
 
+                document.getElementById("cover_url").value = cover.src;
+
             cover.style.display = "block";
         }
 
