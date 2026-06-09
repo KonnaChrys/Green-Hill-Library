@@ -45,9 +45,24 @@ async function lookupISBN() {
             cover.src =
                 `https://covers.openlibrary.org/b/id/${data.covers[0]}-L.jpg`;
 
-                document.getElementById("cover_url").value = cover.src;
+            document.getElementById("cover_url").value = cover.src;
 
             cover.style.display = "block";
+
+            document.getElementById("cover_placeholder").style.display = "none";
+
+            document.getElementById("cover_container").style.border = "none";
+
+        }
+
+        else {
+
+            document.getElementById("cover").style.display = "none";
+
+            document.getElementById("cover_placeholder").style.display = "block";
+
+            document.getElementById("cover_container").style.border = "1px solid #ccc";
+
         }
 
     }
