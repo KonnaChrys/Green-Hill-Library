@@ -2,88 +2,322 @@
 
 {% block content %}
 
-<div class="row">
+<div class="d-flex align-items-center mb-2">
 
-    <div class="col-md-4 text-center">
+    <!-- Logo -->
+
+    <a href="/books">
 
         <img
 
-            src="{{ book.cover_url }}"
-
-            class="img-fluid"
+            src="{{ url_for('static', filename='images/logo.png') }}"
 
             style="
-                max-height:500px;
-                object-fit:contain;
-            "
+                width:300px;
+                height:auto;
+            ">
 
-            onerror="this.src='https://placehold.co/300x450?text=No+Cover'">
+    </a>
 
-    </div>
+    <!-- Τίτλος -->
 
-    <div class="col-md-8">
+    <h1
+        class="mb-0"
+        style="
+            margin-left:50px;
+            margin-right:50px;
+        ">
 
-        <h1 class="mb-4">
+        Βιβλία
 
-            {{ book.title }}
+    </h1>
 
-        </h1>
+    <!-- Search -->
 
-        <p>
+    <input
 
-            <strong>Συγγραφέας:</strong>
+        type="text"
 
-            {{ book.authors }}
+        class="form-control"
 
-        </p>
+        placeholder="Αναζήτηση βιβλίου..."
 
-        <p>
+        style="
+            width:760px;
+        ">
 
-            <strong>ISBN:</strong>
+    <!-- Φίλτρα -->
 
-            {{ book.isbn }}
+    <button
 
-        </p>
+        style="
+            margin-left:10px;
+            width:38px;
+            height:38px;
+            background:white;
+            border:1px solid #d0d0d0;
+            border-radius:6px;
+        ">
 
-        <p>
+        <img
 
-            <strong>Εκδότης:</strong>
+            src="{{ url_for('static', filename='images/filter.png') }}"
 
-            {{ book.publisher }}
+            style="
+                width:22px;
+                height:22px;
+            ">
 
-        </p>
+    </button>
 
-        <p>
+</div>
 
-            <strong>Έτος Έκδοσης:</strong>
+<div class="container pt-3">
 
-            {{ book.year }}
+    <div class="row gx-5 align-items-start">
 
-        </p>
+        <!-- ΑΡΙΣΤΕΡΗ ΣΤΗΛΗ -->
 
-        <p>
+        <div class="col-auto text-center">
 
-            <strong>Σελίδες:</strong>
+            <div
 
-            {{ book.pages }}
+                style="
+                    width:380px;
+                    height:600px;
+                    display:flex;
+                    align-items:top;
+                    justify-content:center;
+                    
+                ">
 
-        </p>
+                <img
 
-        <p>
+                    src="{{ book.cover_url }}"
 
-            <strong>Γλώσσα:</strong>
+                    style="
+                        max-width:100%;
+                        max-height:100%;
+                        object-fit:contain;
+                    "
 
-            {{ book.language }}
+                    onerror="this.src='https://placehold.co/380x570?text=No+Cover'">
 
-        </p>
+            </div>
 
-        <p>
+            <div
+                style="
+                    margin-top:10px;
+                ">
 
-            <strong>Αντίτυπα:</strong>
+                <h5>
 
-            {{ book.copies }}/{{ book.copies }}
+                    <strong>Αντίτυπα:</strong>
 
-        </p>
+                    {{ book.copies }}/{{ book.copies }}
+
+                </h5>
+
+            </div>
+
+            <div
+                style="
+                    margin-top:15px;
+                ">
+                <button
+
+                    class="btn btn-lg"
+
+                    style="
+                        width:260px;
+                        background-color:rgb(54,147,118);
+                        border-color:rgb(54,147,118);
+                        color:white;
+                    ">
+
+                    Δανεισμός
+
+                </button>
+
+            </div>
+
+            <!-- Edit / Delete -->
+
+            <div
+
+                style="
+                    display:inline-flex;
+                    gap:20px;
+                    padding:7px 17px;
+                    margin-top:10px;
+                    background:white;
+                    border:1px solid #d0d0d0;
+                    border-radius:6px;
+                ">
+
+                <a href="/edit-book/{{ book.id }}">
+
+                    <img
+
+                        src="{{ url_for('static', filename='images/edit.png') }}"
+
+                        style="
+                            width:20px;
+                            height:20px;
+                        ">
+
+                </a>
+
+                <button
+
+                    style="
+                        border:none;
+                        background:none;
+                        padding:0;
+                    ">
+
+                    <img
+
+                        src="{{ url_for('static', filename='images/delete.png') }}"
+
+                        style="
+                            width:20px;
+                            height:20px;
+                            cursor:pointer;
+                        ">
+
+                </button>
+
+            </div>
+
+        </div>
+
+        <!-- ΔΕΞΙΑ ΣΤΗΛΗ -->
+
+        <div class="col">
+
+            <h1
+
+                style="
+                    margin:0;
+                    line-height:1.1;
+                    font-size:3rem;
+                ">
+
+                {{ book.title }}
+
+            </h1>
+
+            <div class="mt-4">
+
+                <h5>
+
+                    <strong>Συγγραφέας:</strong>
+
+                    {{ book.authors }}
+
+                    &nbsp; • &nbsp;
+
+                    {{ book.year }}
+
+                </h5>
+
+            </div>
+
+            <div class="mt-4">
+
+                <h5>
+
+                    <strong>Εκδότης:</strong>
+
+                    {{ book.publisher }}
+
+                </h5>
+
+            </div>
+
+            <div class="row mt-4">
+
+                <div class="col-md-4">
+
+                    <h5>
+
+                        <strong>ISBN:</strong>
+
+                        {{ book.isbn }}
+
+                    </h5>
+
+                </div>
+
+                <div class="col-md-6">
+
+                    <h5>
+
+                        <strong>Γλώσσα:</strong>
+
+                        {{ book.language }}
+
+                    </h5>
+
+                </div>
+
+            </div>
+
+            <div class="row mt-4">
+
+                <div class="col-md-4">
+
+                    <h5>
+
+                        <strong>Σελίδες:</strong>
+
+                        {{ book.pages }}
+
+                    </h5>
+
+                </div>
+
+                <div class="col-md-6">
+
+                    <h5>
+
+                        <strong>Εξώφυλλο:</strong>
+
+                        -
+
+                    </h5>
+
+                </div>
+
+            </div>
+
+            <div class="mt-4">
+
+                <h5>
+
+                    <strong>Κατηγορία:</strong>
+
+                    -
+
+                </h5>
+
+            </div>
+
+            <hr class="my-4">
+
+            <p
+
+                style="
+                    font-size:1.15rem;
+                    line-height:1.7;
+                ">
+
+                Δεν έχει προστεθεί ακόμη περίληψη για αυτό το βιβλίο.
+
+            </p>
+
+        </div>
 
     </div>
 

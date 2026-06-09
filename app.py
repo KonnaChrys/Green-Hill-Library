@@ -11,10 +11,12 @@ app.config["SQLALCHEMY_TRACK_MODIFICATIONS"] = False
 
 db.init_app(app)
 
+
 @app.route("/")
 def home():
 
     return render_template("index.html")
+
 
 @app.route("/add-book", methods=["GET", "POST"])
 def add_book():
@@ -51,6 +53,7 @@ def add_book():
 
     return render_template("add_book.html")
 
+
 @app.route("/books")
 def books():
 
@@ -61,6 +64,7 @@ def books():
         books=books
     )
 
+
 @app.route("/book/<int:id>")
 def book_info(id):
 
@@ -70,6 +74,42 @@ def book_info(id):
         "book_info.html",
         book=book
     )
+
+
+@app.route("/edit-book/<int:id>", methods=["GET", "POST"])
+def edit_book(id):
+
+    book = Book.query.get_or_404(id)
+
+    if request.method == "POST":
+
+        book.isbn = request.form["isbn"]
+
+        book.title = request.form["title"]
+
+        book.authors = request.form["authors"]
+
+        book.publisher = request.form["publisher"]
+
+        book.year = request.form["year"] or None
+
+        book.pages = request.form["pages"] or None
+
+        book.language = request.form["language"]
+
+        book.cover_url = request.form["cover_url"]
+
+        book.copies = request.form["copies"] or 1
+
+        db.session.commit()
+
+        return redirect(f"/book/{book.id}")
+
+    return render_template(
+        "edit_book.html",
+        book=book
+    )
+
 
 if __name__ == "__main__":
 
