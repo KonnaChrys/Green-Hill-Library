@@ -1,0 +1,92 @@
+{% extends "base.html" %}
+
+{% block content %}
+
+<div class="row">
+
+    <div class="col-md-4 text-center">
+
+        <img
+
+            src="{{ book.cover_url }}"
+
+            class="img-fluid"
+
+            style="
+                max-height:500px;
+                object-fit:contain;
+            "
+
+            onerror="this.src='https://placehold.co/300x450?text=No+Cover'">
+
+    </div>
+
+    <div class="col-md-8">
+
+        <h1 class="mb-4">
+
+            {{ book.title }}
+
+        </h1>
+
+        <p>
+
+            <strong>Συγγραφέας:</strong>
+
+            {{ book.authors }}
+
+        </p>
+
+        <p>
+
+            <strong>ISBN:</strong>
+
+            {{ book.isbn }}
+
+        </p>
+
+        <p>
+
+            <strong>Εκδότης:</strong>
+
+            {{ book.publisher }}
+
+        </p>
+
+        <p>
+
+            <strong>Έτος Έκδοσης:</strong>
+
+            {{ book.year }}
+
+        </p>
+
+        <p>
+
+            <strong>Σελίδες:</strong>
+
+            {{ book.pages }}
+
+        </p>
+
+        <p>
+
+            <strong>Γλώσσα:</strong>
+
+            {{ book.language }}
+
+        </p>
+
+        <p>
+
+            <strong>Αντίτυπα:</strong>
+
+            {{ book.copies }}/{{ book.copies }}
+
+        </p>
+
+    </div>
+
+</div>
+
+{% endblock %}

@@ -61,6 +61,16 @@ def books():
         books=books
     )
 
+@app.route("/book/<int:id>")
+def book_info(id):
+
+    book = Book.query.get_or_404(id)
+
+    return render_template(
+        "book_info.html",
+        book=book
+    )
+
 if __name__ == "__main__":
 
     with app.app_context():
