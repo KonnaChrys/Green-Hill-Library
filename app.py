@@ -148,6 +148,16 @@ def edit_book(id):
         book=book
     )
 
+@app.route("/delete-book/<int:id>", methods=["POST"])
+def delete_book(id):
+
+    book = Book.query.get_or_404(id)
+
+    db.session.delete(book)
+
+    db.session.commit()
+
+    return redirect("/books")
 
 if __name__ == "__main__":
 
