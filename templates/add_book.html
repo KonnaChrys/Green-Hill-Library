@@ -2,19 +2,44 @@
 
 {% block content %}
 
-<h1 class="mb-4">
+<div class="d-flex align-items-center mb-4">
 
-    Προσθήκη Βιβλίου
+    <!-- logo -->
 
-</h1>
+    <a href="{{ url_for('home') }}">
+
+        <img
+
+            src="{{ url_for('static', filename='images/logo.png') }}"
+
+            style="
+                width:300px;
+                height:auto;
+            ">
+
+    </a>
+
+    <!-- τιτλος -->
+
+    <h1
+
+        class="mb-0"
+
+        style="
+            margin-left:460px;
+        ">
+
+        Προσθήκη Βιβλίου
+
+    </h1>
+
+</div>
 
 <form method="POST">
 
     <div class="row justify-content-center">
 
-        <!-- ========================================= -->
         <!-- ΑΡΙΣΤΕΡΗ ΣΤΗΛΗ -->
-        <!-- ========================================= -->
 
         <div class="col-md-3">
 
@@ -36,7 +61,9 @@
 
                     name="isbn"
 
-                    class="form-control">
+                    class="form-control"
+
+                    onkeydown="if(event.key === 'Enter'){ event.preventDefault(); lookupISBN(); }">
 
                 <button
 
@@ -46,13 +73,20 @@
 
                     onclick="lookupISBN()">
 
-                    🔍
+                <img
+
+                    src="{{ url_for('static', filename='images/search.png') }}"
+
+                    style="
+                        width:22px;
+                        height:22px;
+                    ">
 
                 </button>
 
             </div>
 
-            <!-- Τίτλος -->
+            <!-- τιτλος -->
 
             <label class="form-label">
 
@@ -72,7 +106,7 @@
 
                 required>
 
-            <!-- Συγγραφέας -->
+            <!-- συγγραφεας -->
 
             <label class="form-label">
 
@@ -90,7 +124,7 @@
 
                 class="form-control mb-3">
 
-            <!-- Εκδότης -->
+            <!-- εκδοτης -->
 
             <label class="form-label">
 
@@ -108,7 +142,7 @@
 
                 class="form-control mb-3">
 
-            <!-- Έτος / Γλώσσα -->
+            <!-- ετος / γλωσσα -->
 
             <div class="row">
 
@@ -156,7 +190,7 @@
 
             <br>
 
-            <!-- Σελίδες / Αντίτυπα -->
+            <!-- σελιδες / αντιτυπα -->
 
             <div class="row">
 
@@ -225,7 +259,7 @@
 
             <br>
 
-            <!-- Κατηγορίες -->
+            <!-- κατηγοριες -->
 
             <label class="form-label">
 
@@ -250,9 +284,7 @@
 
         </div>
 
-        <!-- ========================================= -->
         <!-- ΜΕΣΑΙΑ ΣΤΗΛΗ -->
-        <!-- ========================================= -->
 
         <div class="col-md-3">
 
@@ -274,9 +306,7 @@
 
         </div>
 
-        <!-- ========================================= -->
         <!-- ΔΕΞΙΑ ΣΤΗΛΗ -->
-        <!-- ========================================= -->
 
         <div class="col-md-3 text-center">
 
@@ -342,7 +372,12 @@
 
 </form>
 
+<!-- ISBN lookup -->
+
 <script src="{{ url_for('static', filename='js/isbn_lookup.js') }}"></script>
+
+
+<!-- TOMSELECT ΓΙΑ ΤΙΣ ΚΑΤΗΓΟΡΙΕΣ -->
 
 <script>
 
