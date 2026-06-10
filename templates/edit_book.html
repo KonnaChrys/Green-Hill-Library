@@ -1,0 +1,428 @@
+{% extends "base.html" %}
+
+{% block content %}
+
+<div class="d-flex align-items-center mb-4">
+
+    <!-- logo -->
+
+    <a href="{{ url_for('home') }}">
+
+        <img
+
+            src="{{ url_for('static', filename='images/logo.png') }}"
+
+            style="
+                width:300px;
+                height:auto;
+            ">
+
+    </a>
+
+    <!-- τιτλος -->
+
+    <h1
+
+        class="mb-0"
+
+        style="
+            margin-left:460px;
+        ">
+
+        Επεξεργασία Βιβλίου
+
+    </h1>
+
+</div>
+
+<form method="POST">
+
+    <div class="row justify-content-center">
+
+        <!-- ΑΡΙΣΤΕΡΗ ΣΤΗΛΗ -->
+
+        <div class="col-md-3">
+
+            <!-- ISBN -->
+
+            <label class="form-label">
+
+                ISBN
+
+            </label>
+
+            <div class="d-flex mb-3">
+
+                <input
+
+                    type="text"
+
+                    id="isbn"
+
+                    name="isbn"
+
+                    value="{{ book.isbn }}"
+
+                    class="form-control"
+
+                    onkeydown="if(event.key === 'Enter'){ event.preventDefault(); lookupISBN(); }">
+
+                <button
+
+                    type="button"
+
+                    class="btn btn-outline-secondary ms-2"
+
+                    onclick="lookupISBN()">
+
+                <img
+
+                    src="{{ url_for('static', filename='images/search.png') }}"
+
+                    style="
+                        width:22px;
+                        height:22px;
+                    ">
+
+                </button>
+
+            </div>
+
+            <!-- τιτλος -->
+
+            <label class="form-label">
+
+                Τίτλος
+
+            </label>
+
+            <input
+
+                type="text"
+
+                id="title"
+
+                name="title"
+
+                value="{{ book.title }}"
+
+                class="form-control mb-3"
+
+                required>
+
+            <!-- συγγραφεας -->
+
+            <label class="form-label">
+
+                Συγγραφέας
+
+            </label>
+
+            <input
+
+                type="text"
+
+                id="authors"
+
+                name="authors"
+
+                value="{{ book.authors }}"
+
+                class="form-control mb-3">
+
+            <!-- εκδοτης -->
+
+            <label class="form-label">
+
+                Εκδότης
+
+            </label>
+
+            <input
+
+                type="text"
+
+                id="publisher"
+
+                name="publisher"
+
+                value="{{ book.publisher }}"
+
+                class="form-control mb-3">
+
+            <!-- ετος / γλωσσα -->
+
+            <div class="row">
+
+                <div class="col">
+
+                    <label class="form-label">
+
+                        Γλώσσα
+
+                    </label>
+
+                    <input
+
+                        type="text"
+
+                        id="language"
+
+                        name="language"
+
+                        value="{{ book.language }}"
+
+                        class="form-control">
+
+                </div>
+
+                <div class="col">
+
+                    <label class="form-label">
+
+                        Εξώφυλλο
+
+                    </label>
+
+                    <input
+
+                        type="text"
+
+                        id="cover_type"
+
+                        name="cover_type"
+
+                        value="{{ book.cover_type }}"
+
+                        class="form-control">
+
+                </div>
+
+            </div>
+
+            <br>
+
+            <!-- σελιδες / αντιτυπα -->
+
+            <div class="row">
+
+                <div class="col">
+
+                    <label class="form-label">
+
+                        Έτος
+
+                    </label>
+
+                    <input
+
+                        type="number"
+
+                        id="year"
+
+                        name="year"
+
+                        value="{{ book.year }}"
+
+                        class="form-control">
+
+                </div>
+
+
+                <div class="col">
+
+                    <label class="form-label">
+
+                        Σελίδες
+
+                    </label>
+
+                    <input
+
+                        type="number"
+
+                        id="pages"
+
+                        name="pages"
+
+                        value="{{ book.pages }}"
+
+                        class="form-control">
+
+                </div>
+
+                <div class="col">
+
+                    <label class="form-label">
+
+                        Αντίτυπα
+
+                    </label>
+
+                    <input
+
+                        type="number"
+
+                        name="copies"
+
+                        value="{{ book.copies }}"
+
+                        class="form-control">
+
+                </div>
+
+            </div>
+
+            <br>
+
+            <!-- κατηγοριες -->
+
+            <label class="form-label">
+
+                Κατηγορίες
+
+            </label>
+
+            <select
+                id="categories"
+                name="categories"
+                multiple>
+
+                <option value="Fantasy">Fantasy</option>
+                <option value="Adventure">Adventure</option>
+                <option value="Sci-fi">Sci-fi</option>
+                <option value="Mystery">Mystery</option>
+                <option value="Thriller">Thriller</option>
+                <option value="Romance">Romance</option>
+                <option value="Horror">Horror</option>
+
+            </select>
+
+        </div>
+
+        <!-- ΜΕΣΑΙΑ ΣΤΗΛΗ -->
+
+        <div class="col-md-3">
+
+            <label class="form-label">
+
+                Περίληψη
+
+            </label>
+
+            <textarea
+
+                id="description"
+
+                name="description"
+
+                class="form-control"
+
+                style="height:700px;">{{ book.description }}</textarea>
+
+        </div>
+
+        <!-- ΔΕΞΙΑ ΣΤΗΛΗ -->
+
+        <div class="col-md-3 text-center">
+
+            <div
+
+                id="cover_container"
+
+                style="
+                    width:450px;
+                    height:635px;
+                    border:1px solid #ccc;
+                    margin:auto;
+                    margin-top:34px;
+                    display:flex;
+                    align-items:center;
+                    justify-content:center;
+                ">
+
+                <img
+
+                    id="cover"
+
+                    src="{{ book.cover_url }}"
+
+                    style="
+                        width:100%;
+                        height:100%;
+                        object-fit:contain;
+                        display:block;
+                    ">
+
+                <span id="cover_placeholder"
+
+                    id="cover_placeholder"
+
+                    style="display:none;">
+
+                    Cover Art
+
+                </span>
+
+            </div>
+
+            <input
+
+                type="hidden"
+
+                id="cover_url"
+
+                name="cover_url"
+
+                value="{{ book.cover_url }}">
+
+            <button
+
+                type="submit"
+
+                class="btn btn-success btn-lg mt-3"
+
+                style="width:250px;">
+
+                Αποθήκευση
+
+            </button>
+
+        </div>
+
+    </div>
+
+</form>
+
+<!-- ISBN lookup -->
+
+<script src="{{ url_for('static', filename='js/isbn_lookup.js') }}"></script>
+
+
+<!-- TOMSELECT ΓΙΑ ΤΙΣ ΚΑΤΗΓΟΡΙΕΣ -->
+
+<script>
+
+document.addEventListener("DOMContentLoaded", function () {
+
+    new TomSelect("#categories", {
+
+        plugins: ["remove_button"],
+
+        create: false,
+
+        maxItems: null,
+
+        hideSelected: true,
+
+        closeAfterSelect: false,
+
+        placeholder: "Επιλογή κατηγοριών..."
+
+    });
+
+});
+
+</script>
+
+{% endblock %}
