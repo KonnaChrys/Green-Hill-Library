@@ -57,7 +57,21 @@ def add_book():
 @app.route("/books")
 def books():
 
-    books = Book.query.all()
+    search = request.args.get("search", "")
+
+    if search:
+
+        books = Book.query.filter(
+
+            (Book.title.ilike(f"%{search}%")) |
+
+            (Book.authors.ilike(f"%{search}%"))
+
+        ).all()
+
+    else:
+
+        books = Book.query.all()
 
     return render_template(
         "view_books.html",

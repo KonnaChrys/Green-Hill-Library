@@ -34,17 +34,52 @@
 
     <!-- Search -->
 
-    <input
+    <form
+        method="GET"
+        action="/books"
+        class="d-flex">
 
-        type="text"
+        <input
 
-        class="form-control"
+            type="text"
 
-        placeholder="Αναζήτηση βιβλίου..."
+            name="search"
 
-        style="
-            width:760px;
-        ">
+            class="form-control"
+
+            placeholder="Αναζήτηση βιβλίου..."
+
+            value="{{ request.args.get('search', '') }}"
+
+            style="
+                width:760px;
+            ">
+
+        <button
+
+            type="submit"
+
+            style="
+                margin-left:10px;
+                width:38px;
+                height:38px;
+                background:white;
+                border:1px solid #d0d0d0;
+                border-radius:6px;
+            ">
+
+        <img
+
+            src="{{ url_for('static', filename='images/search.png') }}"
+
+            style="
+                width:22px;
+                height:22px;
+            ">
+
+        </button>
+
+    </form>
 
     <!-- Φίλτρα -->
 
