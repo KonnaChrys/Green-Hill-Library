@@ -20,19 +20,19 @@ class Book(db.Model):
 
     pages = db.Column(db.Integer)
 
-    language = db.Column(db.String(50))
+    language = db.Column(db.String(1000))
+
+    cover_type = db.Column(db.String(100))
+
+    description = db.Column(db.Text)
+
+    categories = db.Column(db.Text)
 
     cover_url = db.Column(db.Text)
 
-    status = db.Column(
-        db.String(50),
-        default="Available"
-    )
+    status = db.Column(db.String(50), default="Available")
 
-    copies = db.Column(
-        db.Integer,
-        default=1
-    )
+    copies = db.Column(db.Integer, default=1)
 
     def __repr__(self):
         return f"<Book {self.title}>"

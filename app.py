@@ -39,6 +39,12 @@ def add_book():
 
             language=request.form["language"],
 
+            cover_type=request.form["cover_type"],
+
+            description=request.form["description"],
+
+            categories=",".join(request.form.getlist("categories")),
+
             cover_url=request.form["cover_url"],
 
             copies=request.form["copies"] or 1
@@ -95,9 +101,21 @@ def edit_book(id):
 
     book = Book.query.get_or_404(id)
 
+    # Ελεγχος αν το νεο ISBN υπαρχει ηδη σε αλλο βιβλιο
+
     if request.method == "POST":
 
-        book.isbn = request.form["isbn"]
+        new_isbn = request.form["isbn"]
+
+        existing = Book.query.filter_by(
+            isbn=new_isbn
+        ).first()
+
+        if existing and existing.id != book.id:
+
+            return "Υπάρχει ήδη βιβλίο με αυτό το ISBN"
+
+        book.isbn = new_isbn
 
         book.title = request.form["title"]
 
@@ -110,6 +128,12 @@ def edit_book(id):
         book.pages = request.form["pages"] or None
 
         book.language = request.form["language"]
+
+        book.cover_type = request.form["cover_type"]
+
+        book.description = request.form["description"]
+
+        book.categories = ",".join(request.form.getlist("categories"))
 
         book.cover_url = request.form["cover_url"]
 
