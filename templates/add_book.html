@@ -1,39 +1,24 @@
 {% extends "base.html" %}
 
-{% block content %}
+{% block banner_content %}
 
-<div class="d-flex align-items-center mb-4">
+<a href="{{ url_for('home') }}">
 
-    <!-- logo -->
+    <img
 
-    <a href="{{ url_for('home') }}">
-
-        <img
-
-            src="{{ url_for('static', filename='images/logo.png') }}"
-
-            style="
-                width:300px;
-                height:auto;
-            ">
-
-    </a>
-
-    <!-- τιτλος -->
-
-    <h1
-
-        class="mb-0"
+        src="{{ url_for('static', filename='images/add_book.png') }}"
 
         style="
-            margin-left:460px;
+            width:350px;
+            height:auto;
         ">
 
-        Προσθήκη Βιβλίου
+</a>
 
-    </h1>
+{% endblock %}
 
-</div>
+{% block content %}
+
 
 <form method="POST">
 
@@ -41,7 +26,8 @@
 
         <!-- ΑΡΙΣΤΕΡΗ ΣΤΗΛΗ -->
 
-        <div class="col-md-3">
+        <div class="col-md-3"
+            style=" margin-top:35px;">
 
             <!-- ISBN -->
 
@@ -288,7 +274,16 @@
 
         <div class="col-md-3">
 
-            <label class="form-label">
+            <label class="form-label"
+
+
+                style="
+                    display:block;
+                    text-align:center;
+                    font-size:18px;
+                    margin-top:30px;
+                    margin-bottom:10px;
+                ">
 
                 Περίληψη
 
@@ -302,7 +297,11 @@
 
                 class="form-control"
 
-                style="height:700px;"></textarea>
+                style="height:600px;">
+
+            </textarea>
+
+            
 
         </div>
 
