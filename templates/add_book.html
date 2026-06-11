@@ -20,7 +20,7 @@
 {% block content %}
 
 
-<form method="POST">
+<form method="POST" enctype="multipart/form-data">
 
     <div class="row justify-content-center">
 
@@ -342,7 +342,31 @@
 
                     Cover Art
 
+                    <br><br>
+
+                    <label
+
+                        for="cover_upload"
+
+                        class="btn btn-outline-secondary">
+
+                        Επιλογή εικόνας
+
+                    </label>
+
                 </span>
+                
+                <input
+
+                    type="file"
+
+                    id="cover_upload"
+
+                    name="cover_upload"
+
+                    accept="image/*"
+
+                    style="display:none;">
 
             </div>
 
@@ -400,6 +424,39 @@ document.addEventListener("DOMContentLoaded", function () {
     });
 
 });
+
+</script>
+
+<!-- upload cover -->
+
+<script>
+
+    document.getElementById("cover_upload").addEventListener("change", function(event) {
+
+        const file = event.target.files[0];
+
+        if (!file) return;
+
+        const reader = new FileReader();
+
+        reader.onload = function(e) {
+
+            const cover = document.getElementById("cover");
+            const placeholder = document.getElementById("cover_placeholder");
+            const container = document.getElementById("cover_container");
+
+            cover.src = e.target.result;
+            cover.style.display = "block";
+
+            placeholder.style.display = "none";
+
+            container.style.border = "none";
+
+        };
+
+        reader.readAsDataURL(file);
+
+    });
 
 </script>
 

@@ -1,3 +1,5 @@
+import os
+
 from flask import Flask, render_template, request, redirect
 
 from models import db, Book
@@ -23,6 +25,20 @@ def add_book():
 
     if request.method == "POST":
 
+        cover_file = request.files.get("cover_upload")
+
+        if cover_file and cover_file.filename != "":
+
+            filepath = os.path.join(
+                "static",
+                "uploads",
+                cover_file.filename
+            )
+
+        cover_file.save(filepath)
+
+        cover_url = "/" + filepath.replace("\\", "/")
+
         book = Book(
 
             isbn=request.form["isbn"],
@@ -45,7 +61,7 @@ def add_book():
 
             categories=",".join(request.form.getlist("categories")),
 
-            cover_url=request.form["cover_url"],
+            cover_url=cover_url,
 
             copies=request.form["copies"] or 1
 
