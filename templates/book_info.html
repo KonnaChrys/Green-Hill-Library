@@ -1,5 +1,6 @@
 {% extends "base.html" %}
 
+
 {% block banner_content %}
 
 <a href="{{ url_for('home') }}">
@@ -17,15 +18,14 @@
 
 {% endblock %}
 
+
 {% block content %}
-
-
 
 <div class="container pt-0">
 
     <div class="row gx-5 align-items-start">
 
-        <!-- ΑΡΙΣΤΕΡΗ ΣΤΗΛΗ -->
+        <!-- αριστερη στηλη -->
 
         <div class="col-auto text-center">
 
@@ -37,8 +37,9 @@
                     display:flex;
                     align-items:top;
                     justify-content:center;
-                    
                 ">
+
+                <!-- εξωφυλλο -->
 
                 <img
 
@@ -50,13 +51,18 @@
                         object-fit:contain;
                     "
 
-                    onerror="this.src='https://placehold.co/380x570?text=No+Cover'">
+                    onerror="
+                        this.src='https://placehold.co/380x570?text=No+Cover'
+                    ">
 
             </div>
 
+            <!-- αντιτυπα -->
+
             <div
+
                 style="
-                    margin-top:10px;
+                    margin-top:6px;
                 ">
 
                 <h5>
@@ -69,10 +75,14 @@
 
             </div>
 
+            <!-- δανεισμος -->
+
             <div
+
                 style="
-                    margin-top:15px;
+                    margin-top:10px;
                 ">
+
                 <button
 
                     class="btn btn-lg"
@@ -90,13 +100,13 @@
 
             </div>
 
-            <!-- Edit / Delete -->
+            <!-- επεξεργασια και διαγραφη -->
 
             <div
 
                 style="
                     display:inline-flex;
-                    align-items: center;
+                    align-items:center;
                     gap:20px;
                     padding:7px 17px;
                     margin-top:10px;
@@ -130,9 +140,9 @@
 
                         type="button"
 
-                         data-bs-toggle="modal"
+                        data-bs-toggle="modal"
 
-                         data-bs-target="#deleteModal"
+                        data-bs-target="#deleteModal"
 
                         style="
                             border:none;
@@ -152,7 +162,7 @@
 
                     </button>
 
-                    <!-- DELETE MODAL -->
+                    <!-- παραθυρο επιβεβαιωσης διαγραφης -->
 
                     <div
 
@@ -252,9 +262,11 @@
 
         </div>
 
-        <!-- ΔΕΞΙΑ ΣΤΗΛΗ -->
+        <!-- δεξια στηλη -->
 
         <div class="col">
+
+            <!-- τιτλος -->
 
             <h1
 
@@ -267,6 +279,8 @@
                 {{ book.title }}
 
             </h1>
+
+            <!-- συγγραφεας -->
 
             <div class="mt-4">
 
@@ -284,6 +298,8 @@
 
             </div>
 
+            <!-- εκδοτης -->
+
             <div class="mt-4">
 
                 <h5>
@@ -295,6 +311,8 @@
                 </h5>
 
             </div>
+
+            <!-- isbn και γλωσσα -->
 
             <div class="row mt-4">
 
@@ -324,6 +342,8 @@
 
             </div>
 
+            <!-- σελιδες και εξωφυλλο -->
+
             <div class="row mt-4">
 
                 <div class="col-md-4">
@@ -352,6 +372,8 @@
 
             </div>
 
+            <!-- κατηγοριες -->
+
             <div class="mt-4">
 
                 <h5>
@@ -365,6 +387,8 @@
             </div>
 
             <hr class="my-4">
+
+            <!-- περιληψη -->
 
             <p
 

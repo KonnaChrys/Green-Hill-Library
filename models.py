@@ -2,6 +2,8 @@ from flask_sqlalchemy import SQLAlchemy
 
 db = SQLAlchemy()
 
+# πινακας βιβλιων
+
 class Book(db.Model):
 
     __tablename__ = "books"
@@ -20,7 +22,7 @@ class Book(db.Model):
 
     pages = db.Column(db.Integer)
 
-    language = db.Column(db.String(1000))
+    language = db.Column(db.String(50))
 
     cover_type = db.Column(db.String(100))
 

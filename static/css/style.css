@@ -1,20 +1,7 @@
-.header-banner {
 
-    background-image: url("../images/banner.jpg");
 
-    background-size: cover;
 
-    background-position: center;
-
-    background-repeat: no-repeat;
-
-    min-height: 180px;
-
-    width: 100%;
-
-}
-
-/* Background */
+/* background */
 
 body {
 
@@ -28,7 +15,8 @@ body {
 
 }
 
-/* Textboxes */
+
+/* textboxes */
 
 .form-control {
 
@@ -39,18 +27,20 @@ body {
 .form-control:focus {
 
     background-color: #f8f7f5;
-    
+
     border-color: #cacaca;
-    
+
     box-shadow: none;
 
 }
 
-/* Αναζήτηση */
+
+/* αναζητηση */
 
 .search-form {
 
     position: relative;
+
     width: 850px;
 
 }
@@ -64,10 +54,15 @@ body {
 .search-button {
 
     position: absolute;
+
     top: 50%;
+
     right: 10px;
+
     transform: translateY(-50%);
+
     border: none;
+
     background: none;
 
 }
@@ -75,15 +70,18 @@ body {
 .search-icon {
 
     width: 22px;
+
     height: 22px;
 
 }
 
-/* Κουμπιά header */
+
+/* κουμπια header */
 
 .header-button {
 
     background-color: #fcfbf7;
+
     border: 1px solid #b89d6a;
 
 }
@@ -94,7 +92,8 @@ body {
 
 }
 
-/* Tom select */
+
+/* tomselect */
 
 .ts-control {
 
@@ -132,45 +131,67 @@ body {
 
     background-color: #eee7d8 !important;
 
-
 }
+
+
+/* παραθυρο φιλτρων */
 
 #filterPanel {
 
     position: absolute;
+
     top: 110px;
+
     right: 270px;
+
     width: 300px;
+
     background: #f8f7f5;
+
     border: 1px solid #dee2e6;
+
     border-radius: 10px;
+
     padding: 20px;
+
     display: none;
+
     z-index: 1000;
+
     box-shadow: 0 5px 15px rgba(0,0,0,0.2);
 
 }
 
 
+/* ενεργα φιλτρα */
+
 .active-filters {
 
     width: 850px;
+
     margin: 10px auto 15px auto;
 
     display: flex;
+
     flex-wrap: wrap;
+
     gap: 8px;
 
 }
 
+
+/* καρτελα φιλτρου */
+
 .filter-tag {
 
     display: inline-flex;
+
     align-items: center;
 
     padding: 2px 9px;
 
     background: #eee7d8;
+
     color: #333;
 
     border-radius: 15px;
@@ -181,11 +202,17 @@ body {
 
 }
 
+
+/* κουμπι αφαιρεσης φιλτρου */
+
 .filter-remove {
 
     margin-left: 8px;
+
     color: #666;
+
     font-weight: bold;
 
-}
+    cursor: pointer;
 
+}

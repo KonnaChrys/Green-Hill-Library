@@ -12,24 +12,24 @@
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
 
     <link href="https://cdn.jsdelivr.net/npm/tom-select/dist/css/tom-select.css" rel="stylesheet">
-    
+
     <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}">
 
 </head>
 
 <body>
 
-    <!-- HEADER -->
+    <!-- header -->
 
     <div style="
         background-image:url('/static/images/banner.png');
         background-size:cover;
         background-position:center;
-        padding:70px;
+        padding:65px;
         position:relative;
     ">
 
-        <!-- ΕΙΚΟΝΑ -->
+        <!-- εικονα banner -->
 
         <div style="
             position:absolute;
@@ -46,35 +46,36 @@
 
         <div class="d-flex justify-content-center align-items-center">
 
-            <!-- ΑΝΑΖΗΤΗΣΗ -->
+            <!-- αναζητηση -->
 
-            <form 
+            <form
 
-                method="GET" 
-                
-                action="/books" 
-                
+                method="GET"
+
+                action="/books"
+
                 class="search-form">
 
-                <input 
-                
-                    type="text" 
-                    
-                    name="search" 
-                    
-                    class="form-control search-input" 
-                    
+                <input
+
+                    type="text"
+
+                    name="search"
+
+                    class="form-control search-input"
+
                     placeholder="Αναζήτηση..."
 
                     value="{{ request.args.get('search', '') }}">
 
-                <button 
+                <button
+
                     type="submit"
 
                     class="search-button">
 
-                    <img 
-                    
+                    <img
+
                         src="{{ url_for('static', filename='images/search.png') }}"
 
                         class="search-icon">
@@ -83,7 +84,7 @@
 
             </form>
 
-            <!-- ΦΙΛΤΡΑ -->
+            <!-- φιλτρα -->
 
             <button
 
@@ -100,23 +101,26 @@
                     border-radius:6px;
                 ">
 
-                <img src="{{ url_for('static', filename='images/filter.png') }}" style="
-                    width:22px;
-                    height:22px;
-                ">
+                <img
+
+                    src="{{ url_for('static', filename='images/filter.png') }}"
+
+                    style="
+                        width:22px;
+                        height:22px;
+                    ">
 
             </button>
 
-            <!-- ΠΡΟΣΘΗΚΗ ΒΙΒΛΙΟΥ -->
+            <!-- προσθηκη βιβλιου -->
 
-            <a 
+            <a
 
-                href="/add-book" 
+                href="/add-book"
 
                 class="header-button"
 
                 style="
-
                     margin-left:10px;
                     width:38px;
                     height:38px;
@@ -126,57 +130,113 @@
                     justify-content:center;
                 ">
 
-                <img src="{{ url_for('static', filename='images/add.png') }}" style="
-                    width:22px;
-                    height:22px;
-                ">
+                <img
+
+                    src="{{ url_for('static', filename='images/add.png') }}"
+
+                    style="
+                        width:22px;
+                        height:22px;
+                    ">
 
             </a>
 
         </div>
 
+        <!-- ενεργα φιλτρα -->
+
         <div class="active-filters">
 
             {% for category in request.args.getlist('categories') %}
-                <a class="filter-tag"
-                href="{{ url_for('books') }}">
+
+                <a
+
+                    class="filter-tag"
+
+                    href="{{ url_for('books') }}">
+
                     {{ category }}
-                    <span class="filter-remove">&times;</span>
+
+                    <span class="filter-remove">
+
+                        &times;
+
+                    </span>
+
                 </a>
+
             {% endfor %}
 
             {% if request.args.get('language') and request.args.get('language') != 'Όλες' %}
+
                 <span class="filter-tag">
+
                     {{ request.args.get('language') }}
-                    <span class="filter-remove">&times;</span>
+
+                    <span class="filter-remove">
+
+                        &times;
+
+                    </span>
+
                 </span>
+
             {% endif %}
 
             {% if request.args.get('year') and request.args.get('year') != 'Όλα' %}
+
                 <span class="filter-tag">
+
                     {{ request.args.get('year') }}
-                    <span class="filter-remove">&times;</span>
+
+                    <span class="filter-remove">
+
+                        &times;
+
+                    </span>
+
                 </span>
+
             {% endif %}
 
             {% if request.args.get('pages') and request.args.get('pages') != 'Όλες' %}
+
                 <span class="filter-tag">
+
                     {{ request.args.get('pages') }}
-                    <span class="filter-remove">&times;</span>
+
+                    <span class="filter-remove">
+
+                        &times;
+
+                    </span>
+
                 </span>
+
             {% endif %}
 
             {% if request.args.get('available_only') %}
+
                 <span class="filter-tag">
+
                     Μόνο διαθέσιμα
-                    <span class="filter-remove">&times;</span>
+
+                    <span class="filter-remove">
+
+                        &times;
+
+                    </span>
+
                 </span>
+
             {% endif %}
 
         </div>
 
     </div>
-    
+
+    <!-- παραθυρο φιλτρων -->
+
     <form
 
         method="GET"
@@ -185,14 +245,20 @@
 
         id="filterPanel">
 
+        <!-- κατηγοριες -->
 
         <label class="form-label">
+
             Κατηγορίες
+
         </label>
 
         <select
+
             id="filter_categories"
+
             name="categories"
+
             multiple>
 
             <option>Fantasy</option>
@@ -223,42 +289,65 @@
 
         <br>
 
+        <!-- γλωσσα -->
+
         <label>
 
             Γλώσσα
 
         </label>
 
-        <select class="form-control" name="language">
+        <select
 
-            <option value="Όλες"
+            class="form-control"
+
+            name="language">
+
+            <option
+                value="Όλες"
                 {% if request.args.get('language', 'Όλες') == 'Όλες' %}selected{% endif %}>
+
                 Όλες
+
             </option>
 
-            <option value="Ελληνικά"
+            <option
+                value="Ελληνικά"
                 {% if request.args.get('language') == 'Ελληνικά' %}selected{% endif %}>
+
                 Ελληνικά
+
             </option>
 
-            <option value="Αγγλικά"
+            <option
+                value="Αγγλικά"
                 {% if request.args.get('language') == 'Αγγλικά' %}selected{% endif %}>
+
                 Αγγλικά
+
             </option>
 
-            <option value="Γαλλικά"
+            <option
+                value="Γαλλικά"
                 {% if request.args.get('language') == 'Γαλλικά' %}selected{% endif %}>
+
                 Γαλλικά
+
             </option>
 
-            <option value="Γερμανικά"
+            <option
+                value="Γερμανικά"
                 {% if request.args.get('language') == 'Γερμανικά' %}selected{% endif %}>
+
                 Γερμανικά
+
             </option>
 
         </select>
 
         <br>
+
+        <!-- ετος -->
 
         <label>
 
@@ -266,7 +355,11 @@
 
         </label>
 
-        <select class="form-control" name="year">
+        <select
+
+            class="form-control"
+
+            name="year">
 
             <option>Όλα</option>
             <option>Πριν το 1950</option>
@@ -280,13 +373,19 @@
 
         <br>
 
+        <!-- σελιδες -->
+
         <label>
 
-                Σελίδες
-                
+            Σελίδες
+
         </label>
 
-        <select class="form-control" name="pages">
+        <select
+
+            class="form-control"
+
+            name="pages">
 
             <option>Όλες</option>
             <option>1-100</option>
@@ -300,18 +399,28 @@
 
         <br>
 
+        <!-- διαθεσιμοτητα -->
+
         <div class="form-check">
 
             <input
+
                 class="form-check-input"
+
                 type="checkbox"
+
                 id="available_only"
+
                 name="available_only"
+
                 value="1"
+
                 {% if request.args.get('available_only') %}checked{% endif %}>
 
             <label
+
                 class="form-check-label"
+
                 for="available_only">
 
                 Μόνο διαθέσιμα βιβλία
@@ -322,10 +431,12 @@
 
         <br>
 
+        <!-- κουμπια φιλτρων -->
+
         <div class="d-flex justify-content-end">
 
-            <button     
-            
+            <button
+
                 type="button"
 
                 class="btn btn-secondary me-2"
@@ -336,8 +447,10 @@
 
             </button>
 
-            <button 
+            <button
+
                 type="submit"
+
                 class="btn btn-success">
 
                 Εφαρμογή
@@ -348,6 +461,8 @@
 
     </form>
 
+    <!-- περιεχομενο σελιδας -->
+
     <div class="container-fluid mt-3">
 
         {% block content %}
@@ -355,41 +470,77 @@
 
     </div>
 
+
+    <!-- scripts -->
+
     <script src="https://cdn.jsdelivr.net/npm/tom-select/dist/js/tom-select.complete.min.js"></script>
 
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
+
+
+    <!-- ανοιγμα και κλεισιμο φιλτρων -->
 
     <script>
 
         function toggleFilters() {
 
-            const panel = document.getElementById("filterPanel");
+            const panel =
+                document.getElementById(
+                    "filterPanel"
+                );
 
-            if (panel.style.display == "block")
-                panel.style.display = "none";
+            if (
+                panel.style.display ==
+                "block"
+            )
+
+                panel.style.display =
+                    "none";
+
             else
-                panel.style.display = "block";
+
+                panel.style.display =
+                    "block";
 
         }
 
     </script>
 
+
+    <!-- tomselect για τις κατηγοριες -->
+
     <script>
 
-        document.addEventListener("DOMContentLoaded", function () {
+        document.addEventListener(
+            "DOMContentLoaded",
+            function () {
 
-            new TomSelect("#filter_categories", {
+                new TomSelect(
+                    "#filter_categories",
+                    {
 
-                plugins: ["remove_button"],
-                create: false,
-                maxItems: null,
-                hideSelected: false,
-                closeAfterSelect: false,
-                placeholder: "Επιλογή κατηγοριών..."
+                        plugins: [
+                            "remove_button"
+                        ],
 
-            });
+                        create: false,
 
-        });
+                        maxItems: null,
+
+                        hideSelected: false,
+
+                        closeAfterSelect: false,
+
+                        placeholder:
+                            "Επιλογή κατηγοριών..."
+
+                    }
+
+                );
+
+            }
+
+        );
 
     </script>
 

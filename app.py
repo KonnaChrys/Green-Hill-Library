@@ -1,10 +1,11 @@
 import os
 
 from flask import Flask, render_template, request, redirect
-
 from models import db, Book
 
 app = Flask(__name__)
+
+# συνδεση με τη βαση δεδομενων
 
 app.config["SQLALCHEMY_DATABASE_URI"] = \
     "mysql+pymysql://root:@localhost/library"
@@ -14,16 +15,22 @@ app.config["SQLALCHEMY_TRACK_MODIFICATIONS"] = False
 db.init_app(app)
 
 
+# αρχικη σελιδα
+
 @app.route("/")
 def home():
 
     return render_template("index.html")
 
 
+# προσθηκη βιβλιου
+
 @app.route("/add-book", methods=["GET", "POST"])
 def add_book():
 
     if request.method == "POST":
+
+        # ελεγχος αν ανεβηκε εικονα
 
         cover_file = request.files.get("cover_upload")
 
@@ -40,6 +47,8 @@ def add_book():
             cover_file.save(filepath)
 
             cover_url = "/" + filepath.replace("\\", "/")
+
+        # δημιουργια νεου βιβλιου
 
         book = Book(
 
@@ -61,7 +70,9 @@ def add_book():
 
             description=request.form["description"],
 
-            categories=",".join(request.form.getlist("categories")),
+            categories=",".join(
+                request.form.getlist("categories")
+            ),
 
             cover_url=cover_url,
 
@@ -78,6 +89,8 @@ def add_book():
     return render_template("add_book.html")
 
 
+# λιστα βιβλιων και φιλτρα
+
 @app.route("/books")
 def books():
 
@@ -91,10 +104,15 @@ def books():
 
     pages = request.args.get("pages", "")
 
-    available_only = request.args.get("available_only")
+    available_only = request.args.get(
+        "available_only"
+    )
 
-    # ΑΥΤΟ ΠΡΕΠΕΙ ΝΑ ΕΙΝΑΙ ΕΔΩ
+    # αρχικο query
+
     query = Book.query
+
+    # αναζητηση
 
     if search:
 
@@ -103,13 +121,19 @@ def books():
             (Book.authors.ilike(f"%{search}%"))
         )
 
+    # κατηγοριες
+
     if categories:
 
         for category in categories:
 
             query = query.filter(
-                Book.categories.ilike(f"%{category}%")
+                Book.categories.ilike(
+                    f"%{category}%"
+                )
             )
+
+    # γλωσσα
 
     if language and language != "Όλες":
 
@@ -117,9 +141,13 @@ def books():
             Book.language == language
         )
 
+    # ετος
+
     if year == "Πριν το 1950":
 
-        query = query.filter(Book.year < 1950)
+        query = query.filter(
+            Book.year < 1950
+        )
 
     elif year == "1950-1979":
 
@@ -155,7 +183,7 @@ def books():
             Book.year >= 2020
         )
 
-    # Σελίδες
+    # σελιδες
 
     if pages == "1-100":
 
@@ -198,7 +226,7 @@ def books():
             Book.pages >= 500
         )
 
-    # Διαθεσιμότητα
+    # διαθεσιμοτητα
 
     if available_only:
 
@@ -214,6 +242,8 @@ def books():
     )
 
 
+# στοιχεια βιβλιου
+
 @app.route("/book/<int:id>")
 def book_info(id):
 
@@ -225,20 +255,27 @@ def book_info(id):
     )
 
 
-@app.route("/edit-book/<int:id>", methods=["GET", "POST"])
+# επεξεργασια βιβλιου
+
+@app.route(
+    "/edit-book/<int:id>",
+    methods=["GET", "POST"]
+)
 def edit_book(id):
 
     book = Book.query.get_or_404(id)
-
-    # Ελεγχος αν το νεο ISBN υπαρχει ηδη σε αλλο βιβλιο
 
     if request.method == "POST":
 
         new_isbn = request.form["isbn"]
 
-        cover_file = request.files.get("cover_upload")
+        cover_file = request.files.get(
+            "cover_upload"
+        )
 
         cover_url = request.form["cover_url"]
+
+        # ελεγχος για νεα εικονα
 
         if cover_file and cover_file.filename != "":
 
@@ -250,7 +287,12 @@ def edit_book(id):
 
             cover_file.save(filepath)
 
-            cover_url = "/" + filepath.replace("\\", "/")
+            cover_url = "/" + filepath.replace(
+                "\\",
+                "/"
+            )
+
+        # ελεγχος για διπλο isbn
 
         existing = Book.query.filter_by(
             isbn=new_isbn
@@ -259,6 +301,8 @@ def edit_book(id):
         if existing and existing.id != book.id:
 
             return "Υπάρχει ήδη βιβλίο με αυτό το ISBN"
+
+        # ενημερωση στοιχειων
 
         book.isbn = new_isbn
 
@@ -276,9 +320,13 @@ def edit_book(id):
 
         book.cover_type = request.form["cover_type"]
 
-        book.description = request.form["description"]
+        book.description = request.form[
+            "description"
+        ]
 
-        book.categories = ",".join(request.form.getlist("categories"))
+        book.categories = ",".join(
+            request.form.getlist("categories")
+        )
 
         book.cover_url = cover_url
 
@@ -286,14 +334,22 @@ def edit_book(id):
 
         db.session.commit()
 
-        return redirect(f"/book/{book.id}")
+        return redirect(
+            f"/book/{book.id}"
+        )
 
     return render_template(
         "edit_book.html",
         book=book
     )
 
-@app.route("/delete-book/<int:id>", methods=["POST"])
+
+# διαγραφη βιβλιου
+
+@app.route(
+    "/delete-book/<int:id>",
+    methods=["POST"]
+)
 def delete_book(id):
 
     book = Book.query.get_or_404(id)
@@ -303,6 +359,9 @@ def delete_book(id):
     db.session.commit()
 
     return redirect("/books")
+
+
+# εκκινηση εφαρμογης
 
 if __name__ == "__main__":
 

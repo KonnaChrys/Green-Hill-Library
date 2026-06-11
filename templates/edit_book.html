@@ -1,5 +1,6 @@
 {% extends "base.html" %}
 
+
 {% block banner_content %}
 
 <a href="{{ url_for('home') }}">
@@ -17,19 +18,20 @@
 
 {% endblock %}
 
-{% block content %}
 
+{% block content %}
 
 <form method="POST" enctype="multipart/form-data">
 
     <div class="row justify-content-center">
 
-        <!-- ΑΡΙΣΤΕΡΗ ΣΤΗΛΗ -->
+        <!-- αριστερη στηλη -->
 
-        <div class="col-md-3"
-            style=" margin-top:35px;">
+        <div
+            class="col-md-3"
+            style="margin-top:35px;">
 
-            <!-- ISBN -->
+            <!-- isbn -->
 
             <label class="form-label">
 
@@ -51,7 +53,12 @@
 
                     class="form-control"
 
-                    onkeydown="if(event.key === 'Enter'){ event.preventDefault(); lookupISBN(); }">
+                    onkeydown="
+                        if(event.key === 'Enter'){
+                            event.preventDefault();
+                            lookupISBN();
+                        }
+                    ">
 
                 <button
 
@@ -61,14 +68,14 @@
 
                     onclick="lookupISBN()">
 
-                <img
+                    <img
 
-                    src="{{ url_for('static', filename='images/search.png') }}"
+                        src="{{ url_for('static', filename='images/search.png') }}"
 
-                    style="
-                        width:22px;
-                        height:22px;
-                    ">
+                        style="
+                            width:22px;
+                            height:22px;
+                        ">
 
                 </button>
 
@@ -136,7 +143,7 @@
 
                 class="form-control mb-3">
 
-            <!-- ετος / γλωσσα -->
+            <!-- γλωσσα και εξωφυλλο -->
 
             <div class="row">
 
@@ -188,7 +195,7 @@
 
             <br>
 
-            <!-- σελιδες / αντιτυπα -->
+            <!-- ετος σελιδες αντιτυπα -->
 
             <div class="row">
 
@@ -213,7 +220,6 @@
                         class="form-control">
 
                 </div>
-
 
                 <div class="col">
 
@@ -270,27 +276,52 @@
             </label>
 
             <select
+
                 id="categories"
+
                 name="categories"
+
                 multiple>
 
-                <option value="Fantasy">Fantasy</option>
-                <option value="Adventure">Adventure</option>
-                <option value="Sci-fi">Sci-fi</option>
-                <option value="Mystery">Mystery</option>
-                <option value="Thriller">Thriller</option>
-                <option value="Romance">Romance</option>
-                <option value="Horror">Horror</option>
+                <option value="Fantasy">
+                    Fantasy
+                </option>
+
+                <option value="Adventure">
+                    Adventure
+                </option>
+
+                <option value="Sci-fi">
+                    Sci-fi
+                </option>
+
+                <option value="Mystery">
+                    Mystery
+                </option>
+
+                <option value="Thriller">
+                    Thriller
+                </option>
+
+                <option value="Romance">
+                    Romance
+                </option>
+
+                <option value="Horror">
+                    Horror
+                </option>
 
             </select>
 
         </div>
 
-        <!-- ΜΕΣΑΙΑ ΣΤΗΛΗ -->
+        <!-- μεσαια στηλη -->
 
         <div class="col-md-3">
 
-            <label class="form-label"
+            <label
+
+                class="form-label"
 
                 style="
                     display:block;
@@ -313,12 +344,12 @@
                 class="form-control"
 
                 style="height:600px;">{{ book.description }}
-            
+
             </textarea>
 
         </div>
 
-        <!-- ΔΕΞΙΑ ΣΤΗΛΗ -->
+        <!-- δεξια στηλη -->
 
         <div class="col-md-3 text-center">
 
@@ -397,6 +428,8 @@
 
                 style="display:none;">
 
+            <!-- αποθηκευση -->
+
             <button
 
                 type="submit"
@@ -415,101 +448,186 @@
 
 </form>
 
-<!-- ISBN lookup -->
+
+<!-- isbn lookup -->
 
 <script src="{{ url_for('static', filename='js/isbn_lookup.js') }}"></script>
 
 
-<!-- TOMSELECT ΓΙΑ ΤΙΣ ΚΑΤΗΓΟΡΙΕΣ -->
+<!-- tomselect για τις κατηγοριες -->
 
 <script>
 
-    document.addEventListener("DOMContentLoaded", function () {
+document.addEventListener(
+    "DOMContentLoaded",
+    function () {
 
-        const tom = new TomSelect("#categories", {
+        const tom = new TomSelect(
+            "#categories",
+            {
 
-            plugins: ["remove_button"],
-            create: false,
-            maxItems: null,
-            hideSelected: true,
-            closeAfterSelect: false,
-            placeholder: "Επιλογή κατηγοριών..."
+                plugins: [
+                    "remove_button"
+                ],
 
-        });
+                create: false,
 
-        const categories =
-            "{{ book.categories or '' }}".split(",");
+                maxItems: null,
 
-        categories.forEach(category => {
+                hideSelected: true,
 
-            if (category.trim() !== "") {
+                closeAfterSelect: false,
 
-                tom.addItem(category.trim());
+                placeholder:
+                    "Επιλογή κατηγοριών..."
 
             }
 
-        });
+        );
 
-    });
+        // φορτωση υπαρχουσων κατηγοριων
+
+        const categories =
+            "{{ book.categories or '' }}"
+            .split(",");
+
+        categories.forEach(
+            category => {
+
+                if (
+                    category.trim() !== ""
+                ) {
+
+                    tom.addItem(
+                        category.trim()
+                    );
+
+                }
+
+            }
+
+        );
+
+    }
+);
 
 </script>
 
-<!-- για να φευγει το border οταν βρισκει εικονα -->
+
+<!-- εμφανιση υπαρχοντος εξωφυλλου -->
 
 <script>
 
-    document.addEventListener("DOMContentLoaded", function () {
+document.addEventListener(
+    "DOMContentLoaded",
+    function () {
 
-        const cover = document.getElementById("cover");
-        const placeholder = document.getElementById("cover_placeholder");
-        const container = document.getElementById("cover_container");
+        const cover =
+            document.getElementById(
+                "cover"
+            );
 
-        if (cover.src && !cover.src.endsWith("/")) {
+        const placeholder =
+            document.getElementById(
+                "cover_placeholder"
+            );
 
-            cover.style.display = "block";
-            placeholder.style.display = "none";
-            container.style.border = "none";
+        const container =
+            document.getElementById(
+                "cover_container"
+            );
+
+        if (
+            cover.src &&
+            !cover.src.endsWith("/")
+        ) {
+
+            cover.style.display =
+                "block";
+
+            placeholder.style.display =
+                "none";
+
+            container.style.border =
+                "none";
 
         }
 
         else {
 
-            cover.style.display = "none";
-            placeholder.style.display = "block";
-            container.style.border = "1px solid #dee2e6";
+            cover.style.display =
+                "none";
+
+            placeholder.style.display =
+                "block";
+
+            container.style.border =
+                "1px solid #dee2e6";
 
         }
 
-    });
+    }
+);
 
 </script>
 
-<!-- για να εμφανιζεται το upladed cover -->
+
+<!-- εμφανιση νεου εξωφυλλου -->
 
 <script>
 
-    document.getElementById("cover_upload").addEventListener("change", function(event) {
+document
+    .getElementById(
+        "cover_upload"
+    )
+    .addEventListener(
+        "change",
+        function(event) {
 
-        const file = event.target.files[0];
+            const file =
+                event.target.files[0];
 
-        if (!file) return;
+            if (!file) return;
 
-        const reader = new FileReader();
+            const reader =
+                new FileReader();
 
-        reader.onload = function(e) {
+            reader.onload =
+                function(e) {
 
-            document.getElementById("cover").src = e.target.result;
-            document.getElementById("cover").style.display = "block";
+                    document
+                        .getElementById(
+                            "cover"
+                        ).src =
+                        e.target.result;
 
-            document.getElementById("cover_placeholder").style.display = "none";
+                    document
+                        .getElementById(
+                            "cover"
+                        ).style.display =
+                        "block";
 
-            document.getElementById("cover_container").style.border = "none";
+                    document
+                        .getElementById(
+                            "cover_placeholder"
+                        ).style.display =
+                        "none";
 
-        };
+                    document
+                        .getElementById(
+                            "cover_container"
+                        ).style.border =
+                        "none";
 
-        reader.readAsDataURL(file);
+                };
 
-    });
+            reader.readAsDataURL(
+                file
+            );
+
+        }
+
+    );
 
 </script>
 

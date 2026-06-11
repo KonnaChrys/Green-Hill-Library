@@ -3,34 +3,39 @@ async function lookupISBN() {
     const isbn = document.getElementById("isbn").value;
 
     if (!isbn) {
-        alert("Δώσε ISBN");
+
+        alert("Δωσε ISBN");
+
         return;
+
     }
 
     try {
 
-        // ΑΝΑΖΗΤΗΣΗ ΒΙΒΛΙΟΥ
+        // αναζητηση βιβλιου
 
         const response = await fetch(
             `https://openlibrary.org/isbn/${isbn}.json`
         );
 
         if (!response.ok) {
-            alert("Το βιβλίο δεν βρέθηκε");
+
+            alert("Το βιβλιο δεν βρεθηκε");
+
             return;
+
         }
 
         const data = await response.json();
 
 
-        // ΤΙΤΛΟΣ
+        // τιτλος
 
         document.getElementById("title").value =
             data.title || "";
 
 
-
-        // ΕΚΔΟΤΗΣ
+        // εκδοτης
 
         document.getElementById("publisher").value =
             data.publishers ?
@@ -38,8 +43,8 @@ async function lookupISBN() {
             "";
 
 
-        // ΓΛΩΣΣΑ
-        // μεταφραζω το language key στα ελληνικα
+        // γλωσσα
+        // μεταφραση του language key στα ελληνικα
 
         if (data.languages && data.languages.length > 0) {
 
@@ -47,30 +52,33 @@ async function lookupISBN() {
                 `https://openlibrary.org${data.languages[0].key}.json`
             );
 
-            const languageData = await languageResponse.json();
+            const languageData =
+                await languageResponse.json();
 
             const languageMap = {
 
-                "English": "Αγγλικά",
+                "English": "Αγγλικα",
 
-                "French": "Γαλλικά",
+                "French": "Γαλλικα",
 
-                "German": "Γερμανικά",
+                "German": "Γερμανικα",
 
-                "Italian": "Ιταλικά",
+                "Italian": "Ιταλικα",
 
-                "Spanish": "Ισπανικά",
+                "Spanish": "Ισπανικα",
 
-                "Greek": "Ελληνικά"
+                "Greek": "Ελληνικα"
 
             };
 
             document.getElementById("language").value =
-                languageMap[languageData.name] || languageData.name;
+                languageMap[languageData.name] ||
+                languageData.name;
+
         }
 
 
-        // ΕΤΟΣ / ΣΕΛΙΔΕΣ
+        // ετος και σελιδες
 
         document.getElementById("year").value =
             data.publish_date ?
@@ -81,8 +89,8 @@ async function lookupISBN() {
             data.number_of_pages || "";
 
 
-        // WORK DATA(Περιληψη/Κατηγοριες)
-        // το ISBN endpoint δεν έχει παντα τις πληροφορίες, γι' αυτο κανω δευτερο fetch στο work endpoint
+        // επιπλεον στοιχεια βιβλιου
+        // το isbn endpoint δεν περιεχει παντα ολες τις πληροφοριες
 
         if (data.works && data.works.length > 0) {
 
@@ -90,21 +98,26 @@ async function lookupISBN() {
                 `https://openlibrary.org${data.works[0].key}.json`
             );
 
-            const workData = await workResponse.json();
+            const workData =
+                await workResponse.json();
 
-            // ΣΥΓΓΡΑΦΕΑΣ
 
-            if (workData.authors && workData.authors.length > 0) {
+            // συγγραφεας
+
+            if (workData.authors &&
+                workData.authors.length > 0) {
 
                 let authors = [];
 
                 for (const author of workData.authors) {
 
-                    const authorResponse = await fetch(
-                        `https://openlibrary.org${author.author.key}.json`
-                    );
+                    const authorResponse =
+                        await fetch(
+                            `https://openlibrary.org${author.author.key}.json`
+                        );
 
-                    const authorData = await authorResponse.json();
+                    const authorData =
+                        await authorResponse.json();
 
                     authors.push(authorData.name);
 
@@ -115,79 +128,123 @@ async function lookupISBN() {
 
             }
 
-            // ΚΑΤΗΓΟΡΙΕΣ
+
+            // κατηγοριες
 
             const tom =
-                document.getElementById("categories").tomselect;
+                document.getElementById(
+                    "categories"
+                ).tomselect;
 
-            // καθαριζω προηγουμενες επιλογες
+            // αφαιρεση προηγουμενων επιλογων
 
             tom.clear();
 
-            // αντιστοιχιση κατηγοριων OpenLibrary με δικες μου
+            // αντιστοιχιση κατηγοριων openlibrary
 
             const categoryMap = {
 
                 "Fantasy": "Fantasy",
+
                 "Adventure": "Adventure",
+
                 "Science fiction": "Sci-fi",
+
                 "Science Fiction": "Sci-fi",
+
                 "Sci-fi": "Sci-fi",
+
                 "Mystery": "Mystery",
+
                 "Thriller": "Thriller",
+
                 "Romance": "Romance",
+
                 "Horror": "Horror",
-                "Historical fiction": "Historical Fiction",
+
+                "Historical fiction":
+                    "Historical Fiction",
+
                 "History": "History",
+
                 "Biography": "Biography",
-                "Autobiography": "Autobiography",
+
+                "Autobiography":
+                    "Autobiography",
+
                 "Poetry": "Poetry",
+
                 "Psychology": "Psychology",
+
                 "Philosophy": "Philosophy",
+
                 "Business": "Business",
+
                 "Politics": "Politics",
+
                 "Religion": "Religion",
+
                 "Science": "Science",
+
                 "Technology": "Technology",
-                "Programming": "Programming",
+
+                "Programming":
+                    "Programming",
+
                 "Children": "Children",
-                "Young adult": "Young Adult",
+
+                "Young adult":
+                    "Young Adult",
+
                 "Comics": "Comics"
 
             };
 
             if (workData.subjects) {
 
-                workData.subjects.forEach(subject => {
+                workData.subjects.forEach(
+                    subject => {
 
-                    if (categoryMap[subject]) {
+                        if (
+                            categoryMap[subject]
+                        ) {
 
-                        tom.addItem(categoryMap[subject]);
+                            tom.addItem(
+                                categoryMap[subject]
+                            );
+
+                        }
 
                     }
-
-                });
+                );
 
             }
 
 
-
-            // ΠΕΡΙΛΗΨΗ
-            // μερικες φορες ειναι string και αλλες object
+            // περιληψη
+            // μπορει να επιστραφει ως string η object
 
             if (workData.description) {
 
-                if (typeof workData.description === "string") {
+                if (
+                    typeof workData.description
+                    === "string"
+                ) {
 
-                    document.getElementById("description").value =
+                    document.getElementById(
+                        "description"
+                    ).value =
                         workData.description;
 
                 }
 
                 else {
 
-                    document.getElementById("description").value =
-                        workData.description.value || "";
+                    document.getElementById(
+                        "description"
+                    ).value =
+                        workData.description.value
+                        || "";
 
                 }
 
@@ -195,62 +252,89 @@ async function lookupISBN() {
 
         }
 
-        // ΤΥΠΟΣ ΕΞΩΦΥΛΛΟΥ
 
+        // τυπος εξωφυλλου
 
         const coverTypeMap = {
 
-            "paperback": "Μαλακό εξώφυλλο",
+            "paperback":
+                "Μαλακο εξωφυλλο",
 
-            "hardcover": "Σκληρό εξώφυλλο"
+            "hardcover":
+                "Σκληρο εξωφυλλο"
 
         };
 
-        document.getElementById("cover_type").value =
-            coverTypeMap[data.physical_format?.toLowerCase()] ||
+        document.getElementById(
+            "cover_type"
+        ).value =
+            coverTypeMap[
+                data.physical_format
+                ?.toLowerCase()
+            ] ||
             data.physical_format ||
             "";
 
-        // ΕΞΩΦΥΛΛΟ
 
-        if (data.covers && data.covers.length > 0) {
+        // εξωφυλλο
 
-            const cover = document.getElementById("cover");
+        if (
+            data.covers &&
+            data.covers.length > 0
+        ) {
+
+            const cover =
+                document.getElementById(
+                    "cover"
+                );
 
             cover.src =
                 `https://covers.openlibrary.org/b/id/${data.covers[0]}-L.jpg`;
 
-            document.getElementById("cover_url").value =
+            document.getElementById(
+                "cover_url"
+            ).value =
                 cover.src;
 
-            cover.style.display = "block";
+            cover.style.display =
+                "block";
 
-            document.getElementById("cover_placeholder").style.display =
+            document.getElementById(
+                "cover_placeholder"
+            ).style.display =
                 "none";
 
-            document.getElementById("cover_container").style.border =
+            document.getElementById(
+                "cover_container"
+            ).style.border =
                 "none";
 
         }
 
         else {
 
-            // αν δεν βρεθει εξωφυλλο εμφανισε placeholder
+            // εμφανιση placeholder αν δεν υπαρχει εξωφυλλο
 
-            document.getElementById("cover").style.display =
+            document.getElementById(
+                "cover"
+            ).style.display =
                 "none";
 
-            document.getElementById("cover_placeholder").style.display =
+            document.getElementById(
+                "cover_placeholder"
+            ).style.display =
                 "block";
 
-            document.getElementById("cover_container").style.border =
+            document.getElementById(
+                "cover_container"
+            ).style.border =
                 "1px solid #ccc";
 
         }
 
     }
 
-    catch(error) {
+    catch (error) {
 
         console.error(error);
 

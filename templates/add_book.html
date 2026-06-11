@@ -1,5 +1,6 @@
 {% extends "base.html" %}
 
+
 {% block banner_content %}
 
 <a href="{{ url_for('home') }}">
@@ -17,19 +18,20 @@
 
 {% endblock %}
 
-{% block content %}
 
+{% block content %}
 
 <form method="POST" enctype="multipart/form-data">
 
     <div class="row justify-content-center">
 
-        <!-- ΑΡΙΣΤΕΡΗ ΣΤΗΛΗ -->
+        <!-- αριστερη στηλη -->
 
-        <div class="col-md-3"
-            style=" margin-top:35px;">
+        <div
+            class="col-md-3"
+            style="margin-top:35px;">
 
-            <!-- ISBN -->
+            <!-- isbn -->
 
             <label class="form-label">
 
@@ -49,7 +51,12 @@
 
                     class="form-control"
 
-                    onkeydown="if(event.key === 'Enter'){ event.preventDefault(); lookupISBN(); }">
+                    onkeydown="
+                        if(event.key === 'Enter'){
+                            event.preventDefault();
+                            lookupISBN();
+                        }
+                    ">
 
                 <button
 
@@ -59,14 +66,14 @@
 
                     onclick="lookupISBN()">
 
-                <img
+                    <img
 
-                    src="{{ url_for('static', filename='images/search.png') }}"
+                        src="{{ url_for('static', filename='images/search.png') }}"
 
-                    style="
-                        width:22px;
-                        height:22px;
-                    ">
+                        style="
+                            width:22px;
+                            height:22px;
+                        ">
 
                 </button>
 
@@ -128,7 +135,7 @@
 
                 class="form-control mb-3">
 
-            <!-- ετος / γλωσσα -->
+            <!-- γλωσσα και εξωφυλλο -->
 
             <div class="row">
 
@@ -176,7 +183,7 @@
 
             <br>
 
-            <!-- σελιδες / αντιτυπα -->
+            <!-- ετος σελιδες αντιτυπα -->
 
             <div class="row">
 
@@ -199,7 +206,6 @@
                         class="form-control">
 
                 </div>
-
 
                 <div class="col">
 
@@ -254,28 +260,52 @@
             </label>
 
             <select
+
                 id="categories"
+
                 name="categories"
+
                 multiple>
 
-                <option value="Fantasy">Fantasy</option>
-                <option value="Adventure">Adventure</option>
-                <option value="Sci-fi">Sci-fi</option>
-                <option value="Mystery">Mystery</option>
-                <option value="Thriller">Thriller</option>
-                <option value="Romance">Romance</option>
-                <option value="Horror">Horror</option>
+                <option value="Fantasy">
+                    Fantasy
+                </option>
+
+                <option value="Adventure">
+                    Adventure
+                </option>
+
+                <option value="Sci-fi">
+                    Sci-fi
+                </option>
+
+                <option value="Mystery">
+                    Mystery
+                </option>
+
+                <option value="Thriller">
+                    Thriller
+                </option>
+
+                <option value="Romance">
+                    Romance
+                </option>
+
+                <option value="Horror">
+                    Horror
+                </option>
 
             </select>
 
         </div>
 
-        <!-- ΜΕΣΑΙΑ ΣΤΗΛΗ -->
+        <!-- μεσαια στηλη -->
 
         <div class="col-md-3">
 
-            <label class="form-label"
+            <label
 
+                class="form-label"
 
                 style="
                     display:block;
@@ -301,11 +331,9 @@
 
             </textarea>
 
-            
-
         </div>
 
-        <!-- ΔΕΞΙΑ ΣΤΗΛΗ -->
+        <!-- δεξια στηλη -->
 
         <div class="col-md-3 text-center">
 
@@ -355,7 +383,7 @@
                     </label>
 
                 </span>
-                
+
                 <input
 
                     type="file"
@@ -378,6 +406,8 @@
 
                 name="cover_url">
 
+            <!-- αποθηκευση -->
+
             <button
 
                 type="submit"
@@ -396,67 +426,104 @@
 
 </form>
 
-<!-- ISBN lookup -->
+
+<!-- isbn lookup -->
 
 <script src="{{ url_for('static', filename='js/isbn_lookup.js') }}"></script>
 
 
-<!-- TOMSELECT ΓΙΑ ΤΙΣ ΚΑΤΗΓΟΡΙΕΣ -->
+<!-- tomselect για τις κατηγοριες -->
 
 <script>
 
-document.addEventListener("DOMContentLoaded", function () {
+document.addEventListener(
+    "DOMContentLoaded",
+    function () {
 
-    new TomSelect("#categories", {
+        new TomSelect(
+            "#categories",
+            {
 
-        plugins: ["remove_button"],
+                plugins: [
+                    "remove_button"
+                ],
 
-        create: false,
+                create: false,
 
-        maxItems: null,
+                maxItems: null,
 
-        hideSelected: true,
+                hideSelected: true,
 
-        closeAfterSelect: false,
+                closeAfterSelect: false,
 
-        placeholder: "Επιλογή κατηγοριών..."
+                placeholder:
+                    "Επιλογή κατηγοριών..."
 
-    });
+            }
 
-});
+        );
+
+    }
+);
 
 </script>
 
-<!-- upload cover -->
+
+<!-- upload εξωφυλλου -->
 
 <script>
 
-    document.getElementById("cover_upload").addEventListener("change", function(event) {
+document
+    .getElementById("cover_upload")
+    .addEventListener(
+        "change",
+        function(event) {
 
-        const file = event.target.files[0];
+            const file =
+                event.target.files[0];
 
-        if (!file) return;
+            if (!file) return;
 
-        const reader = new FileReader();
+            const reader =
+                new FileReader();
 
-        reader.onload = function(e) {
+            reader.onload =
+                function(e) {
 
-            const cover = document.getElementById("cover");
-            const placeholder = document.getElementById("cover_placeholder");
-            const container = document.getElementById("cover_container");
+                    const cover =
+                        document.getElementById(
+                            "cover"
+                        );
 
-            cover.src = e.target.result;
-            cover.style.display = "block";
+                    const placeholder =
+                        document.getElementById(
+                            "cover_placeholder"
+                        );
 
-            placeholder.style.display = "none";
+                    const container =
+                        document.getElementById(
+                            "cover_container"
+                        );
 
-            container.style.border = "none";
+                    cover.src =
+                        e.target.result;
 
-        };
+                    cover.style.display =
+                        "block";
 
-        reader.readAsDataURL(file);
+                    placeholder.style.display =
+                        "none";
 
-    });
+                    container.style.border =
+                        "none";
+
+                };
+
+            reader.readAsDataURL(file);
+
+        }
+
+    );
 
 </script>
 
