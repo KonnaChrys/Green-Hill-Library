@@ -338,7 +338,13 @@
                         display:none;
                     ">
 
-                <span id="cover_placeholder">
+                <span 
+                
+                    id="cover_placeholder"                
+                    
+                    {% if book.cover_url %}
+                        style="display:none;"
+                    {% endif %}>>
 
                     Cover Art
 

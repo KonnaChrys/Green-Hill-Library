@@ -20,7 +20,7 @@
 {% block content %}
 
 
-<form method="POST">
+<form method="POST" enctype="multipart/form-data">
 
     <div class="row justify-content-center">
 
@@ -359,6 +359,18 @@
 
                     Cover Art
 
+                    <br><br>
+
+                    <label
+
+                        for="cover_upload"
+
+                        class="btn btn-outline-secondary">
+
+                        Επιλογή εικόνας
+
+                    </label>
+
                 </span>
 
             </div>
@@ -372,6 +384,18 @@
                 name="cover_url"
 
                 value="{{ book.cover_url }}">
+
+            <input
+
+                type="file"
+
+                id="cover_upload"
+
+                name="cover_upload"
+
+                accept="image/*"
+
+                style="display:none;">
 
             <button
 
@@ -436,11 +460,54 @@
 
     document.addEventListener("DOMContentLoaded", function () {
 
-        if (document.getElementById("cover").src !== "") {
+        const cover = document.getElementById("cover");
+        const placeholder = document.getElementById("cover_placeholder");
+        const container = document.getElementById("cover_container");
+
+        if (cover.src && !cover.src.endsWith("/")) {
+
+            cover.style.display = "block";
+            placeholder.style.display = "none";
+            container.style.border = "none";
+
+        }
+
+        else {
+
+            cover.style.display = "none";
+            placeholder.style.display = "block";
+            container.style.border = "1px solid #dee2e6";
+
+        }
+
+    });
+
+</script>
+
+<!-- για να εμφανιζεται το upladed cover -->
+
+<script>
+
+    document.getElementById("cover_upload").addEventListener("change", function(event) {
+
+        const file = event.target.files[0];
+
+        if (!file) return;
+
+        const reader = new FileReader();
+
+        reader.onload = function(e) {
+
+            document.getElementById("cover").src = e.target.result;
+            document.getElementById("cover").style.display = "block";
+
+            document.getElementById("cover_placeholder").style.display = "none";
 
             document.getElementById("cover_container").style.border = "none";
 
-        }
+        };
+
+        reader.readAsDataURL(file);
 
     });
 

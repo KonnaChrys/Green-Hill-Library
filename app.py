@@ -27,6 +27,8 @@ def add_book():
 
         cover_file = request.files.get("cover_upload")
 
+        cover_url = request.form["cover_url"]
+
         if cover_file and cover_file.filename != "":
 
             filepath = os.path.join(
@@ -35,9 +37,9 @@ def add_book():
                 cover_file.filename
             )
 
-        cover_file.save(filepath)
+            cover_file.save(filepath)
 
-        cover_url = "/" + filepath.replace("\\", "/")
+            cover_url = "/" + filepath.replace("\\", "/")
 
         book = Book(
 
@@ -123,6 +125,22 @@ def edit_book(id):
 
         new_isbn = request.form["isbn"]
 
+        cover_file = request.files.get("cover_upload")
+
+        cover_url = request.form["cover_url"]
+
+        if cover_file and cover_file.filename != "":
+
+            filepath = os.path.join(
+                "static",
+                "uploads",
+                cover_file.filename
+            )
+
+            cover_file.save(filepath)
+
+            cover_url = "/" + filepath.replace("\\", "/")
+
         existing = Book.query.filter_by(
             isbn=new_isbn
         ).first()
@@ -151,7 +169,7 @@ def edit_book(id):
 
         book.categories = ",".join(request.form.getlist("categories"))
 
-        book.cover_url = request.form["cover_url"]
+        book.cover_url = cover_url
 
         book.copies = request.form["copies"] or 1
 
