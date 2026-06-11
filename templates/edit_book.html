@@ -329,7 +329,8 @@
                 style="
                     width:450px;
                     height:635px;
-                    border:1px solid #ccc;
+                    border:1px solid #dee2e6;
+                    border-radius:0.375rem;
                     margin:auto;
                     margin-top:34px;
                     display:flex;
@@ -350,7 +351,7 @@
                         display:block;
                     ">
 
-                <span id="cover_placeholder"
+                <span
 
                     id="cover_placeholder"
 
@@ -424,6 +425,22 @@
             }
 
         });
+
+    });
+
+</script>
+
+<!-- για να φευγει το border οταν βρισκει εικονα -->
+
+<script>
+
+    document.addEventListener("DOMContentLoaded", function () {
+
+        if (document.getElementById("cover").src !== "") {
+
+            document.getElementById("cover_container").style.border = "none";
+
+        }
 
     });
 

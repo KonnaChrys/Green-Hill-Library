@@ -13,3 +13,124 @@
     width: 100%;
 
 }
+
+/* Background */
+
+body {
+
+    background-color: #f7f5f0;
+
+}
+
+.btn-outline-secondary {
+
+    border-color: #dee2e6;
+
+}
+
+/* Textboxes */
+
+.form-control {
+
+    background-color: #f8f7f5;
+
+}
+
+.form-control:focus {
+
+    background-color: #f8f7f5;
+    
+    border-color: #cacaca;
+    
+    box-shadow: none;
+
+}
+
+/* Αναζήτηση */
+
+.search-form {
+
+    position: relative;
+    width: 850px;
+
+}
+
+.search-input {
+
+    padding-right: 45px;
+
+}
+
+.search-button {
+
+    position: absolute;
+    top: 50%;
+    right: 10px;
+    transform: translateY(-50%);
+    border: none;
+    background: none;
+
+}
+
+.search-icon {
+
+    width: 22px;
+    height: 22px;
+
+}
+
+/* Κουμπιά header */
+
+.header-button {
+
+    background-color: #fcfbf7;
+    border: 1px solid #b89d6a;
+
+}
+
+.header-button:hover {
+
+    background-color: #e8dcc6;
+
+}
+
+/* Tom select */
+
+.ts-control {
+
+    background-color: #f8f7f5 !important;
+
+    border: 1px solid #dee2e6 !important;
+
+}
+
+.ts-control.focus {
+
+    background-color: #f8f7f5 !important;
+
+    border-color: #dee2e6 !important;
+
+    box-shadow: none !important;
+
+}
+
+.ts-dropdown {
+
+    background-color: #f8f7f5 !important;
+
+    border: 1px solid #dee2e6 !important;
+
+}
+
+.ts-dropdown .option:hover {
+
+    background-color: #f8f7f5 !important;
+
+}
+
+.ts-control .item {
+
+    background-color: #eee7d8 !important;
+
+
+}
