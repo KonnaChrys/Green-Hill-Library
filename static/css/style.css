@@ -134,3 +134,58 @@ body {
 
 
 }
+
+#filterPanel {
+
+    position: absolute;
+    top: 110px;
+    right: 270px;
+    width: 300px;
+    background: #f8f7f5;
+    border: 1px solid #dee2e6;
+    border-radius: 10px;
+    padding: 20px;
+    display: none;
+    z-index: 1000;
+    box-shadow: 0 5px 15px rgba(0,0,0,0.2);
+
+}
+
+
+.active-filters {
+
+    width: 850px;
+    margin: 10px auto 15px auto;
+
+    display: flex;
+    flex-wrap: wrap;
+    gap: 8px;
+
+}
+
+.filter-tag {
+
+    display: inline-flex;
+    align-items: center;
+
+    padding: 2px 9px;
+
+    background: #eee7d8;
+    color: #333;
+
+    border-radius: 15px;
+
+    text-decoration: none;
+
+    font-size: 14px;
+
+}
+
+.filter-remove {
+
+    margin-left: 8px;
+    color: #666;
+    font-weight: bold;
+
+}
+

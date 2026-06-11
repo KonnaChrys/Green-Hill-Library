@@ -83,19 +83,130 @@ def books():
 
     search = request.args.get("search", "")
 
+    categories = request.args.getlist("categories")
+
+    language = request.args.get("language", "")
+
+    year = request.args.get("year", "")
+
+    pages = request.args.get("pages", "")
+
+    available_only = request.args.get("available_only")
+
+    # ΑΥΤΟ ΠΡΕΠΕΙ ΝΑ ΕΙΝΑΙ ΕΔΩ
+    query = Book.query
+
     if search:
 
-        books = Book.query.filter(
-
+        query = query.filter(
             (Book.title.ilike(f"%{search}%")) |
-
             (Book.authors.ilike(f"%{search}%"))
+        )
 
-        ).all()
+    if categories:
 
-    else:
+        for category in categories:
 
-        books = Book.query.all()
+            query = query.filter(
+                Book.categories.ilike(f"%{category}%")
+            )
+
+    if language and language != "Όλες":
+
+        query = query.filter(
+            Book.language == language
+        )
+
+    if year == "Πριν το 1950":
+
+        query = query.filter(Book.year < 1950)
+
+    elif year == "1950-1979":
+
+        query = query.filter(
+            Book.year >= 1950,
+            Book.year <= 1979
+        )
+
+    elif year == "1980-1999":
+
+        query = query.filter(
+            Book.year >= 1980,
+            Book.year <= 1999
+        )
+
+    elif year == "2000-2009":
+
+        query = query.filter(
+            Book.year >= 2000,
+            Book.year <= 2009
+        )
+
+    elif year == "2010-2019":
+
+        query = query.filter(
+            Book.year >= 2010,
+            Book.year <= 2019
+        )
+
+    elif year == "2020+":
+
+        query = query.filter(
+            Book.year >= 2020
+        )
+
+    # Σελίδες
+
+    if pages == "1-100":
+
+        query = query.filter(
+            Book.pages >= 1,
+            Book.pages <= 100
+        )
+
+    elif pages == "101-200":
+
+        query = query.filter(
+            Book.pages >= 101,
+            Book.pages <= 200
+        )
+
+    elif pages == "201-300":
+
+        query = query.filter(
+            Book.pages >= 201,
+            Book.pages <= 300
+        )
+
+    elif pages == "301-400":
+
+        query = query.filter(
+            Book.pages >= 301,
+            Book.pages <= 400
+        )
+
+    elif pages == "401-500":
+
+        query = query.filter(
+            Book.pages >= 401,
+            Book.pages <= 500
+        )
+
+    elif pages == "500+":
+
+        query = query.filter(
+            Book.pages >= 500
+        )
+
+    # Διαθεσιμότητα
+
+    if available_only:
+
+        query = query.filter(
+            Book.status == "Available"
+        )
+
+    books = query.all()
 
     return render_template(
         "view_books.html",
