@@ -20,10 +20,7 @@ async function lookupISBN() {
             return;
         }
 
-
         const data = await response.json();
-        console.log(data);//προσορινο
-        console.log(data.contributors);//προσορινο
 
 
         // ΤΙΤΛΟΣ
@@ -132,22 +129,30 @@ async function lookupISBN() {
             const categoryMap = {
 
                 "Fantasy": "Fantasy",
-
                 "Adventure": "Adventure",
-
                 "Science fiction": "Sci-fi",
-
                 "Science Fiction": "Sci-fi",
-
                 "Sci-fi": "Sci-fi",
-
                 "Mystery": "Mystery",
-
                 "Thriller": "Thriller",
-
                 "Romance": "Romance",
-
-                "Horror": "Horror"
+                "Horror": "Horror",
+                "Historical fiction": "Historical Fiction",
+                "History": "History",
+                "Biography": "Biography",
+                "Autobiography": "Autobiography",
+                "Poetry": "Poetry",
+                "Psychology": "Psychology",
+                "Philosophy": "Philosophy",
+                "Business": "Business",
+                "Politics": "Politics",
+                "Religion": "Religion",
+                "Science": "Science",
+                "Technology": "Technology",
+                "Programming": "Programming",
+                "Children": "Children",
+                "Young adult": "Young Adult",
+                "Comics": "Comics"
 
             };
 
