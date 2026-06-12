@@ -1,0 +1,77 @@
+{% extends "base.html" %}
+
+{% block banner_content %}
+
+<a href="{{ url_for('home') }}">
+
+    <img
+
+        src="{{ url_for(
+            'static',
+            filename='images/add_member.png'
+        ) }}"
+
+        style="
+            width:350px;
+            height:auto;
+        ">
+
+</a>
+
+{% endblock %}
+
+
+{% block content %}
+
+<form method="POST">
+
+    <div class="member-card">
+
+        <input
+            type="text"
+            name="first_name"
+            class="member-input first-name"
+            placeholder="Όνομα">
+
+        <input
+            type="text"
+            name="last_name"
+            class="member-input last-name"
+            placeholder="Επώνυμο">
+
+        <input
+            type="text"
+            name="phone"
+            class="member-input phone"
+            placeholder="Τηλέφωνο">
+
+        <input
+            type="date"
+            name="date_of_birth"
+            class="member-input birth">
+
+        <input
+            type="text"
+            name="address"
+            class="member-input address"
+            placeholder="Διεύθυνση κατοικίας">
+
+        <div class="member-input card-number">
+
+            {{ next_card_number }}
+
+        </div>
+        
+        <button
+            type="submit"
+            class="btn btn-success member-save">
+
+            Αποθήκευση
+
+        </button>
+
+</div>
+
+</form>
+
+{% endblock %}

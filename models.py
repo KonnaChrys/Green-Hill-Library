@@ -38,3 +38,56 @@ class Book(db.Model):
 
     def __repr__(self):
         return f"<Book {self.title}>"
+    
+
+# πινακας μελων
+
+class Member(db.Model):
+
+    __tablename__ = "members"
+
+    id = db.Column(
+        db.Integer,
+        primary_key=True
+    )
+
+    card_number = db.Column(
+        db.String(13),
+        unique=True,
+        nullable=False
+    )
+
+    first_name = db.Column(
+        db.String(100),
+        nullable=False
+    )
+
+    last_name = db.Column(
+        db.String(100),
+        nullable=False
+    )
+
+    phone = db.Column(
+        db.String(50)
+    )
+
+    date_of_birth = db.Column(
+        db.Date
+    )
+
+    address = db.Column(
+        db.String(255)
+    )
+
+    balance = db.Column(
+        db.Float,
+        default=0
+    )
+
+    def __repr__(self):
+
+        return (
+            f"<Member "
+            f"{self.first_name} "
+            f"{self.last_name}>"
+        )

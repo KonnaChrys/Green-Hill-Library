@@ -1,7 +1,8 @@
 import os
 
 from flask import Flask, render_template, request, redirect
-from models import db, Book
+from models import db, Book, Member
+from datetime import datetime
 
 app = Flask(__name__)
 
@@ -22,6 +23,8 @@ def home():
 
     return render_template("index.html")
 
+
+#------------------- βιβλια -------------------
 
 # προσθηκη βιβλιου
 
@@ -360,6 +363,93 @@ def delete_book(id):
 
     return redirect("/books")
 
+
+#------------------- μελη -------------------
+
+# λιστα μελων
+
+@app.route("/members")
+def members():
+
+    members = Member.query.all()
+
+    return render_template(
+        "view_members.html",
+        members=members
+    )
+
+# προσθηκη μελους
+
+@app.route(
+    "/add-member",
+    methods=["GET", "POST"]
+)
+def add_member():
+
+    # βρισκει το τελευταιο μελος
+
+    last_member = Member.query.order_by(
+        Member.id.desc()
+    ).first()
+
+    # δημιουργει επομενο αριθμο καρτας
+
+    if last_member:
+
+        next_card_number = str(
+            int(last_member.card_number) + 1
+        ).zfill(13)
+
+    else:
+
+        next_card_number = "0000000000001"
+
+    if request.method == "POST":
+
+        member = Member(
+
+            card_number=next_card_number,
+
+            first_name=request.form["first_name"],
+
+            last_name=request.form["last_name"],
+
+            phone=request.form["phone"],
+
+            date_of_birth=datetime.strptime(
+                request.form["date_of_birth"],
+                "%Y-%m-%d"
+            ).date(),
+
+            address=request.form["address"]
+
+        )
+
+        db.session.add(member)
+
+        db.session.commit()
+
+        return redirect("/members")
+
+    return render_template(
+
+        "add_member.html",
+
+        next_card_number=next_card_number
+
+    )
+
+# πληροφοριες μελους
+
+@app.route("/member/<int:id>")
+def member_info(id):
+
+    member = Member.query.get_or_404(id)
+
+    return render_template(
+        "member_info.html",
+        member=member
+    )
 
 # εκκινηση εφαρμογης
 
