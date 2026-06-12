@@ -378,6 +378,22 @@ def members():
         members=members
     )
 
+# πληροφοριες μελους
+
+@app.route("/member/<int:id>")
+def member_info(id):
+
+    print(os.getcwd())
+    print(os.listdir("templates"))
+
+    member = Member.query.get_or_404(id)
+
+    return render_template(
+        "member_info.html",
+        member=member
+    )
+
+
 # προσθηκη μελους
 
 @app.route(
@@ -439,17 +455,6 @@ def add_member():
 
     )
 
-# πληροφοριες μελους
-
-@app.route("/member/<int:id>")
-def member_info(id):
-
-    member = Member.query.get_or_404(id)
-
-    return render_template(
-        "member_info.html",
-        member=member
-    )
 
 # εκκινηση εφαρμογης
 

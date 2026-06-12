@@ -27,25 +27,6 @@ body {
 
 }
 
-.save-button {
-
-    background-color: #6e5237;
-
-    border: 1px solid #644930;
-
-    border-radius: 10px;
-
-    color: white;
-
-}
-
-.save-button:hover {
-
-    background-color: #61462d;
-
-    border-color: #644930;
-
-}
 
 /* textboxes */
 
@@ -356,5 +337,61 @@ input[type="number"] {
 
     background-color: #462e1a;
     border-color:#291503;
+
+}
+
+/* μικρη καρτα μελους */
+
+.member-preview-card {
+
+    position: relative;
+
+    width: 700px;
+
+}
+
+.member-card-image {
+
+    width: 100%;
+    height: auto;
+
+    display: block;
+
+}
+
+.mini-member-first-name {
+
+    position: absolute;
+
+    top: 170px;
+    left: 350px;
+
+    font-size: 40px;
+    transform: translateX(-50%);
+
+}
+
+.mini-member-last-name {
+
+    position: absolute;
+
+    top: 220px;
+    left: 350px;
+
+    font-size: 40px;
+    transform: translateX(-50%);
+}
+
+.mini-member-number {
+
+    position: absolute;
+
+    bottom: 43px;
+    left: 350px;
+
+    letter-spacing: 9px;
+    font-family: monospace;
+    
+    transform: translateX(-50%);
 
 }

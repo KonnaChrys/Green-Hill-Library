@@ -1,0 +1,125 @@
+{% extends "base.html" %}
+
+{% block banner_content %}
+
+<a href="{{ url_for('home') }}">
+
+    <img
+        src="{{ url_for('static', filename='images/members.png') }}"
+        style="
+            width:350px;
+            height:auto;
+        ">
+
+</a>
+
+{% endblock %}
+
+{% block content %}
+
+<div class="container mt-4">
+
+    <div class="row">
+
+        <!-- ΑΡΙΣΤΕΡΗ ΣΤΗΛΗ -->
+
+        <div class="col-md-4">
+
+            <div class="member-preview-card">
+
+                <img
+                    src="{{ url_for('static', filename='images/library_card.png') }}"
+                    class="member-card-image">
+
+                <div class="mini-member-first-name">
+
+                    {{ member.first_name }}
+
+                </div>
+
+                <div class="mini-member-last-name">
+
+                    {{ member.last_name }}
+
+                </div>
+
+                <div class="mini-member-number">
+
+                    {{ member.card_number }}
+
+                </div>
+
+            </div>
+
+            <br>
+
+            <h4>
+
+                Συνολικό Υπόλοιπο:
+
+            </h4>
+
+            <h3>
+
+                {{ member.balance }} €
+
+            </h3>
+
+        </div>
+
+        <!-- ΔΕΞΙΑ ΣΤΗΛΗ -->
+
+        <div class="col-md-8">
+
+            <div class="mb-4">
+
+                <label>
+
+                    Ημερομηνία Γέννησης
+
+                </label>
+
+                <input
+                    class="form-control"
+                    value="{{ member.date_of_birth }}"
+                    readonly>
+
+            </div>
+
+            <div class="mb-4">
+
+                <label>
+
+                    Τηλέφωνο
+
+                </label>
+
+                <input
+                    class="form-control"
+                    value="{{ member.phone }}"
+                    readonly>
+
+            </div>
+
+            <div class="mb-4">
+
+                <label>
+
+                    Διεύθυνση Κατοικίας
+
+                </label>
+
+                <input
+                    class="form-control"
+                    value="{{ member.address }}"
+                    readonly>
+
+            </div>
+
+        </div>
+
+    </div>
+
+</div>
+
+{% endblock %}
