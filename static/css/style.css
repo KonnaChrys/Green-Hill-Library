@@ -1,26 +1,59 @@
-
-
-
 /* background */
 
 body {
 
     background-color: #f7f5f0;
+    background-image: url("../images/background.png");
+    background-size: 100%;
+    background-position: center;
 
 }
+
+/* buttons */
 
 .btn-outline-secondary {
 
-    border-color: #dee2e6;
+    border-color: #cacaca;
+
+    background-color: #f2ead8;
 
 }
 
+.btn-outline-secondary:hover {
+
+    background-color: #e8dcc6;
+
+    border-color: #cacaca;
+
+}
+
+.save-button {
+
+    background-color: #6e5237;
+
+    border: 1px solid #644930;
+
+    border-radius: 10px;
+
+    color: white;
+
+}
+
+.save-button:hover {
+
+    background-color: #61462d;
+
+    border-color: #644930;
+
+}
 
 /* textboxes */
 
 .form-control {
 
-    background-color: #f8f7f5;
+    background-color: #f2ead8;
+
+    border-color: #cacaca;
 
 }
 
@@ -33,7 +66,6 @@ body {
     box-shadow: none;
 
 }
-
 
 /* αναζητηση */
 
@@ -48,6 +80,8 @@ body {
 .search-input {
 
     padding-right: 45px;
+
+    background-color: #fcfbf7;
 
 }
 
@@ -97,9 +131,9 @@ body {
 
 .ts-control {
 
-    background-color: #f8f7f5 !important;
+    background-color: #f2ead8 !important;
 
-    border: 1px solid #dee2e6 !important;
+    border: 1px solid #cacaca !important;
 
 }
 
@@ -107,7 +141,7 @@ body {
 
     background-color: #f8f7f5 !important;
 
-    border-color: #dee2e6 !important;
+    border-color: #cacaca !important;
 
     box-shadow: none !important;
 
@@ -115,21 +149,21 @@ body {
 
 .ts-dropdown {
 
-    background-color: #f8f7f5 !important;
+    background-color: #f2ead8 !important;
 
-    border: 1px solid #dee2e6 !important;
+    border: 1px solid #cacaca !important;
 
 }
 
 .ts-dropdown .option:hover {
 
-    background-color: #f8f7f5 !important;
+    background-color: #f1ebdd !important;
 
 }
 
 .ts-control .item {
 
-    background-color: #eee7d8 !important;
+    background-color: #eee0c3 !important;
 
 }
 
@@ -162,4 +196,165 @@ body {
 
 }
 
+/* add_book/edit_book container */
 
+.book-form-container {
+
+    width: 1750px;
+
+    margin: auto;
+
+}
+
+/* αφαιρεση βελακιων απο input type="number" */
+
+input[type="number"]::-webkit-inner-spin-button,
+input[type="number"]::-webkit-outer-spin-button {
+
+    -webkit-appearance: none;
+
+    margin: 0;
+
+}
+
+input[type="number"] {
+
+    appearance: textfield;
+
+    -moz-appearance: textfield;
+
+}
+
+
+/* καρτα μελους */
+
+.member-card {
+
+    width: 1300px;
+    height: 750px;
+
+    margin: auto;
+
+    background-image: url("../images/library_card.png");
+    background-size: contain;
+    background-repeat: no-repeat;
+    background-position: center;
+
+    position: relative;
+
+}
+
+.member-input {
+
+    position: absolute;
+
+    background: transparent;
+
+    border: none;
+    border-bottom: 2px solid black;
+
+    outline: none;
+
+    font-size: 20px;
+
+    color: black;
+
+}
+
+/* ονομα */
+
+.first-name {
+
+    top: 310px;
+    left: 350px;
+    width: 220px;
+    color: #351B04;
+
+}
+
+/* επωνυμο */
+
+.last-name {
+
+    top: 310px;
+    left: 725px;
+    width: 220px;
+    color: #351B04;
+
+}
+
+/* τηλεφωνο */
+
+.phone {
+
+    top: 380px;
+    left: 725px;
+    width: 220px;
+    color: #351B04;
+
+}
+
+/* ημερομηνια */
+
+.birth {
+
+    top: 380px;
+    left: 350px;
+    width: 220px;
+    color: #351B04;
+
+}
+
+/* διευθυνση */
+
+.address {
+
+    top: 450px;
+    left: 370px;
+    width: 553px;
+    color: #351B04;
+
+}
+
+/* αριθμος καρτας */
+
+.card-number {
+
+    top: 625px;
+    left: 410px;
+    width: 530px;
+
+    text-align: center;
+
+    border: none;
+
+    font-family: monospace;
+    color: #351B04;
+
+    letter-spacing: 22px;
+
+}
+
+.member-save {
+
+    position: absolute;
+
+    bottom: 222px;
+    right: 580px;
+
+    width: 140px;
+    height: 37px;
+
+    font-size: 16px;
+    background-color: #2e1e0f;
+    border-color:#351B04;
+    border-radius: 10px;
+
+}
+
+.member-save:hover {
+
+    background-color: #462e1a;
+    border-color:#291503;
+
+}

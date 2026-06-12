@@ -23,398 +23,402 @@
 
 <form method="POST" enctype="multipart/form-data">
 
-    <div class="row justify-content-center">
+    <div class="book-form-container">
 
-        <!-- αριστερη στηλη -->
+        <div class="row justify-content-center">
 
-        <div
-            class="col-md-3"
-            style="margin-top:35px;">
+            <!-- αριστερη στηλη -->
 
-            <!-- isbn -->
+            <div
+                class="col-md-3"
+                style="margin-top:35px;">
 
-            <label class="form-label">
+                <!-- isbn -->
 
-                ISBN
+                <label class="form-label">
 
-            </label>
+                    ISBN
 
-            <div class="d-flex mb-3">
+                </label>
+
+                <div class="d-flex mb-3">
+
+                    <input
+
+                        type="text"
+
+                        id="isbn"
+
+                        name="isbn"
+
+                        class="form-control"
+
+                        onkeydown="
+                            if(event.key === 'Enter'){
+                                event.preventDefault();
+                                lookupISBN();
+                            }
+                        ">
+
+                    <button
+
+                        type="button"
+
+                        class="btn btn-outline-secondary ms-2"
+
+                        onclick="lookupISBN()">
+
+                        <img
+
+                            src="{{ url_for('static', filename='images/search.png') }}"
+
+                            style="
+                                width:22px;
+                                height:22px;
+                            ">
+
+                    </button>
+
+                </div>
+
+                <!-- τιτλος -->
+
+                <label class="form-label">
+
+                    Τίτλος
+
+                </label>
 
                 <input
 
                     type="text"
 
-                    id="isbn"
+                    id="title"
 
-                    name="isbn"
+                    name="title"
+
+                    class="form-control mb-3"
+
+                    required>
+
+                <!-- συγγραφεας -->
+
+                <label class="form-label">
+
+                    Συγγραφέας
+
+                </label>
+
+                <input
+
+                    type="text"
+
+                    id="authors"
+
+                    name="authors"
+
+                    class="form-control mb-3">
+
+                <!-- εκδοτης -->
+
+                <label class="form-label">
+
+                    Εκδότης
+
+                </label>
+
+                <input
+
+                    type="text"
+
+                    id="publisher"
+
+                    name="publisher"
+
+                    class="form-control mb-3">
+
+                <!-- γλωσσα και εξωφυλλο -->
+
+                <div class="row">
+
+                    <div class="col">
+
+                        <label class="form-label">
+
+                            Γλώσσα
+
+                        </label>
+
+                        <input
+
+                            type="text"
+
+                            id="language"
+
+                            name="language"
+
+                            class="form-control">
+
+                    </div>
+
+                    <div class="col">
+
+                        <label class="form-label">
+
+                            Εξώφυλλο
+
+                        </label>
+
+                        <input
+
+                            type="text"
+
+                            id="cover_type"
+
+                            name="cover_type"
+
+                            class="form-control">
+
+                    </div>
+
+                </div>
+
+                <br>
+
+                <!-- ετος σελιδες αντιτυπα -->
+
+                <div class="row">
+
+                    <div class="col">
+
+                        <label class="form-label">
+
+                            Έτος
+
+                        </label>
+
+                        <input
+
+                            type="number"
+
+                            id="year"
+
+                            name="year"
+
+                            class="form-control">
+
+                    </div>
+
+                    <div class="col">
+
+                        <label class="form-label">
+
+                            Σελίδες
+
+                        </label>
+
+                        <input
+
+                            type="number"
+
+                            id="pages"
+
+                            name="pages"
+
+                            class="form-control">
+
+                    </div>
+
+                    <div class="col">
+
+                        <label class="form-label">
+
+                            Αντίτυπα
+
+                        </label>
+
+                        <input
+
+                            type="number"
+
+                            name="copies"
+
+                            value="1"
+
+                            class="form-control">
+
+                    </div>
+
+                </div>
+
+                <br>
+
+                <!-- κατηγοριες -->
+
+                <label class="form-label">
+
+                    Κατηγορίες
+
+                </label>
+
+                <select
+
+                    id="categories"
+
+                    name="categories"
+
+                    multiple>
+
+                    <option value="Fantasy">Fantasy</option>
+                    <option value="Adventure">Adventure</option>
+                    <option value="Sci-fi">Sci-fi</option>
+                    <option value="Mystery">Mystery</option>
+                    <option value="Thriller">Thriller</option>
+                    <option value="Romance">Romance</option>
+                    <option value="Horror">Horror</option>
+                    <option value="Historical Fiction">Historical Fiction</option>
+                    <option value="History">History</option>
+                    <option value="Biography">Biography</option>
+                    <option value="Autobiography">Autobiography</option>
+                    <option value="Poetry">Poetry</option>
+                    <option value="Psychology">Psychology</option>
+                    <option value="Philosophy">Philosophy</option>
+                    <option value="Business">Business</option>
+                    <option value="Politics">Politics</option>
+                    <option value="Religion">Religion</option>
+                    <option value="Science">Science</option>
+                    <option value="Technology">Technology</option>
+                    <option value="Programming">Programming</option>
+                    <option value="Children">Children</option>
+                    <option value="Young Adult">Young Adult</option>
+                    <option value="Comics">Comics</option>
+
+                </select>
+
+            </div>
+
+            <!-- μεσαια στηλη -->
+
+            <div class="col-md-3">
+
+                <label
+
+                    class="form-label"
+
+                    style="
+                        display:block;
+                        text-align:center;
+                        font-size:18px;
+                        margin-top:30px;
+                        margin-bottom:10px;
+                    ">
+
+                    Περίληψη
+
+                </label>
+
+                <textarea
+
+                    id="description"
+
+                    name="description"
 
                     class="form-control"
 
-                    onkeydown="
-                        if(event.key === 'Enter'){
-                            event.preventDefault();
-                            lookupISBN();
-                        }
+                    style="height:600px;">
+
+                </textarea>
+
+            </div>
+
+            <!-- δεξια στηλη -->
+
+            <div class="col-md-3 text-center">
+
+                <div
+
+                    id="cover_container"
+
+                    style="
+                        width:450px;
+                        height:635px;
+                        border:1px solid #cacaca;
+                        border-radius:0.375rem;
+                        margin:auto;
+                        margin-top:34px;
+                        display:flex;
+                        align-items:center;
+                        justify-content:center;
                     ">
-
-                <button
-
-                    type="button"
-
-                    class="btn btn-outline-secondary ms-2"
-
-                    onclick="lookupISBN()">
 
                     <img
 
-                        src="{{ url_for('static', filename='images/search.png') }}"
+                        id="cover"
+
+                        src=""
 
                         style="
-                            width:22px;
-                            height:22px;
+                            width:100%;
+                            height:100%;
+                            object-fit:contain;
+                            display:none;
                         ">
+
+                    <span id="cover_placeholder">
+
+                        
+
+                        <br><br>
+
+                        <label
+
+                            for="cover_upload"
+
+                            class="btn btn-outline-secondary">
+
+                            Επιλογή εικόνας
+
+                        </label>
+
+                    </span>
+
+                    <input
+
+                        type="file"
+
+                        id="cover_upload"
+
+                        name="cover_upload"
+
+                        accept="image/*"
+
+                        style="display:none;">
+
+                </div>
+
+                <input
+
+                    type="hidden"
+
+                    id="cover_url"
+
+                    name="cover_url">
+
+                <!-- αποθηκευση -->
+
+                <button
+
+                    type="submit"
+
+                    class="btn btn-success btn-lg mt-3"
+
+                    style="width:250px;">
+
+                    Αποθήκευση
 
                 </button>
 
             </div>
-
-            <!-- τιτλος -->
-
-            <label class="form-label">
-
-                Τίτλος
-
-            </label>
-
-            <input
-
-                type="text"
-
-                id="title"
-
-                name="title"
-
-                class="form-control mb-3"
-
-                required>
-
-            <!-- συγγραφεας -->
-
-            <label class="form-label">
-
-                Συγγραφέας
-
-            </label>
-
-            <input
-
-                type="text"
-
-                id="authors"
-
-                name="authors"
-
-                class="form-control mb-3">
-
-            <!-- εκδοτης -->
-
-            <label class="form-label">
-
-                Εκδότης
-
-            </label>
-
-            <input
-
-                type="text"
-
-                id="publisher"
-
-                name="publisher"
-
-                class="form-control mb-3">
-
-            <!-- γλωσσα και εξωφυλλο -->
-
-            <div class="row">
-
-                <div class="col">
-
-                    <label class="form-label">
-
-                        Γλώσσα
-
-                    </label>
-
-                    <input
-
-                        type="text"
-
-                        id="language"
-
-                        name="language"
-
-                        class="form-control">
-
-                </div>
-
-                <div class="col">
-
-                    <label class="form-label">
-
-                        Εξώφυλλο
-
-                    </label>
-
-                    <input
-
-                        type="text"
-
-                        id="cover_type"
-
-                        name="cover_type"
-
-                        class="form-control">
-
-                </div>
-
-            </div>
-
-            <br>
-
-            <!-- ετος σελιδες αντιτυπα -->
-
-            <div class="row">
-
-                <div class="col">
-
-                    <label class="form-label">
-
-                        Έτος
-
-                    </label>
-
-                    <input
-
-                        type="number"
-
-                        id="year"
-
-                        name="year"
-
-                        class="form-control">
-
-                </div>
-
-                <div class="col">
-
-                    <label class="form-label">
-
-                        Σελίδες
-
-                    </label>
-
-                    <input
-
-                        type="number"
-
-                        id="pages"
-
-                        name="pages"
-
-                        class="form-control">
-
-                </div>
-
-                <div class="col">
-
-                    <label class="form-label">
-
-                        Αντίτυπα
-
-                    </label>
-
-                    <input
-
-                        type="number"
-
-                        name="copies"
-
-                        value="1"
-
-                        class="form-control">
-
-                </div>
-
-            </div>
-
-            <br>
-
-            <!-- κατηγοριες -->
-
-            <label class="form-label">
-
-                Κατηγορίες
-
-            </label>
-
-            <select
-
-                id="categories"
-
-                name="categories"
-
-                multiple>
-
-                <option value="Fantasy">Fantasy</option>
-                <option value="Adventure">Adventure</option>
-                <option value="Sci-fi">Sci-fi</option>
-                <option value="Mystery">Mystery</option>
-                <option value="Thriller">Thriller</option>
-                <option value="Romance">Romance</option>
-                <option value="Horror">Horror</option>
-                <option value="Historical Fiction">Historical Fiction</option>
-                <option value="History">History</option>
-                <option value="Biography">Biography</option>
-                <option value="Autobiography">Autobiography</option>
-                <option value="Poetry">Poetry</option>
-                <option value="Psychology">Psychology</option>
-                <option value="Philosophy">Philosophy</option>
-                <option value="Business">Business</option>
-                <option value="Politics">Politics</option>
-                <option value="Religion">Religion</option>
-                <option value="Science">Science</option>
-                <option value="Technology">Technology</option>
-                <option value="Programming">Programming</option>
-                <option value="Children">Children</option>
-                <option value="Young Adult">Young Adult</option>
-                <option value="Comics">Comics</option>
-
-            </select>
-
-        </div>
-
-        <!-- μεσαια στηλη -->
-
-        <div class="col-md-3">
-
-            <label
-
-                class="form-label"
-
-                style="
-                    display:block;
-                    text-align:center;
-                    font-size:18px;
-                    margin-top:30px;
-                    margin-bottom:10px;
-                ">
-
-                Περίληψη
-
-            </label>
-
-            <textarea
-
-                id="description"
-
-                name="description"
-
-                class="form-control"
-
-                style="height:600px;">
-
-            </textarea>
-
-        </div>
-
-        <!-- δεξια στηλη -->
-
-        <div class="col-md-3 text-center">
-
-            <div
-
-                id="cover_container"
-
-                style="
-                    width:450px;
-                    height:635px;
-                    border:1px solid #dee2e6;
-                    border-radius:0.375rem;
-                    margin:auto;
-                    margin-top:34px;
-                    display:flex;
-                    align-items:center;
-                    justify-content:center;
-                ">
-
-                <img
-
-                    id="cover"
-
-                    src=""
-
-                    style="
-                        width:100%;
-                        height:100%;
-                        object-fit:contain;
-                        display:none;
-                    ">
-
-                <span id="cover_placeholder">
-
-                    Cover Art
-
-                    <br><br>
-
-                    <label
-
-                        for="cover_upload"
-
-                        class="btn btn-outline-secondary">
-
-                        Επιλογή εικόνας
-
-                    </label>
-
-                </span>
-
-                <input
-
-                    type="file"
-
-                    id="cover_upload"
-
-                    name="cover_upload"
-
-                    accept="image/*"
-
-                    style="display:none;">
-
-            </div>
-
-            <input
-
-                type="hidden"
-
-                id="cover_url"
-
-                name="cover_url">
-
-            <!-- αποθηκευση -->
-
-            <button
-
-                type="submit"
-
-                class="btn btn-success btn-lg mt-3"
-
-                style="width:250px;">
-
-                Αποθήκευση
-
-            </button>
 
         </div>
 
