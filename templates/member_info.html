@@ -123,11 +123,50 @@
 
     <hr>
 
-    <h3>
+    <div
 
-        Ιστορικό Δανεισμών
+        style="
+            display:flex;
+            justify-content:space-between;
+            align-items:center;
+            margin-top:-5px;
+            margin-bottom:15px;
+        ">
 
-    </h3>
+        <h3
+
+            style="margin:0;">
+
+            Ιστορικό Δανεισμών
+
+        </h3>
+
+        <a
+
+            href="{{ url_for(
+                'loans',
+                member_id=member.id
+            ) }}"
+
+            class="btn btn-lg"
+
+            style="
+                width:240px;
+                background-color:rgb(54,147,118);
+                border-color:rgb(54,147,118);
+                color:white;
+                text-decoration:none;
+                display:inline-flex;
+                align-items:center;
+                justify-content:center;
+                margin-right:150px;
+            ">
+
+            Νέος Δανεισμός
+
+        </a>
+
+    </div>
 
     <table class="table member-history-table">
 

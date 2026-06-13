@@ -1,0 +1,613 @@
+{% extends "base.html" %}
+
+{% block banner_content %}
+
+<a href="{{ url_for('home') }}">
+
+    <img
+        src="{{ url_for('static',
+        filename='images/loans.png') }}"
+        style="
+            width:350px;
+            height:auto;
+        ">
+
+</a>
+
+{% endblock %}
+
+{% block content %}
+
+<div class="container mt-4">
+
+    <!-- ΣΤΟΙΧΕΙΑ ΜΕΛΟΥΣ -->
+
+    <h3>
+
+        Στοιχεία Μέλους
+
+    </h3>
+
+    <table class="table table-bordered">
+
+        <thead>
+
+            <tr>
+
+                <th>
+
+                    Αριθμός Κάρτας
+
+                </th>
+
+                <th>
+
+                    Όνομα
+
+                </th>
+
+                <th>
+
+                    Επώνυμο
+
+                </th>
+
+                <th>
+
+                    Τηλέφωνο
+
+                </th>
+
+                <th>
+
+                    Συνολικό Υπόλοιπο
+
+                </th>
+
+            </tr>
+
+        </thead>
+
+        <tbody>
+
+            <tr>
+
+                <td>
+
+                    <input
+                    
+                      id="card_number"
+
+                      class="form-control"
+
+                      value="{% if member %}{{ member.card_number }}{% endif %}">
+
+                </td>
+
+                <td id="first_name">
+
+                  {% if member %}
+
+                      {{ member.first_name }}
+
+                  {% endif %}
+
+                </td>
+
+                <td id="last_name">
+
+                  {% if member %}
+
+                      {{ member.last_name }}
+
+                  {% endif %}
+                  
+                </td>
+
+                <td id="phone">
+
+                  {% if member %}
+
+                      {{ member.phone }}
+
+                  {% endif %}
+
+
+                </td>
+
+                <td id="balance">
+
+                  {% if member %}
+
+                      {{ member.balance }}
+
+                  {% endif %}
+
+                </td>
+
+            </tr>
+
+        </tbody>
+
+    </table>
+
+    <br>
+
+    <!-- ΝΕΟΙ ΔΑΝΕΙΣΜΟΙ -->
+
+    <h3>
+
+        Νέοι Δανεισμοί
+
+    </h3>
+
+    <table class="table table-bordered">
+
+        <thead>
+
+            <tr>
+
+                <th>ISBN</th>
+
+                <th>Τίτλος</th>
+
+                <th>Συγγραφέας</th>
+
+                <th>Εκδότης</th>
+
+                <th>Έτος</th>
+
+                <th>Γλώσσα</th>
+
+                <th>Ημ. Δαν.</th>
+
+                <th>Ημ. Διορ.</th>
+
+            </tr>
+
+        </thead>
+
+        <tbody id="loans-body">
+
+        </tbody>
+
+    </table>
+
+    <div
+
+        style="
+            margin-top:20px;
+            text-align:right;
+        ">
+
+        <button
+
+            id="save-loan"
+
+            class="btn btn-success">
+
+            Ολοκλήρωση Δανεισμού
+
+        </button>
+
+    </div>
+
+</div>
+
+<script>
+
+document.getElementById(
+    "card_number"
+).addEventListener(
+
+    "change",
+
+    function () {
+
+        fetch(
+
+            "/api/member/" +
+
+            this.value
+
+        )
+
+        .then(
+
+            response =>
+            response.json()
+
+        )
+
+        .then(
+
+            data => {
+
+                if (
+
+                    !data.found
+
+                ) {
+
+                    return;
+
+                }
+
+                document.getElementById(
+                    "first_name"
+                ).innerHTML =
+                    data.first_name;
+
+                document.getElementById(
+                    "last_name"
+                ).innerHTML =
+                    data.last_name;
+
+                document.getElementById(
+                    "phone"
+                ).innerHTML =
+                    data.phone;
+
+                document.getElementById(
+                    "balance"
+                ).innerHTML =
+                    data.balance;
+
+            }
+
+        );
+
+    }
+
+);
+
+</script>
+
+<script>
+
+let maxRows = 10;
+
+function createRow(number){
+
+    let tbody = document.getElementById(
+        "loans-body"
+    );
+
+    let row = document.createElement(
+        "tr"
+    );
+
+    row.id = "row" + number;
+
+    row.innerHTML = `
+
+        <td>
+
+            <input
+
+                id="isbn${number}"
+
+                class="form-control">
+
+        </td>
+
+        <td id="title${number}"></td>
+
+        <td id="authors${number}"></td>
+
+        <td id="publisher${number}"></td>
+
+        <td id="year${number}"></td>
+
+        <td id="language${number}"></td>
+
+        <td id="borrow_date${number}"></td>
+
+        <td id="due_date${number}"></td>
+
+    `;
+
+    tbody.appendChild(
+        row
+    );
+
+    document.getElementById(
+
+        "isbn" + number
+
+    ).addEventListener(
+
+        "change",
+
+        function(){
+
+            loadBook(number);
+
+        }
+
+    );
+
+}
+
+function loadBook(number){
+
+    let isbn = document.getElementById(
+
+        "isbn" + number
+
+    ).value.trim();
+
+    if(
+
+        isbn == ""
+
+    ){
+
+        return;
+
+    }
+
+    fetch(
+
+        "/api/book/" +
+
+        isbn
+
+    )
+
+    .then(
+
+        response =>
+        response.json()
+
+    )
+
+    .then(
+
+        data => {
+
+            if(
+
+                !data.found
+
+            ){
+
+                return;
+
+            }
+
+            document.getElementById(
+
+                "title" + number
+
+            ).innerHTML =
+                data.title;
+
+            document.getElementById(
+
+                "authors" + number
+
+            ).innerHTML =
+                data.authors;
+
+            document.getElementById(
+
+                "publisher" + number
+
+            ).innerHTML =
+                data.publisher;
+
+            document.getElementById(
+
+                "year" + number
+
+            ).innerHTML =
+                data.year;
+
+            document.getElementById(
+
+                "language" + number
+
+            ).innerHTML =
+                data.language;
+
+            let today = new Date();
+
+            let due = new Date();
+
+            due.setDate(
+
+                due.getDate() + 30
+
+            );
+
+            document.getElementById(
+
+                "borrow_date" + number
+
+            ).innerHTML =
+
+            today.toLocaleDateString(
+                "el-GR"
+            );
+
+            document.getElementById(
+
+                "due_date" + number
+
+            ).innerHTML =
+
+            due.toLocaleDateString(
+                "el-GR"
+            );
+
+            if(
+
+                number < maxRows
+
+            ){
+
+                let nextRow = document.getElementById(
+
+                    "row" +
+
+                    (number + 1)
+
+                );
+
+                if(
+
+                    !nextRow
+
+                ){
+
+                    createRow(
+
+                        number + 1
+
+                    );
+
+                }
+
+            }
+
+        }
+
+    );
+
+}
+
+createRow(1);
+
+window.onload = function(){
+
+    let bookIsbn =
+
+    "{{ book.isbn if book else '' }}";
+
+    if(
+
+        bookIsbn != ""
+
+    ){
+
+        document.getElementById(
+
+            "isbn1"
+
+        ).value =
+
+        bookIsbn;
+
+        loadBook(1);
+
+    }
+
+}
+
+</script>
+
+<script>
+
+document.getElementById(
+
+    "save-loan"
+
+).addEventListener(
+
+    "click",
+
+    function(){
+
+        fetch(
+
+            "/save-loan",
+
+            {
+
+                method:"POST",
+
+                headers:{
+
+                    "Content-Type":
+
+                    "application/json"
+
+                },
+
+              body:JSON.stringify(
+
+                  {
+
+                      member_card:
+
+                      document.getElementById(
+
+                          "card_number"
+
+                      ).value,
+
+                      isbn:
+
+                      document.getElementById(
+
+                          "isbn1"
+
+                      ).value
+
+                  }
+
+              )
+
+            }
+
+        )
+
+        .then(
+
+            response =>
+
+            response.json()
+
+        )
+
+        .then(
+
+            data => {
+
+              if(
+
+                  data.success
+
+              ){
+
+                  alert(
+
+                      "Ο δανεισμός αποθηκεύτηκε!"
+
+                  );
+
+              }
+
+              else{
+
+                  alert(
+
+                      data.message
+
+                  );
+
+              }
+
+            }
+
+        );
+
+    }
+
+);
+
+</script>
+
+
+{% endblock %}

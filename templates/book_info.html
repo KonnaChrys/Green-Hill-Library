@@ -83,7 +83,12 @@
                     margin-top:10px;
                 ">
 
-                <button
+                <a
+
+                    href="{{ url_for(
+                        'loans',
+                        book_id=book.id
+                    ) }}"
 
                     class="btn btn-lg"
 
@@ -92,11 +97,15 @@
                         background-color:rgb(54,147,118);
                         border-color:rgb(54,147,118);
                         color:white;
+                        text-decoration:none;
+                        display:inline-flex;
+                        align-items:center;
+                        justify-content:center;
                     ">
 
                     Δανεισμός
 
-                </button>
+                </a>
 
             </div>
 

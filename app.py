@@ -1,8 +1,8 @@
 import os
 
-from flask import Flask, render_template, request, redirect
-from models import db, Book, Member
-from datetime import datetime
+from flask import Flask, render_template, request, redirect, jsonify
+from models import db, Book, Member, Loan
+from datetime import datetime, timedelta
 
 app = Flask(__name__)
 
@@ -457,41 +457,199 @@ def add_member():
 
 # δανεισμος βιβλιου
 
-@app.route(
-    "/borrow-book/<int:id>",
-    methods=["GET", "POST"]
-)
-def borrow_book(id):
+#------------------- δανεισμοι -------------------
 
-    book = Book.query.get_or_404(id)
+@app.route("/loans")
+def loans():
 
-    if request.method == "POST":
+    member_id = request.args.get(
+        "member_id"
+    )
 
-        card_number = request.form[
-            "card_number"
-        ]
+    book_id = request.args.get(
+        "book_id"
+    )
 
-        member = Member.query.filter_by(
-            card_number=card_number
-        ).first()
+    member = None
+    book = None
 
-        if not member:
+    if member_id:
 
-            return "Το μέλος δεν βρέθηκε."
+        member = Member.query.get_or_404(
+            member_id
+        )
 
-        return (
-            f"Θα δανειστεί το "
-            f"{book.title} "
-            f"στον "
-            f"{member.first_name} "
-            f"{member.last_name}"
+    if book_id:
+
+        book = Book.query.get_or_404(
+            book_id
         )
 
     return render_template(
-        "borrow_book.html",
+
+        "loans.html",
+
+        member=member,
+
         book=book
+
     )
 
+# api μελους
+
+@app.route(
+    "/api/member/<card_number>"
+)
+def api_member(card_number):
+
+    member = Member.query.filter_by(
+        card_number=card_number
+    ).first()
+
+    if not member:
+
+        return jsonify(
+            {
+                "found": False
+            }
+        )
+
+    return jsonify(
+
+        {
+            "found": True,
+
+            "first_name":
+                member.first_name,
+
+            "last_name":
+                member.last_name,
+
+            "phone":
+                member.phone,
+
+            "balance":
+                member.balance
+
+        }
+
+    )
+
+# api βιβλιου
+
+@app.route(
+    "/api/book/<isbn>"
+)
+def api_book(isbn):
+
+    book = Book.query.filter_by(
+        isbn=isbn
+    ).first()
+
+    if not book:
+
+        return jsonify(
+            {
+                "found": False
+            }
+        )
+
+    return jsonify(
+
+        {
+            "found": True,
+
+            "title":
+                book.title,
+
+            "authors":
+                book.authors,
+
+            "publisher":
+                book.publisher,
+
+            "year":
+                book.year,
+
+            "language":
+                book.language
+
+        }
+
+    )
+
+from datetime import datetime, timedelta
+
+@app.route(
+    "/save-loan",
+    methods=["POST"]
+)
+def save_loan():
+
+    data = request.get_json()
+
+    member_card = str(
+        data.get("member_card", "")
+    ).strip()
+
+    isbn = str(
+        data.get("isbn", "")
+    ).strip()
+
+    member = Member.query.filter(
+        Member.card_number == member_card
+    ).first()
+
+    if member is None:
+
+        return jsonify(
+            {
+                "success": False,
+                "message": "Δεν βρέθηκε μέλος"
+            }
+        )
+
+    book = Book.query.filter(
+        Book.isbn == isbn
+    ).first()
+
+    if book is None:
+
+        return jsonify(
+            {
+                "success": False,
+                "message": "Δεν βρέθηκε βιβλίο"
+            }
+        )
+
+    loan = Loan(
+
+        member_id=member.id,
+
+        book_id=book.id,
+
+        borrow_date=datetime.now().date(),
+
+        due_date=(
+            datetime.now() +
+            timedelta(days=30)
+        ).date(),
+
+        status="Borrowed"
+
+    )
+
+    db.session.add(
+        loan
+    )
+
+    db.session.commit()
+
+    return jsonify(
+        {
+            "success": True
+        }
+    )
 
 # εκκινηση εφαρμογης
 
