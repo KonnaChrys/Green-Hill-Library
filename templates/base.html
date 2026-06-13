@@ -19,6 +19,8 @@
 
 <body>
 
+    {% if request.endpoint != "home" %}
+
     <!-- header -->
 
     <div style="
@@ -390,6 +392,8 @@
         </div>
 
     </form>
+
+    {% endif %}
 
     <!-- περιεχομενο σελιδας -->
 
