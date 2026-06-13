@@ -549,6 +549,74 @@ def add_member():
     )
 
 @app.route(
+    "/edit-member/<int:id>",
+    methods=["GET", "POST"]
+)
+def edit_member(id):
+
+    member = Member.query.get_or_404(
+        id
+    )
+
+    if request.method == "POST":
+
+        member.first_name = request.form[
+            "first_name"
+        ]
+
+        member.last_name = request.form[
+            "last_name"
+        ]
+
+        member.phone = request.form[
+            "phone"
+        ]
+
+        member.date_of_birth = datetime.strptime(
+
+            request.form[
+                "date_of_birth"
+            ],
+
+            "%Y-%m-%d"
+
+        ).date()
+
+        member.address = request.form[
+            "address"
+        ]
+
+        db.session.commit()
+
+        flash(
+
+            "Το μέλος ενημερώθηκε επιτυχώς.",
+
+            "success"
+
+        )
+
+        return redirect(
+
+            url_for(
+
+                "member_info",
+
+                id=member.id
+
+            )
+
+        )
+
+    return render_template(
+
+        "edit_member.html",
+
+        member=member
+
+    )
+
+@app.route(
     "/delete-member/<int:id>"
 )
 def delete_member(id):
