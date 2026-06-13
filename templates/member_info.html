@@ -293,34 +293,41 @@
 
                     {% if loan.status == "Borrowed" %}
 
-                        -
+                        <input
 
-                    {% elif loan.fine == 0 or loan.paid %}
+                            type="checkbox"
 
-                        ☑
+                            class="loan-checkbox"
 
-                    {% else %}
-
-                        <a
-
-                            href="{{ url_for(
-
-                                'pay_loan',
-
-                                loan_id=loan.id
-
-                            ) }}"
-
-                            style="
-                                text-decoration:none;
-                                font-size:25px;
-                            "
+                            disabled
 
                         >
 
-                            ☐
+                    {% elif loan.fine == 0 or loan.paid %}
 
-                        </a>
+                        <input
+
+                            type="checkbox"
+
+                            class="loan-checkbox"
+
+                            checked
+
+                            disabled
+
+                        >
+
+                    {% else %}
+
+                        <input
+
+                            type="checkbox"
+
+                            class="loan-checkbox"
+
+                            onchange="window.location.href='{{ url_for('pay_loan', loan_id=loan.id) }}'"
+
+                        >
 
                     {% endif %}
 

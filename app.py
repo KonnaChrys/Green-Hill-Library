@@ -15,6 +15,26 @@ app.config["SQLALCHEMY_TRACK_MODIFICATIONS"] = False
 
 db.init_app(app)
 
+def update_member_balance(member_id):
+
+    member = Member.query.get(
+
+        member_id
+
+    )
+
+    balance = 0
+
+    for loan in member.loans:
+
+        if not loan.paid:
+
+            balance += loan.fine
+
+    member.balance = balance
+
+    db.session.commit()
+
 
 # αρχικη σελιδα
 
@@ -791,10 +811,6 @@ def return_book(loan_id):
         loan.book_id
     )
 
-    member = Member.query.get(
-        loan.member_id
-    )
-
     today = datetime.today().date()
 
     loan.status = "Returned"
@@ -825,13 +841,13 @@ def return_book(loan_id):
 
         )
 
-        member.balance += (
-
-            days * 0.50
-
-        )
-
     db.session.commit()
+
+    update_member_balance(
+
+        loan.member_id
+
+    )
 
     return redirect(
 
@@ -854,15 +870,15 @@ def pay_loan(loan_id):
 
     if not loan.paid:
 
-        member = Member.query.get(
-            loan.member_id
-        )
-
-        member.balance -= loan.fine
-
         loan.paid = True
 
         db.session.commit()
+
+        update_member_balance(
+
+            loan.member_id
+
+        )
 
     return redirect(
 
