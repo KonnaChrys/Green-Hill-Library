@@ -23,7 +23,7 @@
 
         <!-- ΑΡΙΣΤΕΡΗ ΣΤΗΛΗ -->
 
-        <div class="col-md-4">
+        <div class="col-md-8">
 
             <div class="member-preview-card">
 
@@ -51,68 +51,69 @@
 
             </div>
 
-            <br>
 
-            <h4>
-
-                Συνολικό Υπόλοιπο:
-
-            </h4>
-
-            <h3>
-
-                {{ member.balance }} €
-
-            </h3>
 
         </div>
 
         <!-- ΔΕΞΙΑ ΣΤΗΛΗ -->
 
-        <div class="col-md-8">
+        <div class="col-md-4">
 
-            <div class="mb-4">
+            <div class="member-info-panel">
 
-                <label>
+                <div class="mb-3">
+                 
+                    <label>
+                        Ημερομηνία Γέννησης
+                    </label>
 
-                    Ημερομηνία Γέννησης
+                    <div class="member-info-text">
 
-                </label>
+                        {{ member.date_of_birth }}
+                        
+                    </div>
 
-                <input
-                    class="form-control"
-                    value="{{ member.date_of_birth }}"
-                    readonly>
+                <div class="mb-2">
 
-            </div>
+                    <label>
+                        Τηλέφωνο
+                    </label>
 
-            <div class="mb-4">
+                    <div class="member-info-text">
 
-                <label>
+                        {{ member.phone }}
 
-                    Τηλέφωνο
+                    </div>
 
-                </label>
+                </div>
 
-                <input
-                    class="form-control"
-                    value="{{ member.phone }}"
-                    readonly>
+                <div class="mb-3">
 
-            </div>
+                    <label>
+                        Διεύθυνση Κατοικίας
+                    </label>
 
-            <div class="mb-4">
+                    <div class="member-info-text">
 
-                <label>
+                        {{ member.address }}
 
-                    Διεύθυνση Κατοικίας
+                    </div>
 
-                </label>
+                </div>
 
-                <input
-                    class="form-control"
-                    value="{{ member.address }}"
-                    readonly>
+                <br><br>
+
+                <h4>
+
+                    Συνολικό Υπόλοιπο:
+
+                </h4>
+
+                <h3>
+
+                    {{ member.balance }} €
+
+                </h3>
 
             </div>
 

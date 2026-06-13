@@ -6,6 +6,7 @@ body {
     background-image: url("../images/background.png");
     background-size: 100%;
     background-position: center;
+    font-family: "EB Garamond", serif;
 
 }
 
@@ -392,6 +393,69 @@ input[type="number"] {
     letter-spacing: 9px;
     font-family: monospace;
     
+    transform: translateX(-50%);
+
+}
+
+/* member info panel */
+
+.member-info-panel {
+
+    width: 570px;
+    height: 400px;
+
+    background-image: url("../images/member-info-panel.png");
+
+    background-size: 100% 100%;
+    background-repeat: no-repeat;
+    background-position: center;
+
+    padding: 40px;
+
+    margin-left: -150px;
+    margin-top: 7px;  
+
+}
+
+
+.member-info-text {
+
+    color: #351B04;
+    margin-left: 250px;
+     margin-top: -5px;
+    text-align: center;
+    font-size: 20px;
+    width: 400px;
+    color: #131110;
+    
+    transform: translateX(-50%);
+
+}
+
+.member-info-panel label {
+
+    margin-left: 250px;
+
+    font-size: 14px;
+
+    color: #726c6a;
+
+    transform: translateX(-50%);   
+    
+
+}
+
+.member-info-panel h4 {
+    
+    margin-left: 265px;
+    margin-top: 10px;
+    transform: translateX(-50%);
+
+}
+
+.member-info-panel h3 {
+
+    margin-left: 320px;
     transform: translateX(-50%);
 
 }
