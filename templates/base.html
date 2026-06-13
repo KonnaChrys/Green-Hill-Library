@@ -48,13 +48,33 @@
 
             <!-- αναζητηση -->
 
-            <form
+                <form
 
-                method="GET"
+                    method="GET"
 
-                action="/books"
+                    action="
 
-                class="search-form">
+                    {% if request.path.startswith('/members')
+                    or request.path.startswith('/member/')
+                    or request.path.startswith('/add-member')
+                    or request.path.startswith('/edit-member') %}
+
+                    /members
+
+                    {% elif request.path.startswith('/loans')
+                    or request.path.startswith('/returns') %}
+
+                    /returns
+
+                    {% else %}
+
+                    /books
+
+                    {% endif %}
+
+                    "
+
+                    class="search-form">
 
                 <input
 

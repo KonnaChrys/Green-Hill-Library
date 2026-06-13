@@ -452,11 +452,62 @@ def delete_book(id):
 @app.route("/members")
 def members():
 
-    members = Member.query.all()
+    search = request.args.get(
+
+        "search",
+
+        ""
+
+    )
+
+    query = Member.query
+
+    if search:
+
+        query = query.filter(
+
+            (Member.card_number.ilike(
+
+                f"%{search}%"
+
+            )) |
+
+            (Member.first_name.ilike(
+
+                f"%{search}%"
+
+            )) |
+
+            (Member.last_name.ilike(
+
+                f"%{search}%"
+
+            )) |
+
+            ((
+
+                Member.first_name +
+
+                " " +
+
+                Member.last_name
+
+            ).ilike(
+
+                f"%{search}%"
+
+            ))
+
+        )
+
+    members = query.all()
 
     return render_template(
+
         "view_members.html",
+
         members=members
+
     )
 
 # πληροφοριες μελους
@@ -915,11 +966,65 @@ def save_loan():
 )
 def returns():
 
-    loans = Loan.query.filter_by(
+    search = request.args.get(
+
+        "search",
+
+        ""
+
+    )
+
+    query = Loan.query.filter_by(
 
         status="Borrowed"
 
-    ).all()
+    )
+
+    if search:
+
+        query = query.join(
+
+            Member
+
+        ).join(
+
+            Book
+
+        ).filter(
+
+            (Member.card_number.ilike(
+
+                f"%{search}%"
+
+            )) |
+
+            (Member.first_name.ilike(
+
+                f"%{search}%"
+
+            )) |
+
+            (Member.last_name.ilike(
+
+                f"%{search}%"
+
+            )) |
+
+            (Book.isbn.ilike(
+
+                f"%{search}%"
+
+            )) |
+
+            (Book.title.ilike(
+
+                f"%{search}%"
+
+            ))
+
+        )
+
+    loans = query.all()
 
     return render_template(
 
