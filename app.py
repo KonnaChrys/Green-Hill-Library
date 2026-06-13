@@ -467,6 +467,59 @@ def add_member():
 
     )
 
+@app.route(
+    "/delete-member/<int:id>"
+)
+def delete_member(id):
+
+    member = Member.query.get_or_404(
+        id
+    )
+
+    active_loans = Loan.query.filter_by(
+
+        member_id=member.id,
+
+        status="Borrowed"
+
+    ).count()
+
+    if active_loans > 0:
+
+        return """
+
+        <script>
+
+        alert(
+
+            'Δεν μπορεί να διαγραφεί μέλος με ενεργούς δανεισμούς.'
+
+        );
+
+        history.back();
+
+        </script>
+
+        """
+
+    db.session.delete(
+
+        member
+
+    )
+
+    db.session.commit()
+
+    return redirect(
+
+        url_for(
+
+            "members"
+
+        )
+
+    )
+
 # δανεισμος βιβλιου
 
 #------------------- δανεισμοι -------------------
@@ -719,7 +772,9 @@ def returns():
 
         "returns.html",
 
-        loans=loans
+        loans=loans,
+
+        today=datetime.today().date()
 
     )
 

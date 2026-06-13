@@ -142,29 +142,64 @@
         </h3>
 
         <a
-
+            style="
+                width: 200px;
+                height: 48px;
+                font-size: 19px;
+                margin-left:510px;
+            "
             href="{{ url_for(
                 'loans',
                 member_id=member.id
             ) }}"
 
-            class="btn btn-lg"
-
-            style="
-                width:240px;
-                background-color:rgb(54,147,118);
-                border-color:rgb(54,147,118);
-                color:white;
-                text-decoration:none;
-                display:inline-flex;
-                align-items:center;
-                justify-content:center;
-                margin-right:150px;
-            ">
+            class="btn library-btn-green">
 
             Νέος Δανεισμός
 
         </a>
+
+        <div
+
+            style="
+                margin-right:50px;
+            ">
+
+            <a
+
+                href="{{ url_for(
+
+                    'delete_member',
+
+                    id=member.id
+
+                ) }}"
+
+            >
+
+                <button
+                    style="
+                    width: 200px;
+                    height: 48px;
+                    font-size: 19px;"
+
+                    class="btn library-btn-red"
+
+                    onclick="return confirm(
+
+                        'Θέλετε σίγουρα να διαγράψετε το μέλος;'
+
+                    );"
+
+                >
+
+                    Διαγραφή Μέλους
+
+                </button>
+
+            </a>
+
+        </div>
 
     </div>
 

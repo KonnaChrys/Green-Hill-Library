@@ -28,6 +28,48 @@ body {
 
 }
 
+.library-btn-green {
+
+    background-color: #3c4509;
+    border: 1px solid #3c4509;
+
+    color: white;
+
+    display: inline-flex;
+    justify-content: center;
+    align-items: center;
+
+    text-decoration: none;
+
+}
+
+.library-btn-green:hover {
+
+    background-color: #30360d;
+    border-color: #30360d;
+
+    color: white;
+
+}
+
+.library-btn-red {
+
+
+    background-color: #ad3213;
+    border: 1px solid #962c11;
+
+    color: white;
+}
+
+.library-btn-red:hover {
+
+    background-color: #88301a;
+    border-color: #88301a;
+
+    color: white;
+
+}
+
 
 /* textboxes */
 
@@ -484,4 +526,6 @@ input[type="number"] {
     vertical-align: middle;
 
 }
+
+
 

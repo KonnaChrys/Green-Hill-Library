@@ -51,6 +51,8 @@
 
                 <th>Ημερομηνία Διορίας</th>
 
+                <th>Καθυστέρηση</th>
+
                 <th>Επιστροφή</th>
 
             </tr>
@@ -97,23 +99,41 @@
 
                 <td>
 
-                    <a
+                    {% if loan.due_date < today %}
 
-                        href="{{ url_for(
+                        {{ (today - loan.due_date).days }}
 
-                            'return_book',
+                        ημέρες
 
-                            loan_id=loan.id
+                    {% else %}
 
-                        ) }}"
+                        -
 
-                        class="btn btn-success"
+                    {% endif %}
 
-                    >
+                </td>
 
-                        Επιστροφή
+                  <td>
 
-                    </a>
+                      <a
+
+                          href="{{ url_for(
+
+                              'return_book',
+
+                              loan_id=loan.id
+
+                          ) }}"
+
+                          class="btn library-btn-green"
+
+                      >
+
+                          Επιστροφή
+
+                      </a>
+
+                  </td>
 
                 </td>
 
