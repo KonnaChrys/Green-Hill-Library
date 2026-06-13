@@ -168,7 +168,7 @@
 
     </div>
 
-    <table class="table member-history-table">
+    <table class="table table-bordered">
 
         <thead>
 
@@ -180,9 +180,9 @@
 
                 <th>Συγγραφέας</th>
 
-                <th>Ημερομηνία Δανεισμού.</th>
+                <th>Ημερομηνία Δανεισμού</th>
 
-                <th>Ημερομηνία Διορίας.</th>
+                <th>Ημερομηνία Διορίας</th>
 
                 <th>Κατάσταση</th>
 
@@ -196,25 +196,104 @@
 
         <tbody>
 
+            {% for loan in loans %}
+
             <tr>
 
-                <td>9780007488353</td>
+                <td>
 
-                <td>The Return of the King</td>
+                    {{ loan.book.isbn }}
 
-                <td>J.R.R. Tolkien</td>
+                </td>
 
-                <td>10/06/2026</td>
+                <td>
 
-                <td>20/06/2026</td>
+                    {{ loan.book.title }}
 
-                <td>Δανεισμένο</td>
+                </td>
 
-                <td>1.50 €</td>
+                <td>
 
-                <td>☐</td>
+                    {{ loan.book.authors }}
+
+                </td>
+
+                <td>
+
+                    {{ loan.borrow_date }}
+
+                </td>
+
+                <td>
+
+                    {{ loan.due_date }}
+
+                </td>
+
+                <td>
+
+                    {% if loan.status == "Borrowed" %}
+
+                        Δανεισμένο
+
+                    {% else %}
+
+                        Επιστράφηκε
+
+                    {% endif %}
+
+                </td>
+
+                <td>
+
+                    {{ loan.fine }} €
+
+                </td>
+
+                <td
+
+                    style="
+                        text-align:center;
+                    ">
+
+                    {% if loan.status == "Borrowed" %}
+
+                        -
+
+                    {% elif loan.fine == 0 or loan.paid %}
+
+                        ☑
+
+                    {% else %}
+
+                        <a
+
+                            href="{{ url_for(
+
+                                'pay_loan',
+
+                                loan_id=loan.id
+
+                            ) }}"
+
+                            style="
+                                text-decoration:none;
+                                font-size:25px;
+                            "
+
+                        >
+
+                            ☐
+
+                        </a>
+
+                    {% endif %}
+
+                </td>
 
             </tr>
+
+            {% endfor %}
 
         </tbody>
 

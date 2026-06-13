@@ -1,0 +1,130 @@
+{% extends "base.html" %}
+
+{% block banner_content %}
+
+<a href="{{ url_for('home') }}">
+
+    <img
+
+        src="{{ url_for(
+
+            'static',
+
+            filename='images/returns.png'
+
+        ) }}"
+
+        style="
+            width:350px;
+            height:auto;
+        "
+
+    >
+
+</a>
+
+{% endblock %}
+
+{% block content %}
+
+<div class="container mt-4">
+
+    <h3>
+
+        Επιστροφές Βιβλίων
+
+    </h3>
+
+    <table class="table table-bordered">
+
+        <thead>
+
+            <tr>
+
+                <th>ISBN</th>
+
+                <th>Τίτλος</th>
+
+                <th>Μέλος</th>
+
+                <th>Ημερομηνία Δανεισμού</th>
+
+                <th>Ημερομηνία Διορίας</th>
+
+                <th>Επιστροφή</th>
+
+            </tr>
+
+        </thead>
+
+        <tbody>
+
+            {% for loan in loans %}
+
+            <tr>
+
+                <td>
+
+                    {{ loan.book.isbn }}
+
+                </td>
+
+                <td>
+
+                    {{ loan.book.title }}
+
+                </td>
+
+                <td>
+
+                    {{ loan.member.first_name }}
+
+                    {{ loan.member.last_name }}
+
+                </td>
+
+                <td>
+
+                    {{ loan.borrow_date }}
+
+                </td>
+
+                <td>
+
+                    {{ loan.due_date }}
+
+                </td>
+
+                <td>
+
+                    <a
+
+                        href="{{ url_for(
+
+                            'return_book',
+
+                            loan_id=loan.id
+
+                        ) }}"
+
+                        class="btn btn-success"
+
+                    >
+
+                        Επιστροφή
+
+                    </a>
+
+                </td>
+
+            </tr>
+
+            {% endfor %}
+
+        </tbody>
+
+    </table>
+
+</div>
+
+{% endblock %}

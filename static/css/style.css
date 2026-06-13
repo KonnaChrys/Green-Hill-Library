@@ -461,13 +461,13 @@ input[type="number"] {
 
 /* πινακας ιστορικου δανεισμων */
 
-.member-history-table {
+.table-bordered {
 
     background-color: #f6e7cb;
 
 }
 
-.member-history-table th {
+.table-bordered th {
 
     background-color: #d8c29b;
 
@@ -477,10 +477,11 @@ input[type="number"] {
 
 }
 
-.member-history-table td {
+.table-bordered td {
 
     text-align: center;
 
     vertical-align: middle;
 
 }
+

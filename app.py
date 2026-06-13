@@ -1,6 +1,6 @@
 import os
 
-from flask import Flask, render_template, request, redirect, jsonify
+from flask import Flask, render_template, request, redirect, jsonify, url_for
 from models import db, Book, Member, Loan
 from datetime import datetime, timedelta
 
@@ -380,17 +380,29 @@ def members():
 
 # πληροφοριες μελους
 
-@app.route("/member/<int:id>")
+@app.route(
+    "/member/<int:id>"
+)
 def member_info(id):
 
-    print(os.getcwd())
-    print(os.listdir("templates"))
+    member = Member.query.get_or_404(
+        id
+    )
 
-    member = Member.query.get_or_404(id)
+    loans = Loan.query.filter_by(
+
+        member_id=member.id
+
+    ).all()
 
     return render_template(
+
         "member_info.html",
-        member=member
+
+        member=member,
+
+        loans=loans
+
     )
 
 
@@ -578,8 +590,6 @@ def api_book(isbn):
 
     )
 
-from datetime import datetime, timedelta
-
 @app.route(
     "/save-loan",
     methods=["POST"]
@@ -588,67 +598,227 @@ def save_loan():
 
     data = request.get_json()
 
-    member_card = str(
-        data.get("member_card", "")
-    ).strip()
+    member = Member.query.filter_by(
 
-    isbn = str(
-        data.get("isbn", "")
-    ).strip()
+        card_number=data["member_card"]
 
-    member = Member.query.filter(
-        Member.card_number == member_card
     ).first()
 
-    if member is None:
+    if not member:
 
         return jsonify(
+
             {
+
                 "success": False,
+
                 "message": "Δεν βρέθηκε μέλος"
+
             }
+
         )
 
-    book = Book.query.filter(
-        Book.isbn == isbn
-    ).first()
-
-    if book is None:
-
-        return jsonify(
-            {
-                "success": False,
-                "message": "Δεν βρέθηκε βιβλίο"
-            }
-        )
-
-    loan = Loan(
+    active_loans = Loan.query.filter_by(
 
         member_id=member.id,
 
-        book_id=book.id,
-
-        borrow_date=datetime.now().date(),
-
-        due_date=(
-            datetime.now() +
-            timedelta(days=30)
-        ).date(),
-
         status="Borrowed"
 
-    )
+    ).count()
 
-    db.session.add(
-        loan
-    )
+    if (
+
+        active_loans +
+
+        len(data["books"])
+
+    ) > 10:
+
+        return jsonify(
+
+            {
+
+                "success": False,
+
+                "message":
+
+                "Το μέλος δεν μπορεί να έχει πάνω από 10 δανεισμένα βιβλία"
+
+            }
+
+        )
+
+    for isbn in data["books"]:
+
+        book = Book.query.filter_by(
+
+            isbn=isbn
+
+        ).first()
+
+        if not book:
+
+            continue
+
+        if book.status == "Borrowed":
+
+            continue
+
+        book.status = "Borrowed"
+
+        loan = Loan(
+
+            member_id=member.id,
+
+            book_id=book.id,
+
+            borrow_date=datetime.today().date(),
+
+            due_date=(
+
+                datetime.today() +
+
+                timedelta(days=30)
+
+            ).date(),
+
+            status="Borrowed"
+
+        )
+
+        db.session.add(
+
+            loan
+
+        )
 
     db.session.commit()
 
     return jsonify(
+
         {
+
             "success": True
+
         }
+
+    )
+
+@app.route(
+    "/returns"
+)
+def returns():
+
+    loans = Loan.query.filter_by(
+
+        status="Borrowed"
+
+    ).all()
+
+    return render_template(
+
+        "returns.html",
+
+        loans=loans
+
+    )
+
+@app.route(
+    "/return-book/<int:loan_id>"
+)
+def return_book(loan_id):
+
+    loan = Loan.query.get_or_404(
+        loan_id
+    )
+
+    book = Book.query.get(
+        loan.book_id
+    )
+
+    member = Member.query.get(
+        loan.member_id
+    )
+
+    today = datetime.today().date()
+
+    loan.status = "Returned"
+
+    loan.return_date = today
+
+    book.status = "Available"
+
+    if(
+
+        today >
+
+        loan.due_date
+
+    ):
+
+        days = (
+
+            today -
+
+            loan.due_date
+
+        ).days
+
+        loan.fine = (
+
+            days * 0.50
+
+        )
+
+        member.balance += (
+
+            days * 0.50
+
+        )
+
+    db.session.commit()
+
+    return redirect(
+
+        url_for(
+
+            "returns"
+
+        )
+
+    )
+
+@app.route(
+    "/pay-loan/<int:loan_id>"
+)
+def pay_loan(loan_id):
+
+    loan = Loan.query.get_or_404(
+        loan_id
+    )
+
+    if not loan.paid:
+
+        member = Member.query.get(
+            loan.member_id
+        )
+
+        member.balance -= loan.fine
+
+        loan.paid = True
+
+        db.session.commit()
+
+    return redirect(
+
+        url_for(
+
+            "member_info",
+
+            id=loan.member_id
+
+        )
+
     )
 
 # εκκινηση εφαρμογης

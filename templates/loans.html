@@ -167,7 +167,93 @@
 
         </thead>
 
-        <tbody id="loans-body">
+        <tbody>
+
+        {% for i in range(1, 11) %}
+
+        <tr
+
+            id="row{{ i }}"
+
+            {% if i != 1 %}
+            style="display:none;"
+            {% endif %}
+
+        >
+
+            <td>
+
+                <input
+
+                    id="isbn{{ i }}"
+
+                    class="form-control"
+
+                    {% if i == 1 and book %}
+                    value="{{ book.isbn }}"
+                    {% endif %}
+
+                >
+
+            </td>
+
+            <td id="title{{ i }}">
+
+                {% if i == 1 and book %}
+
+                    {{ book.title }}
+
+                {% endif %}
+
+            </td>
+
+            <td id="authors{{ i }}">
+
+                {% if i == 1 and book %}
+
+                    {{ book.authors }}
+
+                {% endif %}
+
+            </td>
+
+            <td id="publisher{{ i }}">
+
+                {% if i == 1 and book %}
+
+                    {{ book.publisher }}
+
+                {% endif %}
+
+            </td>
+
+            <td id="year{{ i }}">
+
+                {% if i == 1 and book %}
+
+                    {{ book.year }}
+
+                {% endif %}
+
+            </td>
+
+            <td id="language{{ i }}">
+
+                {% if i == 1 and book %}
+
+                    {{ book.language }}
+
+                {% endif %}
+
+            </td>
+
+            <td id="borrow_date{{ i }}"></td>
+
+            <td id="due_date{{ i }}"></td>
+
+        </tr>
+
+        {% endfor %}
 
         </tbody>
 
@@ -265,81 +351,17 @@ document.getElementById(
 
 <script>
 
-let maxRows = 10;
+function setupBookRow(number){
 
-function createRow(number){
-
-    let tbody = document.getElementById(
-        "loans-body"
-    );
-
-    let row = document.createElement(
-        "tr"
-    );
-
-    row.id = "row" + number;
-
-    row.innerHTML = `
-
-        <td>
-
-            <input
-
-                id="isbn${number}"
-
-                class="form-control">
-
-        </td>
-
-        <td id="title${number}"></td>
-
-        <td id="authors${number}"></td>
-
-        <td id="publisher${number}"></td>
-
-        <td id="year${number}"></td>
-
-        <td id="language${number}"></td>
-
-        <td id="borrow_date${number}"></td>
-
-        <td id="due_date${number}"></td>
-
-    `;
-
-    tbody.appendChild(
-        row
-    );
-
-    document.getElementById(
+    let isbnInput = document.getElementById(
 
         "isbn" + number
 
-    ).addEventListener(
-
-        "change",
-
-        function(){
-
-            loadBook(number);
-
-        }
-
     );
-
-}
-
-function loadBook(number){
-
-    let isbn = document.getElementById(
-
-        "isbn" + number
-
-    ).value.trim();
 
     if(
 
-        isbn == ""
+        !isbnInput
 
     ){
 
@@ -347,129 +369,128 @@ function loadBook(number){
 
     }
 
-    fetch(
+    isbnInput.addEventListener(
 
-        "/api/book/" +
+        "change",
 
-        isbn
+        function(){
 
-    )
+            fetch(
 
-    .then(
+                "/api/book/" +
 
-        response =>
-        response.json()
+                this.value.trim()
 
-    )
+            )
 
-    .then(
+            .then(
 
-        data => {
+                response =>
 
-            if(
+                response.json()
 
-                !data.found
+            )
 
-            ){
+            .then(
 
-                return;
+                data => {
 
-            }
+                    if(
 
-            document.getElementById(
+                        !data.found
 
-                "title" + number
+                    ){
 
-            ).innerHTML =
-                data.title;
+                        return;
 
-            document.getElementById(
+                    }
 
-                "authors" + number
+                    document.getElementById(
 
-            ).innerHTML =
-                data.authors;
+                        "title" + number
 
-            document.getElementById(
+                    ).innerHTML =
+                    data.title;
 
-                "publisher" + number
+                    document.getElementById(
 
-            ).innerHTML =
-                data.publisher;
+                        "authors" + number
 
-            document.getElementById(
+                    ).innerHTML =
+                    data.authors;
 
-                "year" + number
+                    document.getElementById(
 
-            ).innerHTML =
-                data.year;
+                        "publisher" + number
 
-            document.getElementById(
+                    ).innerHTML =
+                    data.publisher;
 
-                "language" + number
+                    document.getElementById(
 
-            ).innerHTML =
-                data.language;
+                        "year" + number
 
-            let today = new Date();
+                    ).innerHTML =
+                    data.year;
 
-            let due = new Date();
+                    document.getElementById(
 
-            due.setDate(
+                        "language" + number
 
-                due.getDate() + 30
+                    ).innerHTML =
+                    data.language;
 
-            );
+                    let today = new Date();
 
-            document.getElementById(
+                    let due = new Date();
 
-                "borrow_date" + number
+                    due.setDate(
 
-            ).innerHTML =
-
-            today.toLocaleDateString(
-                "el-GR"
-            );
-
-            document.getElementById(
-
-                "due_date" + number
-
-            ).innerHTML =
-
-            due.toLocaleDateString(
-                "el-GR"
-            );
-
-            if(
-
-                number < maxRows
-
-            ){
-
-                let nextRow = document.getElementById(
-
-                    "row" +
-
-                    (number + 1)
-
-                );
-
-                if(
-
-                    !nextRow
-
-                ){
-
-                    createRow(
-
-                        number + 1
+                        due.getDate() + 30
 
                     );
 
+                    document.getElementById(
+
+                        "borrow_date" + number
+
+                    ).innerHTML =
+
+                    today.toLocaleDateString(
+                        "el-GR"
+                    );
+
+                    document.getElementById(
+
+                        "due_date" + number
+
+                    ).innerHTML =
+
+                    due.toLocaleDateString(
+                        "el-GR"
+                    );
+
+                    let nextRow = document.getElementById(
+
+                        "row" +
+
+                        (number + 1)
+
+                    );
+
+                    if(
+
+                        nextRow
+
+                    ){
+
+                        nextRow.style.display = "";
+
+                    }
+
                 }
 
-            }
+            );
 
         }
 
@@ -477,31 +498,17 @@ function loadBook(number){
 
 }
 
-createRow(1);
+for(
 
-window.onload = function(){
+    let i = 1;
 
-    let bookIsbn =
+    i <= 10;
 
-    "{{ book.isbn if book else '' }}";
+    i++
 
-    if(
+){
 
-        bookIsbn != ""
-
-    ){
-
-        document.getElementById(
-
-            "isbn1"
-
-        ).value =
-
-        bookIsbn;
-
-        loadBook(1);
-
-    }
+    setupBookRow(i);
 
 }
 
@@ -519,6 +526,40 @@ document.getElementById(
 
     function(){
 
+        let books = [];
+
+        for(
+
+            let i = 1;
+
+            i <= 10;
+
+            i++
+
+        ){
+
+            let isbn = document.getElementById(
+
+                "isbn" + i
+
+            ).value.trim();
+
+            if(
+
+                isbn != ""
+
+            ){
+
+                books.push(
+
+                    isbn
+
+                );
+
+            }
+
+        }
+
         fetch(
 
             "/save-loan",
@@ -535,29 +576,25 @@ document.getElementById(
 
                 },
 
-              body:JSON.stringify(
+                body:JSON.stringify(
 
-                  {
+                    {
 
-                      member_card:
+                        member_card:
 
-                      document.getElementById(
+                        document.getElementById(
 
-                          "card_number"
+                            "card_number"
 
-                      ).value,
+                        ).value,
 
-                      isbn:
+                        books:
 
-                      document.getElementById(
+                        books
 
-                          "isbn1"
+                    }
 
-                      ).value
-
-                  }
-
-              )
+                )
 
             }
 
@@ -575,29 +612,29 @@ document.getElementById(
 
             data => {
 
-              if(
+                if(
 
-                  data.success
+                    data.success
 
-              ){
+                ){
 
-                  alert(
+                    alert(
 
-                      "Ο δανεισμός αποθηκεύτηκε!"
+                        "Ο δανεισμός αποθηκεύτηκε!"
 
-                  );
+                    );
 
-              }
+                }
 
-              else{
+                else{
 
-                  alert(
+                    alert(
 
-                      data.message
+                        data.message
 
-                  );
+                    );
 
-              }
+                }
 
             }
 

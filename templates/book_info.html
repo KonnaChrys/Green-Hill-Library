@@ -83,29 +83,62 @@
                     margin-top:10px;
                 ">
 
+                {% if book.status == "Available" %}
+
                 <a
 
                     href="{{ url_for(
+
                         'loans',
+
                         book_id=book.id
-                    ) }}"
+
+                    ) }}">
+
+                    <button
+
+                        class="btn btn-lg"
+
+                        style="
+                            width:260px;
+                            background-color:rgb(54,147,118);
+                            border-color:rgb(54,147,118);
+                            color:white;
+                            text-decoration:none;
+                            display:inline-flex;
+                            align-items:center;
+                            justify-content:center;
+                        ">
+
+                        Δανεισμός
+
+                    </button>
+
+                </a>
+                
+                {% else %}
+
+                <button
 
                     class="btn btn-lg"
 
+                    disabled
+
                     style="
                         width:260px;
-                        background-color:rgb(54,147,118);
-                        border-color:rgb(54,147,118);
+                        background-color:#999999;
+                        border-color:#999999;
                         color:white;
-                        text-decoration:none;
-                        display:inline-flex;
-                        align-items:center;
-                        justify-content:center;
-                    ">
+                        cursor:not-allowed;
+                    "
 
-                    Δανεισμός
+                >
 
-                </a>
+                    Μη διαθέσιμο
+
+                </button>
+
+                {% endif %}
 
             </div>
 
