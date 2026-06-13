@@ -1,10 +1,11 @@
 import os
 
-from flask import Flask, render_template, request, redirect, jsonify, url_for
+from flask import Flask, render_template, request, redirect, jsonify, url_for, flash
 from models import db, Book, Member, Loan
 from datetime import datetime, timedelta
 
 app = Flask(__name__)
+app.secret_key = "library_system_secret_key"
 
 # συνδεση με τη βαση δεδομενων
 
@@ -383,13 +384,65 @@ def edit_book(id):
 )
 def delete_book(id):
 
-    book = Book.query.get_or_404(id)
+    book = Book.query.get_or_404(
+        id
+    )
 
-    db.session.delete(book)
+    active_loan = Loan.query.filter_by(
+
+        book_id=book.id,
+
+        status="Borrowed"
+
+    ).first()
+
+    if active_loan:
+
+        flash(
+
+            "Δεν μπορείτε να διαγράψετε βιβλίο που είναι δανεισμένο.",
+
+            "danger"
+
+        )
+
+        return redirect(
+
+            url_for(
+
+                "book_info",
+
+                id=book.id
+
+            )
+
+        )
+
+    db.session.delete(
+
+        book
+
+    )
 
     db.session.commit()
 
-    return redirect("/books")
+    flash(
+
+        "Το βιβλίο διαγράφηκε επιτυχώς.",
+
+        "success"
+
+    )
+
+    return redirect(
+
+        url_for(
+
+            "books"
+
+        )
+
+    )
 
 
 #------------------- μελη -------------------
