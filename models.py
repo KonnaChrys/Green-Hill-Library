@@ -68,6 +68,11 @@ class Book(db.Model):
         db.Integer,
         default=1
     )
+    
+    total_copies = db.Column(
+        db.Integer,
+        default=1
+    )
 
     loans = db.relationship(
         "Loan",

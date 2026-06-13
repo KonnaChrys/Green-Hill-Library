@@ -73,6 +73,12 @@ def add_book():
 
         # δημιουργια νεου βιβλιου
 
+        copies = int(
+
+            request.form["copies"]
+
+        )
+
         book = Book(
 
             isbn=request.form["isbn"],
@@ -99,7 +105,9 @@ def add_book():
 
             cover_url=cover_url,
 
-            copies=request.form["copies"] or 1
+            copies=copies,
+
+            total_copies=copies
 
         )
 
@@ -733,11 +741,15 @@ def save_loan():
 
             continue
 
-        if book.status == "Borrowed":
+        if book.copies <= 0:
 
             continue
 
-        book.status = "Borrowed"
+        book.copies -= 1
+
+        if book.copies == 0:
+
+            book.status = "Borrowed"
 
         loan = Loan(
 
@@ -816,6 +828,8 @@ def return_book(loan_id):
     loan.status = "Returned"
 
     loan.return_date = today
+
+    book.copies += 1
 
     book.status = "Available"
 
