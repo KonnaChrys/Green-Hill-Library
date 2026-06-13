@@ -417,7 +417,6 @@ input[type="number"] {
 
 }
 
-
 .member-info-text {
 
     color: #351B04;
@@ -457,5 +456,31 @@ input[type="number"] {
 
     margin-left: 320px;
     transform: translateX(-50%);
+
+}
+
+/* πινακας ιστορικου δανεισμων */
+
+.member-history-table {
+
+    background-color: #f6e7cb;
+
+}
+
+.member-history-table th {
+
+    background-color: #d8c29b;
+
+    color: #351B04;
+
+    text-align: center;
+
+}
+
+.member-history-table td {
+
+    text-align: center;
+
+    vertical-align: middle;
 
 }

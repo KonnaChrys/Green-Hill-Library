@@ -455,6 +455,43 @@ def add_member():
 
     )
 
+# δανεισμος βιβλιου
+
+@app.route(
+    "/borrow-book/<int:id>",
+    methods=["GET", "POST"]
+)
+def borrow_book(id):
+
+    book = Book.query.get_or_404(id)
+
+    if request.method == "POST":
+
+        card_number = request.form[
+            "card_number"
+        ]
+
+        member = Member.query.filter_by(
+            card_number=card_number
+        ).first()
+
+        if not member:
+
+            return "Το μέλος δεν βρέθηκε."
+
+        return (
+            f"Θα δανειστεί το "
+            f"{book.title} "
+            f"στον "
+            f"{member.first_name} "
+            f"{member.last_name}"
+        )
+
+    return render_template(
+        "borrow_book.html",
+        book=book
+    )
+
 
 # εκκινηση εφαρμογης
 
