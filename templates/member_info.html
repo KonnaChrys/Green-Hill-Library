@@ -146,7 +146,8 @@
                 width: 200px;
                 height: 48px;
                 font-size: 19px;
-                margin-left:510px;
+                margin-right: 500px;
+                
             "
             href="{{ url_for(
                 'loans',
@@ -162,8 +163,48 @@
         <div
 
             style="
-                margin-right:50px;
-            ">
+                display:inline-flex;
+                align-items:center;
+                margin-right: 220px;
+                gap:20px;
+                padding:7px 17px;
+                background:#f2ead8;
+                border:1px solid #cacaca;
+                border-radius:6px;
+            "
+
+        >
+
+            <a
+
+                href="{{ url_for(
+
+                    'edit_member',
+
+                    id=member.id
+
+                ) }}"
+
+            >
+
+                <img
+
+                    src="{{ url_for(
+
+                        'static',
+
+                        filename='images/edit.png'
+
+                    ) }}"
+
+                    style="
+                        width:20px;
+                        height:20px;
+                    "
+
+                >
+
+            </a>
 
             <a
 
@@ -175,29 +216,35 @@
 
                 ) }}"
 
+                onclick="return confirm(
+
+                    'Θέλετε σίγουρα να διαγράψετε το μέλος;'
+
+                );"
+
             >
 
-                <button
+                <img
+
+                    src="{{ url_for(
+
+                        'static',
+
+                        filename='images/delete.png'
+
+                    ) }}"
+
                     style="
-                    width: 200px;
-                    height: 48px;
-                    font-size: 19px;"
-
-                    class="btn library-btn-red"
-
-                    onclick="return confirm(
-
-                        'Θέλετε σίγουρα να διαγράψετε το μέλος;'
-
-                    );"
+                        width:20px;
+                        height:20px;
+                        cursor:pointer;
+                    "
 
                 >
 
-                    Διαγραφή Μέλους
-
-                </button>
-
             </a>
+
+        </div>
 
         </div>
 
