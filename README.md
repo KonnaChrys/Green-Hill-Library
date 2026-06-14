@@ -4,7 +4,7 @@ A modern Library Management System developed with **Flask**, **SQLAlchemy** and 
 
 The application provides a complete environment for managing books, members, borrowings and returns, while also integrating with the **Open Library API** for automatic book information retrieval through ISBN.
 
-# 🌐 Live Demo
+🌐 **Live Demo**
 
 https://konnachrys.pythonanywhere.com
 
@@ -12,13 +12,13 @@ https://konnachrys.pythonanywhere.com
 
 # 📖 Table of Contents
 
-* Live Demo
 * Features
 * Technologies
 * API Integration
 * Screenshots
 * Installation
 * Future Improvements
+* Author
 
 ---
 
@@ -161,7 +161,7 @@ using only the ISBN number.
 # 🚀 Getting Started
 
 ```bash
-git clone https://github.com/KonnaChrys/Green-Hill-Library
+git clone https://github.com/KonnaChrys/Green-Hill-Library.git
 
 pip install -r requirements.txt
 
@@ -187,4 +187,6 @@ Configure your MySQL database connection before running the application.
 
 Developed as a personal software development project.
 
+---
 
+⭐ If you like this project, feel free to give it a star!
