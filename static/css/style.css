@@ -3,12 +3,17 @@
 body {
 
     background-color: #f7f5f0;
+
     background-image: url("../images/background.png");
+
     background-size: 100%;
+
     background-position: center;
+
     font-family: "EB Garamond", serif;
 
 }
+
 
 /* buttons */
 
@@ -20,6 +25,8 @@ body {
 
 }
 
+/* hover */
+
 .btn-outline-secondary:hover {
 
     background-color: #e8dcc6;
@@ -28,42 +35,58 @@ body {
 
 }
 
+
+/* πρασινο κουμπι */
+
 .library-btn-green {
 
     background-color: #3c4509;
+
     border: 1px solid #3c4509;
 
     color: white;
 
     display: inline-flex;
+
     justify-content: center;
+
     align-items: center;
 
     text-decoration: none;
 
 }
 
+/* hover */
+
 .library-btn-green:hover {
 
     background-color: #30360d;
+
     border-color: #30360d;
 
     color: white;
 
 }
 
+
+/* κοκκινο κουμπι */
+
 .library-btn-red {
 
-
     background-color: #ad3213;
+
     border: 1px solid #962c11;
 
     color: white;
+
 }
+
+/* hover */
 
 .library-btn-red:hover {
 
     background-color: #88301a;
+
     border-color: #88301a;
 
     color: white;
@@ -81,6 +104,8 @@ body {
 
 }
 
+/* focus */
+
 .form-control:focus {
 
     background-color: #f8f7f5;
@@ -94,57 +119,62 @@ body {
 
 /* main page */
 
-.home-container{
+.home-container {
 
-    width:100vw;
+    width: 100vw;
 
-    height:100vh;
+    height: 100vh;
 
-    margin:-16px;
+    margin: -16px;
 
-    position:relative;
+    position: relative;
 
-    background-image:url("../images/background-main.png");
+    background-image: url("../images/background-main.png");
 
-    background-size:cover;
+    background-size: cover;
 
-    background-position:center;
+    background-position: center;
 
-    overflow:hidden;
+    overflow: hidden;
+
+}
+
+
+/* border */
+
+.home-border {
+
+    position: absolute;
+
+    width: 100%;
+
+    height: 100%;
+
+    top: 0;
+
+    left: 0;
+
+    pointer-events: none;
 
 }
 
-.home-border{
-
-    position:absolute;
-
-    width:100%;
-
-    height:100%;
-
-    top:0;
-
-    left:0;
-
-    pointer-events:none;
-
-}
 
 /* τιτλος */
 
-.home-title{
+.home-title {
 
-    position:absolute;
+    position: absolute;
 
-    width:650px;
+    width: 650px;
 
-    left:50%;
+    left: 50%;
 
-    top:80px;
+    top: 80px;
 
-    transform:translateX(-50%);
+    transform: translateX(-50%);
 
 }
+
 
 /* main page κουμπια */
 
@@ -154,15 +184,18 @@ body {
 
 .home-loans,
 
-.home-returns{
+.home-returns {
 
-    position:absolute;
+    position: absolute;
 
-    transition:0.2s;
+    transition: 0.2s;
 
-    cursor:pointer;
+    cursor: pointer;
 
 }
+
+
+/* hover */
 
 .home-books:hover,
 
@@ -170,58 +203,62 @@ body {
 
 .home-loans:hover,
 
-.home-returns:hover{
+.home-returns:hover {
 
-    transform:scale(1.03);
-
-}
-
-/* main page βιβλια */
-
-.home-books{
-
-    width:250px;
-
-    left:360px;
-
-    top:530px;
+    transform: scale(1.03);
 
 }
 
-/* main page μελη */
 
-.home-members{
+/* βιβλια */
 
-    width:250px;
+.home-books {
 
-    right:360px;
+    width: 250px;
 
-    top:530px;
+    left: 360px;
 
-}
-
-/* main page δανεισμοι */
-
-.home-loans{
-
-    width:350px;
-
-    top:500px;
-
-    left:41%;
+    top: 530px;
 
 }
 
-/* main page επιστροφες */
 
-.home-returns{
+/* μελη */
 
-    width:350px;
+.home-members {
 
-    top:680px;
+    width: 250px;
 
-    left:41%;
-    
+    right: 360px;
+
+    top: 530px;
+
+}
+
+
+/* δανεισμοι */
+
+.home-loans {
+
+    width: 350px;
+
+    top: 500px;
+
+    left: 41%;
+
+}
+
+
+/* επιστροφες */
+
+.home-returns {
+
+    width: 350px;
+
+    top: 680px;
+
+    left: 41%;
+
 }
 
 
@@ -278,6 +315,8 @@ body {
 
 }
 
+/* hover */
+
 .header-button:hover {
 
     background-color: #e8dcc6;
@@ -294,6 +333,9 @@ body {
     border: 1px solid #cacaca !important;
 
 }
+
+
+/* tomselect focus */
 
 .ts-control.focus {
 
@@ -364,9 +406,11 @@ body {
 
 }
 
-/* αφαιρεση βελακιων απο input type="number" */
+
+/* αφαιρεση βελακιων απο input type number */
 
 input[type="number"]::-webkit-inner-spin-button,
+
 input[type="number"]::-webkit-outer-spin-button {
 
     -webkit-appearance: none;
@@ -389,18 +433,25 @@ input[type="number"] {
 .member-card {
 
     width: 1300px;
+
     height: 750px;
 
     margin: auto;
 
     background-image: url("../images/library_card.png");
+
     background-size: contain;
+
     background-repeat: no-repeat;
+
     background-position: center;
 
     position: relative;
 
 }
+
+
+/* κοινα στοιχεια input */
 
 .member-input {
 
@@ -409,6 +460,7 @@ input[type="number"] {
     background: transparent;
 
     border: none;
+
     border-bottom: 2px solid black;
 
     outline: none;
@@ -419,67 +471,90 @@ input[type="number"] {
 
 }
 
+
 /* ονομα */
 
 .first-name {
 
     top: 310px;
+
     left: 350px;
+
     width: 220px;
+
     color: #351B04;
 
 }
+
 
 /* επωνυμο */
 
 .last-name {
 
     top: 310px;
+
     left: 725px;
+
     width: 220px;
+
     color: #351B04;
 
 }
+
 
 /* τηλεφωνο */
 
 .phone {
 
     top: 380px;
+
     left: 725px;
+
     width: 220px;
+
     color: #351B04;
 
 }
 
-/* ημερομηνια */
+
+/* ημερομηνια γεννησης */
 
 .birth {
 
     top: 380px;
+
     left: 350px;
+
     width: 220px;
+
     color: #351B04;
 
 }
+
 
 /* διευθυνση */
 
 .address {
 
     top: 450px;
+
     left: 370px;
+
     width: 553px;
+
     color: #351B04;
 
 }
+
 
 /* αριθμος καρτας */
 
 .card-number {
 
     top: 625px;
+
     left: 410px;
+
     width: 530px;
 
     text-align: center;
@@ -487,33 +562,46 @@ input[type="number"] {
     border: none;
 
     font-family: monospace;
+
     color: #351B04;
 
     letter-spacing: 22px;
 
 }
 
+
+/* κουμπι αποθηκευσης */
+
 .member-save {
 
     position: absolute;
 
     bottom: 222px;
+
     right: 580px;
 
     width: 140px;
+
     height: 37px;
 
     font-size: 16px;
+
     background-color: #2e1e0f;
-    border-color:#351B04;
+
+    border-color: #351B04;
+
     border-radius: 10px;
 
 }
 
+
+/* hover */
+
 .member-save:hover {
 
     background-color: #462e1a;
-    border-color:#291503;
+
+    border-color: #291503;
 
 }
 
@@ -527,85 +615,120 @@ input[type="number"] {
 
 }
 
+
+/* εικονα καρτας */
+
 .member-card-image {
 
     width: 100%;
+
     height: auto;
 
     display: block;
 
 }
 
+
+/* ονομα */
+
 .mini-member-first-name {
 
     position: absolute;
 
     top: 170px;
+
     left: 350px;
 
     font-size: 40px;
+
     transform: translateX(-50%);
 
 }
+
+
+/* επωνυμο */
 
 .mini-member-last-name {
 
     position: absolute;
 
     top: 220px;
+
     left: 350px;
 
     font-size: 40px;
+
     transform: translateX(-50%);
+
 }
+
+
+/* αριθμος καρτας */
 
 .mini-member-number {
 
     position: absolute;
 
     bottom: 43px;
+
     left: 350px;
 
     letter-spacing: 9px;
+
     font-family: monospace;
-    
+
     transform: translateX(-50%);
 
 }
+
 
 /* member info panel */
 
 .member-info-panel {
 
     width: 570px;
+
     height: 400px;
 
     background-image: url("../images/member-info-panel.png");
 
     background-size: 100% 100%;
+
     background-repeat: no-repeat;
+
     background-position: center;
 
     padding: 40px;
 
     margin-left: -150px;
-    margin-top: 7px;  
+
+    margin-top: 7px;
 
 }
+
+
+/* κειμενο */
 
 .member-info-text {
 
-    color: #351B04;
     margin-left: 250px;
-     margin-top: -5px;
+
+    margin-top: -5px;
+
     text-align: center;
+
     font-size: 20px;
+
     width: 400px;
+
     color: #131110;
-    
+
     transform: translateX(-50%);
 
 }
+
+
+/* labels */
 
 .member-info-panel label {
 
@@ -615,15 +738,19 @@ input[type="number"] {
 
     color: #726c6a;
 
-    transform: translateX(-50%);   
-    
+    transform: translateX(-50%);
 
 }
 
+
+/* υπολοιπο */
+
 .member-info-panel h4 {
-    
+
     margin-left: 265px;
+
     margin-top: 10px;
+
     transform: translateX(-50%);
 
 }
@@ -631,9 +758,11 @@ input[type="number"] {
 .member-info-panel h3 {
 
     margin-left: 320px;
+
     transform: translateX(-50%);
 
 }
+
 
 /* πινακας ιστορικου δανεισμων */
 
@@ -642,6 +771,9 @@ input[type="number"] {
     background-color: #f6e7cb;
 
 }
+
+
+/* επικεφαλιδες */
 
 .table-bordered th {
 
@@ -653,6 +785,9 @@ input[type="number"] {
 
 }
 
+
+/* κελια */
+
 .table-bordered td {
 
     text-align: center;
@@ -661,13 +796,15 @@ input[type="number"] {
 
 }
 
+
+/* checkbox πληρωμης */
+
 .loan-checkbox {
 
     width: 18px;
+
     height: 18px;
 
     cursor: pointer;
 
-
 }
-

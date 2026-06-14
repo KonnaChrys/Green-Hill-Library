@@ -1,5 +1,6 @@
 {% extends "base.html" %}
 
+
 {% block banner_content %}
 
 <a href="{{ url_for('home') }}">
@@ -7,8 +8,11 @@
     <img
 
         src="{{ url_for(
+
             'static',
+
             filename='images/add_member.png'
+
         ) }}"
 
         style="
@@ -20,45 +24,84 @@
 
 {% endblock %}
 
+
 {% block content %}
+
+<!-- φορμα επεξεργασιας μελους -->
 
 <form method="POST">
 
     <div class="member-card">
 
+        <!-- ονομα -->
+
         <input
+
             type="text"
+
             name="first_name"
+
             class="member-input first-name"
+
             value="{{ member.first_name }}"
+
             placeholder="Όνομα">
 
+        <!-- επωνυμο -->
+
         <input
+
             type="text"
+
             name="last_name"
+
             class="member-input last-name"
+
             value="{{ member.last_name }}"
+
             placeholder="Επώνυμο">
 
+        <!-- τηλεφωνο -->
+
         <input
+
             type="text"
+
             name="phone"
+
             class="member-input phone"
+
             value="{{ member.phone }}"
+
             placeholder="Τηλέφωνο">
 
-        <input
-            type="date"
-            name="date_of_birth"
-            class="member-input birth"
-            value="{{ member.date_of_birth }}">
+        <!-- ημερομηνια γεννησης -->
 
         <input
+
+            type="date"
+
+            name="date_of_birth"
+
+            class="member-input birth"
+
+            value="{{ member.date_of_birth }}">
+
+        <!-- διευθυνση -->
+
+        <input
+
             type="text"
+
             name="address"
+
             class="member-input address"
+
             value="{{ member.address }}"
+
             placeholder="Διεύθυνση κατοικίας">
+
+        <!-- αριθμος καρτας -->
 
         <div class="member-input card-number">
 
@@ -66,8 +109,12 @@
 
         </div>
 
+        <!-- αποθηκευση -->
+
         <button
+
             type="submit"
+
             class="btn btn-success member-save">
 
             Αποθήκευση

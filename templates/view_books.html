@@ -7,7 +7,13 @@
 
     <img
 
-        src="{{ url_for('static', filename='images/books.png') }}"
+        src="{{ url_for(
+
+            'static',
+
+            filename='images/books.png'
+
+        ) }}"
 
         style="
             width:350px;
@@ -21,11 +27,15 @@
 
 {% block content %}
 
+<!-- λιστα βιβλιων -->
+
 <div class="container">
 
     <div class="row">
 
         {% for book in books %}
+
+        <!-- καρτα βιβλιου -->
 
         <div class="col-6 col-sm-4 col-md-3 col-lg-2 mb-5">
 
@@ -93,6 +103,7 @@
                             ">
 
                             Αντίτυπα:
+
                             {{ book.copies }}/{{ book.total_copies }}
 
                         </p>

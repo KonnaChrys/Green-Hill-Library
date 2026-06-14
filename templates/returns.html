@@ -1,5 +1,6 @@
 {% extends "base.html" %}
 
+
 {% block banner_content %}
 
 <a href="{{ url_for('home') }}">
@@ -17,15 +18,16 @@
         style="
             width:350px;
             height:auto;
-        "
-
-    >
+        ">
 
 </a>
 
 {% endblock %}
 
+
 {% block content %}
+
+<!-- σελιδα επιστροφων -->
 
 <div class="container mt-4">
 
@@ -34,6 +36,8 @@
         Επιστροφές Βιβλίων
 
     </h3>
+
+    <!-- λιστα δανεισμενων βιβλιων -->
 
     <table class="table table-bordered">
 
@@ -62,6 +66,8 @@
         <tbody>
 
             {% for loan in loans %}
+
+            <!-- στοιχεια δανεισμου -->
 
             <tr>
 
@@ -97,6 +103,8 @@
 
                 </td>
 
+                <!-- καθυστερηση -->
+
                 <td>
 
                     {% if loan.due_date < today %}
@@ -113,27 +121,25 @@
 
                 </td>
 
-                  <td>
+                <!-- επιστροφη βιβλιου -->
 
-                      <a
+                <td>
 
-                          href="{{ url_for(
+                    <a
 
-                              'return_book',
+                        href="{{ url_for(
 
-                              loan_id=loan.id
+                            'return_book',
 
-                          ) }}"
+                            loan_id=loan.id
 
-                          class="btn library-btn-green"
+                        ) }}"
 
-                      >
+                        class="btn library-btn-green">
 
-                          Επιστροφή
+                        Επιστροφή
 
-                      </a>
-
-                  </td>
+                    </a>
 
                 </td>
 

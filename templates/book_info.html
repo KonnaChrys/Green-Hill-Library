@@ -7,7 +7,13 @@
 
     <img
 
-        src="{{ url_for('static', filename='images/books.png') }}"
+        src="{{ url_for(
+
+            'static',
+
+            filename='images/books.png'
+
+        ) }}"
 
         style="
             width:350px;
@@ -21,6 +27,8 @@
 
 {% block content %}
 
+<!-- στοιχεια βιβλιου -->
+
 <div class="container pt-0">
 
     <div class="row gx-5 align-items-start">
@@ -28,6 +36,8 @@
         <!-- αριστερη στηλη -->
 
         <div class="col-auto text-center">
+
+            <!-- εξωφυλλο -->
 
             <div
 
@@ -38,8 +48,6 @@
                     align-items:top;
                     justify-content:center;
                 ">
-
-                <!-- εξωφυλλο -->
 
                 <img
 
@@ -75,7 +83,7 @@
 
             </div>
 
-            <!-- δανεισμος -->
+            <!-- κουμπι δανεισμου -->
 
             <div
 
@@ -113,7 +121,7 @@
                     </button>
 
                 </a>
-                
+
                 {% else %}
 
                 <button
@@ -140,7 +148,7 @@
 
             </div>
 
-            <!-- επεξεργασια και διαγραφη -->
+            <!-- κουμπια επεξεργασιας και διαγραφης -->
 
             <div
 
@@ -155,11 +163,19 @@
                     border-radius:6px;
                 ">
 
+                <!-- επεξεργασια -->
+
                 <a href="/edit-book/{{ book.id }}">
 
                     <img
 
-                        src="{{ url_for('static', filename='images/edit.png') }}"
+                        src="{{ url_for(
+
+                            'static',
+
+                            filename='images/edit.png'
+
+                        ) }}"
 
                         style="
                             width:20px;
@@ -167,6 +183,8 @@
                         ">
 
                 </a>
+
+                <!-- διαγραφη -->
 
                 <form
 
@@ -192,7 +210,13 @@
 
                         <img
 
-                            src="{{ url_for('static', filename='images/delete.png') }}"
+                            src="{{ url_for(
+
+                                'static',
+
+                                filename='images/delete.png'
+
+                            ) }}"
 
                             style="
                                 width:20px;
@@ -202,7 +226,7 @@
 
                     </button>
 
-                    <!-- παραθυρο επιβεβαιωσης διαγραφης -->
+                    <!-- παραθυρο επιβεβαιωσης -->
 
                     <div
 
@@ -234,7 +258,13 @@
 
                                     <img
 
-                                        src="{{ url_for('static', filename='images/delete.png') }}"
+                                        src="{{ url_for(
+
+                                            'static',
+
+                                            filename='images/delete.png'
+
+                                        ) }}"
 
                                         style="
                                             width:70px;
@@ -412,7 +442,7 @@
 
             </div>
 
-            <!-- κατηγοριες -->
+            <!-- κατηγορια -->
 
             <div class="mt-4">
 

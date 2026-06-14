@@ -2,7 +2,11 @@
 
 {% block content %}
 
+<!-- αρχικη σελιδα -->
+
 <div class="home-container">
+
+    <!-- border -->
 
     <img
 
@@ -18,6 +22,8 @@
 
     >
 
+    <!-- τιτλος -->
+
     <img
 
         src="{{ url_for(
@@ -31,6 +37,8 @@
         class="home-title"
 
     >
+
+    <!-- βιβλια -->
 
     <a href="{{ url_for('books') }}">
 
@@ -50,6 +58,8 @@
 
     </a>
 
+    <!-- δανεισμοι -->
+
     <a href="{{ url_for('loans') }}">
 
         <img
@@ -68,6 +78,8 @@
 
     </a>
 
+    <!-- επιστροφες -->
+
     <a href="{{ url_for('returns') }}">
 
         <img
@@ -85,6 +97,8 @@
         >
 
     </a>
+
+    <!-- μελη -->
 
     <a href="{{ url_for('members') }}">
 

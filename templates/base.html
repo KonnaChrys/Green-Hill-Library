@@ -50,33 +50,17 @@
 
             <!-- αναζητηση -->
 
-                <form
+            <form
 
-                    method="GET"
+                method="GET"
 
-                    action="
+                action="{% if request.path.startswith('/members')
+                or request.path.startswith('/member/')
+                or request.path.startswith('/add-member')
+                or request.path.startswith('/edit-member') %}/members{% elif request.path.startswith('/loans')
+                or request.path.startswith('/returns') %}/returns{% else %}/books{% endif %}"
 
-                    {% if request.path.startswith('/members')
-                    or request.path.startswith('/member/')
-                    or request.path.startswith('/add-member')
-                    or request.path.startswith('/edit-member') %}
-
-                    /members
-
-                    {% elif request.path.startswith('/loans')
-                    or request.path.startswith('/returns') %}
-
-                    /returns
-
-                    {% else %}
-
-                    /books
-
-                    {% endif %}
-
-                    "
-
-                    class="search-form">
+                class="search-form">
 
                 <input
 
@@ -113,59 +97,43 @@
             or request.path.startswith('/add-book')
             or request.path.startswith('/edit-book') %}
 
-                <button
+            <button
 
-                    type="button"
+                type="button"
 
-                    class="header-button"
+                class="header-button"
 
-                    onclick="toggleFilters()"
+                onclick="toggleFilters()"
+
+                style="
+                    margin-left:10px;
+                    width:38px;
+                    height:38px;
+                    border-radius:6px;
+                ">
+
+                <img
+
+                    src="{{ url_for('static', filename='images/filter.png') }}"
 
                     style="
-                        margin-left:10px;
-                        width:38px;
-                        height:38px;
-                        border-radius:6px;
+                        width:22px;
+                        height:22px;
                     ">
 
-                    <img
-
-                        src="{{ url_for('static', filename='images/filter.png') }}"
-
-                        style="
-                            width:22px;
-                            height:22px;
-                        ">
-
-                </button>
+            </button>
 
             {% endif %}
 
-            <!-- προσθηκη βιβλιου -->
+            <!-- προσθηκη -->
 
             <a
 
-                href="
-
-                {% if request.path.startswith('/members')
+                href="{% if request.path.startswith('/members')
                 or request.path.startswith('/member/')
                 or request.path.startswith('/add-member')
-                or request.path.startswith('/edit-member') %}
-
-                    /add-member
-
-                {% elif request.path.startswith('/loans')
-                or request.path.startswith('/returns') %}
-
-                    /loans
-
-                {% else %}
-
-                    /add-book
-
-                {% endif %}
-
-                "
+                or request.path.startswith('/edit-member') %}/add-member{% elif request.path.startswith('/loans')
+                or request.path.startswith('/returns') %}/loans{% else %}/add-book{% endif %}"
 
                 class="header-button"
 
@@ -201,230 +169,229 @@
     or request.path.startswith('/add-book')
     or request.path.startswith('/edit-book') %}
 
+    <form
 
-        <form
+        method="GET"
 
-            method="GET"
+        action="/books"
 
-            action="/books"
+        id="filterPanel">
 
-            id="filterPanel">
+        <!-- κατηγοριες -->
 
-            <!-- κατηγοριες -->
+        <label class="form-label">
 
-            <label class="form-label">
+            Κατηγορίες
 
-                Κατηγορίες
+        </label>
+
+        <select
+
+            id="filter_categories"
+
+            name="categories"
+
+            multiple>
+
+            <option>Fantasy</option>
+            <option>Adventure</option>
+            <option>Sci-fi</option>
+            <option>Mystery</option>
+            <option>Thriller</option>
+            <option>Romance</option>
+            <option>Horror</option>
+            <option>Historical Fiction</option>
+            <option>History</option>
+            <option>Biography</option>
+            <option>Autobiography</option>
+            <option>Poetry</option>
+            <option>Psychology</option>
+            <option>Philosophy</option>
+            <option>Business</option>
+            <option>Politics</option>
+            <option>Religion</option>
+            <option>Science</option>
+            <option>Technology</option>
+            <option>Programming</option>
+            <option>Children</option>
+            <option>Young Adult</option>
+            <option>Comics</option>
+
+        </select>
+
+        <br>
+
+        <!-- γλωσσα -->
+
+        <label>
+
+            Γλώσσα
+
+        </label>
+
+        <select
+
+            class="form-control"
+
+            name="language">
+
+            <option
+                value="Όλες"
+                {% if request.args.get('language', 'Όλες') == 'Όλες' %}selected{% endif %}>
+
+                Όλες
+
+            </option>
+
+            <option
+                value="Ελληνικά"
+                {% if request.args.get('language') == 'Ελληνικά' %}selected{% endif %}>
+
+                Ελληνικά
+
+            </option>
+
+            <option
+                value="Αγγλικά"
+                {% if request.args.get('language') == 'Αγγλικά' %}selected{% endif %}>
+
+                Αγγλικά
+
+            </option>
+
+            <option
+                value="Γαλλικά"
+                {% if request.args.get('language') == 'Γαλλικά' %}selected{% endif %}>
+
+                Γαλλικά
+
+            </option>
+
+            <option
+                value="Γερμανικά"
+                {% if request.args.get('language') == 'Γερμανικά' %}selected{% endif %}>
+
+                Γερμανικά
+
+            </option>
+
+        </select>
+
+        <br>
+
+        <!-- ετος -->
+
+        <label>
+
+            Έτος
+
+        </label>
+
+        <select
+
+            class="form-control"
+
+            name="year">
+
+            <option>Όλα</option>
+            <option>Πριν το 1950</option>
+            <option>1950-1979</option>
+            <option>1980-1999</option>
+            <option>2000-2009</option>
+            <option>2010-2019</option>
+            <option>2020+</option>
+
+        </select>
+
+        <br>
+
+        <!-- σελιδες -->
+
+        <label>
+
+            Σελίδες
+
+        </label>
+
+        <select
+
+            class="form-control"
+
+            name="pages">
+
+            <option>Όλες</option>
+            <option>1-100</option>
+            <option>101-200</option>
+            <option>201-300</option>
+            <option>301-400</option>
+            <option>401-500</option>
+            <option>500+</option>
+
+        </select>
+
+        <br>
+
+        <!-- διαθεσιμοτητα -->
+
+        <div class="form-check">
+
+            <input
+
+                class="form-check-input"
+
+                type="checkbox"
+
+                id="available_only"
+
+                name="available_only"
+
+                value="1"
+
+                {% if request.args.get('available_only') %}checked{% endif %}>
+
+            <label
+
+                class="form-check-label"
+
+                for="available_only">
+
+                Μόνο διαθέσιμα βιβλία
 
             </label>
 
-            <select
+        </div>
 
-                id="filter_categories"
+        <br>
 
-                name="categories"
+        <!-- κουμπια φιλτρων -->
 
-                multiple>
+        <div class="d-flex justify-content-end">
 
-                <option>Fantasy</option>
-                <option>Adventure</option>
-                <option>Sci-fi</option>
-                <option>Mystery</option>
-                <option>Thriller</option>
-                <option>Romance</option>
-                <option>Horror</option>
-                <option>Historical Fiction</option>
-                <option>History</option>
-                <option>Biography</option>
-                <option>Autobiography</option>
-                <option>Poetry</option>
-                <option>Psychology</option>
-                <option>Philosophy</option>
-                <option>Business</option>
-                <option>Politics</option>
-                <option>Religion</option>
-                <option>Science</option>
-                <option>Technology</option>
-                <option>Programming</option>
-                <option>Children</option>
-                <option>Young Adult</option>
-                <option>Comics</option>
+            <button
 
-            </select>
+                type="button"
 
-            <br>
+                class="btn library-btn-red me-2"
 
-            <!-- γλωσσα -->
+                onclick="window.location='/books';">
 
-            <label>
+                Καθαρισμός
 
-                Γλώσσα
+            </button>
 
-            </label>
+            <button
 
-            <select
+                type="submit"
 
-                class="form-control"
+                class="btn library-btn-green">
 
-                name="language">
+                Εφαρμογή
 
-                <option
-                    value="Όλες"
-                    {% if request.args.get('language', 'Όλες') == 'Όλες' %}selected{% endif %}>
+            </button>
 
-                    Όλες
+        </div>
 
-                </option>
-
-                <option
-                    value="Ελληνικά"
-                    {% if request.args.get('language') == 'Ελληνικά' %}selected{% endif %}>
-
-                    Ελληνικά
-
-                </option>
-
-                <option
-                    value="Αγγλικά"
-                    {% if request.args.get('language') == 'Αγγλικά' %}selected{% endif %}>
-
-                    Αγγλικά
-
-                </option>
-
-                <option
-                    value="Γαλλικά"
-                    {% if request.args.get('language') == 'Γαλλικά' %}selected{% endif %}>
-
-                    Γαλλικά
-
-                </option>
-
-                <option
-                    value="Γερμανικά"
-                    {% if request.args.get('language') == 'Γερμανικά' %}selected{% endif %}>
-
-                    Γερμανικά
-
-                </option>
-
-            </select>
-
-            <br>
-
-            <!-- ετος -->
-
-            <label>
-
-                Έτος
-
-            </label>
-
-            <select
-
-                class="form-control"
-
-                name="year">
-
-                <option>Όλα</option>
-                <option>Πριν το 1950</option>
-                <option>1950-1979</option>
-                <option>1980-1999</option>
-                <option>2000-2009</option>
-                <option>2010-2019</option>
-                <option>2020+</option>
-
-            </select>
-
-            <br>
-
-            <!-- σελιδες -->
-
-            <label>
-
-                Σελίδες
-
-            </label>
-
-            <select
-
-                class="form-control"
-
-                name="pages">
-
-                <option>Όλες</option>
-                <option>1-100</option>
-                <option>101-200</option>
-                <option>201-300</option>
-                <option>301-400</option>
-                <option>401-500</option>
-                <option>500+</option>
-
-            </select>
-
-            <br>
-
-            <!-- διαθεσιμοτητα -->
-
-            <div class="form-check">
-
-                <input
-
-                    class="form-check-input"
-
-                    type="checkbox"
-
-                    id="available_only"
-
-                    name="available_only"
-
-                    value="1"
-
-                    {% if request.args.get('available_only') %}checked{% endif %}>
-
-                <label
-
-                    class="form-check-label"
-
-                    for="available_only">
-
-                    Μόνο διαθέσιμα βιβλία
-
-                </label>
-
-            </div>
-
-            <br>
-
-            <!-- κουμπια φιλτρων -->
-
-            <div class="d-flex justify-content-end">
-
-                <button
-
-                    type="button"
-
-                    class="btn library-btn-red me-2"
-
-                    onclick="window.location='/books';">
-
-                    Καθαρισμός
-
-                </button>
-
-                <button
-
-                    type="submit"
-
-                    class="btn library-btn-green">
-
-                    Εφαρμογή
-
-                </button>
-
-            </div>
-
-        </form>
+    </form>
 
     {% endif %}
 
@@ -433,6 +400,8 @@
     <!-- περιεχομενο σελιδας -->
 
     <div class="container-fluid mt-3">
+
+        <!-- μηνυματα -->
 
         {% with messages = get_flashed_messages(with_categories=true) %}
 
@@ -515,15 +484,21 @@
     <script>
 
         document.addEventListener(
+
             "DOMContentLoaded",
+
             function () {
 
                 new TomSelect(
+
                     "#filter_categories",
+
                     {
 
                         plugins: [
+
                             "remove_button"
+
                         ],
 
                         create: false,
