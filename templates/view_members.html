@@ -7,7 +7,13 @@
 
     <img
 
-        src="{{ url_for('static', filename='images/members.png') }}"
+        src="{{ url_for(
+
+            'static',
+
+            filename='images/members.png'
+
+        ) }}"
 
         style="
             width:350px;
@@ -20,6 +26,8 @@
 
 
 {% block content %}
+
+<!-- λιστα μελων -->
 
 <div class="container">
 
@@ -35,9 +43,9 @@
 
                 <th>Επώνυμο</th>
 
-                <th>Τηλεφωνο</th>
+                <th>Τηλέφωνο</th>
 
-                <th>Διεύθηνση Κατοικίας</th>
+                <th>Διεύθυνση Κατοικίας</th>
 
             </tr>
 
@@ -47,19 +55,43 @@
 
             {% for member in members %}
 
+            <!-- στοιχεια μελους -->
+
             <tr
+
                 onclick="window.location='/member/{{ member.id }}'"
+
                 style="cursor:pointer;">
 
-                <td> {{ member.card_number }} </td>
+                <td>
 
-                <td> {{ member.first_name }} </td>
+                    {{ member.card_number }}
 
-                <td> {{ member.last_name }} </td>
+                </td>
 
-                <td> {{ member.phone }} </td>
+                <td>
 
-                <td> {{ member.address }} </td>
+                    {{ member.first_name }}
+
+                </td>
+
+                <td>
+
+                    {{ member.last_name }}
+
+                </td>
+
+                <td>
+
+                    {{ member.phone }}
+
+                </td>
+
+                <td>
+
+                    {{ member.address }}
+
+                </td>
 
             </tr>
 
