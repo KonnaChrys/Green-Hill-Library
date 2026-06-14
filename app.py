@@ -5,13 +5,21 @@ from models import db, Book, Member, Loan
 from datetime import datetime, timedelta
 
 app = Flask(__name__)
-app.secret_key = "library_system_secret_key"
+app.secret_key = os.getenv(
+    "SECRET_KEY",
+    "library_system_secret_key"
+)
 
 
 # συνδεση με τη βαση δεδομενων
 
-app.config["SQLALCHEMY_DATABASE_URI"] = \
+app.config["SQLALCHEMY_DATABASE_URI"] = os.getenv(
+
+    "DATABASE_URL",
+
     "mysql+pymysql://root:@localhost/library"
+
+)
 
 app.config["SQLALCHEMY_TRACK_MODIFICATIONS"] = False
 
