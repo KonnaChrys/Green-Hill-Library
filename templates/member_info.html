@@ -5,7 +5,15 @@
 <a href="{{ url_for('home') }}">
 
     <img
-        src="{{ url_for('static', filename='images/members.png') }}"
+
+        src="{{ url_for(
+
+            'static',
+
+            filename='images/members.png'
+
+        ) }}"
+
         style="
             width:350px;
             height:auto;
@@ -15,20 +23,33 @@
 
 {% endblock %}
 
+
 {% block content %}
+
+<!-- στοιχεια μελους -->
 
 <div class="container mt-4">
 
     <div class="row">
 
-        <!-- ΑΡΙΣΤΕΡΗ ΣΤΗΛΗ -->
+        <!-- αριστερη στηλη -->
 
         <div class="col-md-8">
+
+            <!-- καρτα μελους -->
 
             <div class="member-preview-card">
 
                 <img
-                    src="{{ url_for('static', filename='images/library_card.png') }}"
+
+                    src="{{ url_for(
+
+                        'static',
+
+                        filename='images/library_card.png'
+
+                    ) }}"
+
                     class="member-card-image">
 
                 <div class="mini-member-first-name">
@@ -51,32 +72,40 @@
 
             </div>
 
-
-
         </div>
 
-        <!-- ΔΕΞΙΑ ΣΤΗΛΗ -->
+        <!-- δεξια στηλη -->
 
         <div class="col-md-4">
 
             <div class="member-info-panel">
 
+                <!-- ημερομηνια γεννησης -->
+
                 <div class="mb-3">
-                 
+
                     <label>
+
                         Ημερομηνία Γέννησης
+
                     </label>
 
                     <div class="member-info-text">
 
                         {{ member.date_of_birth }}
-                        
+
                     </div>
+
+                </div>
+
+                <!-- τηλεφωνο -->
 
                 <div class="mb-2">
 
                     <label>
+
                         Τηλέφωνο
+
                     </label>
 
                     <div class="member-info-text">
@@ -87,10 +116,14 @@
 
                 </div>
 
+                <!-- διευθυνση -->
+
                 <div class="mb-3">
 
                     <label>
+
                         Διεύθυνση Κατοικίας
+
                     </label>
 
                     <div class="member-info-text">
@@ -102,6 +135,8 @@
                 </div>
 
                 <br><br>
+
+                <!-- υπολοιπο -->
 
                 <h4>
 
@@ -123,6 +158,8 @@
 
     <hr>
 
+    <!-- ιστορικο δανεισμων -->
+
     <div
 
         style="
@@ -133,47 +170,53 @@
             margin-bottom:15px;
         ">
 
-        <h3
-
-            style="margin:0;">
+        <h3 style="margin:0;">
 
             Ιστορικό Δανεισμών
 
         </h3>
 
+        <!-- νεος δανεισμος -->
+
         <a
-            style="
-                width: 200px;
-                height: 48px;
-                font-size: 19px;
-                margin-right: 500px;
-                
-            "
+
             href="{{ url_for(
+
                 'loans',
+
                 member_id=member.id
+
             ) }}"
 
-            class="btn library-btn-green">
+            class="btn library-btn-green"
+
+            style="
+                width:200px;
+                height:48px;
+                font-size:19px;
+                margin-right:500px;
+            ">
 
             Νέος Δανεισμός
 
         </a>
+
+        <!-- επεξεργασια και διαγραφη -->
 
         <div
 
             style="
                 display:inline-flex;
                 align-items:center;
-                margin-right: 220px;
+                margin-right:220px;
                 gap:20px;
                 padding:7px 17px;
                 background:#f2ead8;
                 border:1px solid #cacaca;
                 border-radius:6px;
-            "
+            ">
 
-        >
+            <!-- επεξεργασια -->
 
             <a
 
@@ -183,9 +226,7 @@
 
                     id=member.id
 
-                ) }}"
-
-            >
+                ) }}">
 
                 <img
 
@@ -200,11 +241,11 @@
                     style="
                         width:20px;
                         height:20px;
-                    "
-
-                >
+                    ">
 
             </a>
+
+            <!-- διαγραφη -->
 
             <a
 
@@ -220,9 +261,7 @@
 
                     'Θέλετε σίγουρα να διαγράψετε το μέλος;'
 
-                );"
-
-            >
+                );">
 
                 <img
 
@@ -238,17 +277,15 @@
                         width:20px;
                         height:20px;
                         cursor:pointer;
-                    "
-
-                >
+                    ">
 
             </a>
 
         </div>
 
-        </div>
-
     </div>
+
+    <!-- πινακας δανεισμων -->
 
     <table class="table table-bordered">
 
@@ -332,6 +369,8 @@
 
                 </td>
 
+                <!-- εξοφληση -->
+
                 <td
 
                     style="
@@ -346,9 +385,7 @@
 
                             class="loan-checkbox"
 
-                            disabled
-
-                        >
+                            disabled>
 
                     {% elif loan.fine == 0 or loan.paid %}
 
@@ -360,9 +397,7 @@
 
                             checked
 
-                            disabled
-
-                        >
+                            disabled>
 
                     {% else %}
 
@@ -372,9 +407,7 @@
 
                             class="loan-checkbox"
 
-                            onchange="window.location.href='{{ url_for('pay_loan', loan_id=loan.id) }}'"
-
-                        >
+                            onchange="window.location.href='{{ url_for('pay_loan', loan_id=loan.id) }}'">
 
                     {% endif %}
 
