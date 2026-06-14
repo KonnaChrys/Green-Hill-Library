@@ -91,6 +91,140 @@ body {
 
 }
 
+
+/* main page */
+
+.home-container{
+
+    width:100vw;
+
+    height:100vh;
+
+    margin:-16px;
+
+    position:relative;
+
+    background-image:url("../images/background-main.png");
+
+    background-size:cover;
+
+    background-position:center;
+
+    overflow:hidden;
+
+}
+
+.home-border{
+
+    position:absolute;
+
+    width:100%;
+
+    height:100%;
+
+    top:0;
+
+    left:0;
+
+    pointer-events:none;
+
+}
+
+/* τιτλος */
+
+.home-title{
+
+    position:absolute;
+
+    width:650px;
+
+    left:50%;
+
+    top:80px;
+
+    transform:translateX(-50%);
+
+}
+
+/* main page κουμπια */
+
+.home-books,
+
+.home-members,
+
+.home-loans,
+
+.home-returns{
+
+    position:absolute;
+
+    transition:0.2s;
+
+    cursor:pointer;
+
+}
+
+.home-books:hover,
+
+.home-members:hover,
+
+.home-loans:hover,
+
+.home-returns:hover{
+
+    transform:scale(1.03);
+
+}
+
+/* main page βιβλια */
+
+.home-books{
+
+    width:250px;
+
+    left:360px;
+
+    top:530px;
+
+}
+
+/* main page μελη */
+
+.home-members{
+
+    width:250px;
+
+    right:360px;
+
+    top:530px;
+
+}
+
+/* main page δανεισμοι */
+
+.home-loans{
+
+    width:350px;
+
+    top:500px;
+
+    left:41%;
+
+}
+
+/* main page επιστροφες */
+
+.home-returns{
+
+    width:350px;
+
+    top:680px;
+
+    left:41%;
+    
+}
+
+
 /* αναζητηση */
 
 .search-form {

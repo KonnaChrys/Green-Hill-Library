@@ -2,10 +2,108 @@
 
 {% block content %}
 
-<h1>Library Management System</h1>
+<div class="home-container">
 
-<p>
-    Καλώς ήρθες στο σύστημα βιβλιοθήκης.
-</p>
+    <img
+
+        src="{{ url_for(
+
+            'static',
+
+            filename='images/border-main.png'
+
+        ) }}"
+
+        class="home-border"
+
+    >
+
+    <img
+
+        src="{{ url_for(
+
+            'static',
+
+            filename='images/title-main.png'
+
+        ) }}"
+
+        class="home-title"
+
+    >
+
+    <a href="{{ url_for('books') }}">
+
+        <img
+
+            src="{{ url_for(
+
+                'static',
+
+                filename='images/books-main.png'
+
+            ) }}"
+
+            class="home-books"
+
+        >
+
+    </a>
+
+    <a href="{{ url_for('loans') }}">
+
+        <img
+
+            src="{{ url_for(
+
+                'static',
+
+                filename='images/loans-main.png'
+
+            ) }}"
+
+            class="home-loans"
+
+        >
+
+    </a>
+
+    <a href="{{ url_for('returns') }}">
+
+        <img
+
+            src="{{ url_for(
+
+                'static',
+
+                filename='images/returns-main.png'
+
+            ) }}"
+
+            class="home-returns"
+
+        >
+
+    </a>
+
+    <a href="{{ url_for('members') }}">
+
+        <img
+
+            src="{{ url_for(
+
+                'static',
+
+                filename='images/members-main.png'
+
+            ) }}"
+
+            class="home-members"
+
+        >
+
+    </a>
+
+</div>
 
 {% endblock %}
