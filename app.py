@@ -559,13 +559,23 @@ def edit_book(id):
 
         if new_total < borrowed:
 
-            return (
+            flash(
 
-                "Δεν μπορειτε να ορισετε "
+                "Δεν μπορειτε να ορισετε λιγοτερα αντιτυπα απο οσα ειναι ηδη δανεισμενα.",
 
-                "λιγοτερα αντιτυπα απο "
+                "danger"
 
-                "οσα ειναι ηδη δανεισμενα."
+            )
+
+            return redirect(
+
+                url_for(
+
+                    "edit_book",
+
+                    id=book.id
+
+                )
 
             )
 

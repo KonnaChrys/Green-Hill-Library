@@ -522,6 +522,26 @@ function setupBookRow(number){
 
     );
 
+    // αν το isbn υπαρχει ηδη, κανει αυτοματα αναζητηση
+
+    if (
+
+        isbnInput.value.trim() != ""
+
+    ){
+
+        isbnInput.dispatchEvent(
+
+            new Event(
+
+                "change"
+
+            )
+
+        );
+
+    }
+
 }
 
 // ενεργοποιηση και των 10 γραμμων
