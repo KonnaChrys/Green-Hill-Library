@@ -7,7 +7,13 @@
 
     <img
 
-        src="{{ url_for('static', filename='images/edit_book.png') }}"
+        src="{{ url_for(
+
+            'static',
+
+            filename='images/edit_book.png'
+
+        ) }}"
 
         style="
             width:350px;
@@ -21,9 +27,11 @@
 
 {% block content %}
 
+<!-- φορμα επεξεργασιας βιβλιου -->
+
 <form method="POST" enctype="multipart/form-data">
 
-    <div class="book-form-container"><
+    <div class="book-form-container">
 
         <div class="row justify-content-center">
 
@@ -72,7 +80,13 @@
 
                         <img
 
-                            src="{{ url_for('static', filename='images/search.png') }}"
+                            src="{{ url_for(
+
+                                'static',
+
+                                filename='images/search.png'
+
+                            ) }}"
 
                             style="
                                 width:22px;
@@ -317,6 +331,8 @@
 
             <div class="col-md-3">
 
+                <!-- περιληψη -->
+
                 <label
 
                     class="form-label"
@@ -350,6 +366,8 @@
             <!-- δεξια στηλη -->
 
             <div class="col-md-3 text-center">
+
+                <!-- εξωφυλλο -->
 
                 <div
 
@@ -386,7 +404,6 @@
 
                         style="display:none;">
 
-                        
                         <br><br>
 
                         <label
@@ -433,9 +450,10 @@
 
                     class="btn library-btn-green mt-3"
 
-                    style="width:250px;
-                    height:48px;
-                    font-size:20px;
+                    style="
+                        width:250px;
+                        height:48px;
+                        font-size:20px;
                     ">
 
                     Αποθήκευση
@@ -461,15 +479,21 @@
 <script>
 
 document.addEventListener(
+
     "DOMContentLoaded",
+
     function () {
 
         const tom = new TomSelect(
+
             "#categories",
+
             {
 
                 plugins: [
+
                     "remove_button"
+
                 ],
 
                 create: false,
@@ -481,6 +505,7 @@ document.addEventListener(
                 closeAfterSelect: false,
 
                 placeholder:
+
                     "Επιλογή κατηγοριών..."
 
             }
@@ -490,18 +515,25 @@ document.addEventListener(
         // φορτωση υπαρχουσων κατηγοριων
 
         const categories =
+
             "{{ book.categories or '' }}"
+
             .split(",");
 
         categories.forEach(
+
             category => {
 
                 if (
+
                     category.trim() !== ""
+
                 ) {
 
                     tom.addItem(
+
                         category.trim()
+
                     );
 
                 }
@@ -511,6 +543,7 @@ document.addEventListener(
         );
 
     }
+
 );
 
 </script>
@@ -521,36 +554,53 @@ document.addEventListener(
 <script>
 
 document.addEventListener(
+
     "DOMContentLoaded",
+
     function () {
 
         const cover =
+
             document.getElementById(
+
                 "cover"
+
             );
 
         const placeholder =
+
             document.getElementById(
+
                 "cover_placeholder"
+
             );
 
         const container =
+
             document.getElementById(
+
                 "cover_container"
+
             );
 
         if (
+
             cover.src &&
+
             !cover.src.endsWith("/")
+
         ) {
 
             cover.style.display =
+
                 "block";
 
             placeholder.style.display =
+
                 "none";
 
             container.style.border =
+
                 "none";
 
         }
@@ -558,17 +608,21 @@ document.addEventListener(
         else {
 
             cover.style.display =
+
                 "none";
 
             placeholder.style.display =
+
                 "block";
 
             container.style.border =
+
                 "1px solid #dee2e6";
 
         }
 
     }
+
 );
 
 </script>
@@ -579,52 +633,79 @@ document.addEventListener(
 <script>
 
 document
+
     .getElementById(
+
         "cover_upload"
+
     )
+
     .addEventListener(
+
         "change",
+
         function(event) {
 
             const file =
+
                 event.target.files[0];
 
             if (!file) return;
 
             const reader =
+
                 new FileReader();
 
             reader.onload =
+
                 function(e) {
 
                     document
+
                         .getElementById(
+
                             "cover"
+
                         ).src =
+
                         e.target.result;
 
                     document
+
                         .getElementById(
+
                             "cover"
+
                         ).style.display =
+
                         "block";
 
                     document
+
                         .getElementById(
+
                             "cover_placeholder"
+
                         ).style.display =
+
                         "none";
 
                     document
+
                         .getElementById(
+
                             "cover_container"
+
                         ).style.border =
+
                         "none";
 
                 };
 
             reader.readAsDataURL(
+
                 file
+
             );
 
         }
