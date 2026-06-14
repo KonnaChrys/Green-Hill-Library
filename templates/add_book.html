@@ -7,7 +7,13 @@
 
     <img
 
-        src="{{ url_for('static', filename='images/add_book.png') }}"
+        src="{{ url_for(
+
+            'static',
+
+            filename='images/add_book.png'
+
+        ) }}"
 
         style="
             width:350px;
@@ -20,6 +26,8 @@
 
 
 {% block content %}
+
+<!-- φορμα προσθηκης βιβλιου -->
 
 <form method="POST" enctype="multipart/form-data">
 
@@ -70,7 +78,13 @@
 
                         <img
 
-                            src="{{ url_for('static', filename='images/search.png') }}"
+                            src="{{ url_for(
+
+                                'static',
+
+                                filename='images/search.png'
+
+                            ) }}"
 
                             style="
                                 width:22px;
@@ -301,6 +315,8 @@
 
             <div class="col-md-3">
 
+                <!-- περιληψη -->
+
                 <label
 
                     class="form-label"
@@ -335,6 +351,8 @@
 
             <div class="col-md-3 text-center">
 
+                <!-- εξωφυλλο -->
+
                 <div
 
                     id="cover_container"
@@ -365,8 +383,6 @@
                         ">
 
                     <span id="cover_placeholder">
-
-                        
 
                         <br><br>
 
@@ -412,9 +428,10 @@
 
                     class="btn library-btn-green mt-3"
 
-                    style="width:250px;
-                    height:48px;
-                    font-size:20px;
+                    style="
+                        width:250px;
+                        height:48px;
+                        font-size:20px;
                     ">
 
                     Αποθήκευση
@@ -440,15 +457,21 @@
 <script>
 
 document.addEventListener(
+
     "DOMContentLoaded",
+
     function () {
 
         new TomSelect(
+
             "#categories",
+
             {
 
                 plugins: [
+
                     "remove_button"
+
                 ],
 
                 create: false,
@@ -460,6 +483,7 @@ document.addEventListener(
                 closeAfterSelect: false,
 
                 placeholder:
+
                     "Επιλογή κατηγοριών..."
 
             }
@@ -467,6 +491,7 @@ document.addEventListener(
         );
 
     }
+
 );
 
 </script>
@@ -477,52 +502,80 @@ document.addEventListener(
 <script>
 
 document
-    .getElementById("cover_upload")
+
+    .getElementById(
+
+        "cover_upload"
+
+    )
+
     .addEventListener(
+
         "change",
+
         function(event) {
 
             const file =
+
                 event.target.files[0];
 
             if (!file) return;
 
             const reader =
+
                 new FileReader();
 
             reader.onload =
+
                 function(e) {
 
                     const cover =
+
                         document.getElementById(
+
                             "cover"
+
                         );
 
                     const placeholder =
+
                         document.getElementById(
+
                             "cover_placeholder"
+
                         );
 
                     const container =
+
                         document.getElementById(
+
                             "cover_container"
+
                         );
 
                     cover.src =
+
                         e.target.result;
 
                     cover.style.display =
+
                         "block";
 
                     placeholder.style.display =
+
                         "none";
 
                     container.style.border =
+
                         "none";
 
                 };
 
-            reader.readAsDataURL(file);
+            reader.readAsDataURL(
+
+                file
+
+            );
 
         }
 
