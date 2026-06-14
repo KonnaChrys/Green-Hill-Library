@@ -539,7 +539,53 @@ def edit_book(id):
 
         book.cover_url = cover_url
 
-        book.copies = request.form["copies"] or 1
+        # ενημερωση αντιτυπων
+
+        new_total = int(
+
+            request.form["copies"] or 1
+
+        )
+
+        borrowed = (
+
+            book.total_copies -
+
+            book.copies
+
+        )
+
+        # δεν μπορει να μειωθει κατω απο τα δανεισμενα
+
+        if new_total < borrowed:
+
+            return (
+
+                "Δεν μπορειτε να ορισετε "
+
+                "λιγοτερα αντιτυπα απο "
+
+                "οσα ειναι ηδη δανεισμενα."
+
+            )
+
+        book.total_copies = new_total
+
+        book.copies = (
+
+            new_total -
+
+            borrowed
+
+        )
+
+        if book.copies > 0:
+
+            book.status = "Available"
+
+        else:
+
+            book.status = "Borrowed"
 
         db.session.commit()
 
