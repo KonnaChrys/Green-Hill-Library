@@ -5,8 +5,15 @@
 <a href="{{ url_for('home') }}">
 
     <img
-        src="{{ url_for('static',
-        filename='images/loans.png') }}"
+
+        src="{{ url_for(
+
+            'static',
+
+            filename='images/loans.png'
+
+        ) }}"
+
         style="
             width:350px;
             height:auto;
@@ -16,11 +23,14 @@
 
 {% endblock %}
 
+
 {% block content %}
+
+<!-- σελιδα δανεισμων -->
 
 <div class="container mt-4">
 
-    <!-- ΣΤΟΙΧΕΙΑ ΜΕΛΟΥΣ -->
+    <!-- στοιχεια μελους -->
 
     <h3>
 
@@ -34,35 +44,15 @@
 
             <tr>
 
-                <th>
+                <th>Αριθμός Κάρτας</th>
 
-                    Αριθμός Κάρτας
+                <th>Όνομα</th>
 
-                </th>
+                <th>Επώνυμο</th>
 
-                <th>
+                <th>Τηλέφωνο</th>
 
-                    Όνομα
-
-                </th>
-
-                <th>
-
-                    Επώνυμο
-
-                </th>
-
-                <th>
-
-                    Τηλέφωνο
-
-                </th>
-
-                <th>
-
-                    Συνολικό Υπόλοιπο
-
-                </th>
+                <th>Συνολικό Υπόλοιπο</th>
 
             </tr>
 
@@ -75,53 +65,52 @@
                 <td>
 
                     <input
-                    
-                      id="card_number"
 
-                      class="form-control"
+                        id="card_number"
 
-                      value="{% if member %}{{ member.card_number }}{% endif %}">
+                        class="form-control"
+
+                        value="{% if member %}{{ member.card_number }}{% endif %}">
 
                 </td>
 
                 <td id="first_name">
 
-                  {% if member %}
+                    {% if member %}
 
-                      {{ member.first_name }}
+                        {{ member.first_name }}
 
-                  {% endif %}
+                    {% endif %}
 
                 </td>
 
                 <td id="last_name">
 
-                  {% if member %}
+                    {% if member %}
 
-                      {{ member.last_name }}
+                        {{ member.last_name }}
 
-                  {% endif %}
-                  
+                    {% endif %}
+
                 </td>
 
                 <td id="phone">
 
-                  {% if member %}
+                    {% if member %}
 
-                      {{ member.phone }}
+                        {{ member.phone }}
 
-                  {% endif %}
-
+                    {% endif %}
 
                 </td>
 
                 <td id="balance">
 
-                  {% if member %}
+                    {% if member %}
 
-                      {{ member.balance }}
+                        {{ member.balance }}
 
-                  {% endif %}
+                    {% endif %}
 
                 </td>
 
@@ -133,7 +122,7 @@
 
     <br>
 
-    <!-- ΝΕΟΙ ΔΑΝΕΙΣΜΟΙ -->
+    <!-- νεοι δανεισμοι -->
 
     <h3>
 
@@ -169,95 +158,99 @@
 
         <tbody>
 
-        {% for i in range(1, 11) %}
+            {% for i in range(1, 11) %}
 
-        <tr
+            <!-- γραμμη βιβλιου -->
 
-            id="row{{ i }}"
+            <tr
 
-            {% if i != 1 %}
-            style="display:none;"
-            {% endif %}
+                id="row{{ i }}"
 
-        >
+                {% if i != 1 %}
+                style="display:none;"
+                {% endif %}
 
-            <td>
+            >
 
-                <input
+                <td>
 
-                    id="isbn{{ i }}"
+                    <input
 
-                    class="form-control"
+                        id="isbn{{ i }}"
+
+                        class="form-control"
+
+                        {% if i == 1 and book %}
+                        value="{{ book.isbn }}"
+                        {% endif %}
+
+                    >
+
+                </td>
+
+                <td id="title{{ i }}">
 
                     {% if i == 1 and book %}
-                    value="{{ book.isbn }}"
+
+                        {{ book.title }}
+
                     {% endif %}
 
-                >
+                </td>
 
-            </td>
+                <td id="authors{{ i }}">
 
-            <td id="title{{ i }}">
+                    {% if i == 1 and book %}
 
-                {% if i == 1 and book %}
+                        {{ book.authors }}
 
-                    {{ book.title }}
+                    {% endif %}
 
-                {% endif %}
+                </td>
 
-            </td>
+                <td id="publisher{{ i }}">
 
-            <td id="authors{{ i }}">
+                    {% if i == 1 and book %}
 
-                {% if i == 1 and book %}
+                        {{ book.publisher }}
 
-                    {{ book.authors }}
+                    {% endif %}
 
-                {% endif %}
+                </td>
 
-            </td>
+                <td id="year{{ i }}">
 
-            <td id="publisher{{ i }}">
+                    {% if i == 1 and book %}
 
-                {% if i == 1 and book %}
+                        {{ book.year }}
 
-                    {{ book.publisher }}
+                    {% endif %}
 
-                {% endif %}
+                </td>
 
-            </td>
+                <td id="language{{ i }}">
 
-            <td id="year{{ i }}">
+                    {% if i == 1 and book %}
 
-                {% if i == 1 and book %}
+                        {{ book.language }}
 
-                    {{ book.year }}
+                    {% endif %}
 
-                {% endif %}
+                </td>
 
-            </td>
+                <td id="borrow_date{{ i }}"></td>
 
-            <td id="language{{ i }}">
+                <td id="due_date{{ i }}"></td>
 
-                {% if i == 1 and book %}
+            </tr>
 
-                    {{ book.language }}
-
-                {% endif %}
-
-            </td>
-
-            <td id="borrow_date{{ i }}"></td>
-
-            <td id="due_date{{ i }}"></td>
-
-        </tr>
-
-        {% endfor %}
+            {% endfor %}
 
         </tbody>
 
     </table>
+
+    <!-- ολοκληρωση δανεισμου -->
 
     <div
 
@@ -280,10 +273,15 @@
 
 </div>
 
+
+<!-- αναζητηση μελους -->
+
 <script>
 
 document.getElementById(
+
     "card_number"
+
 ).addEventListener(
 
     "change",
@@ -301,6 +299,7 @@ document.getElementById(
         .then(
 
             response =>
+
             response.json()
 
         )
@@ -320,23 +319,35 @@ document.getElementById(
                 }
 
                 document.getElementById(
+
                     "first_name"
+
                 ).innerHTML =
+
                     data.first_name;
 
                 document.getElementById(
+
                     "last_name"
+
                 ).innerHTML =
+
                     data.last_name;
 
                 document.getElementById(
+
                     "phone"
+
                 ).innerHTML =
+
                     data.phone;
 
                 document.getElementById(
+
                     "balance"
+
                 ).innerHTML =
+
                     data.balance;
 
             }
@@ -348,6 +359,8 @@ document.getElementById(
 );
 
 </script>
+
+<!-- αναζητηση βιβλιου -->
 
 <script>
 
@@ -410,35 +423,42 @@ function setupBookRow(number){
                         "title" + number
 
                     ).innerHTML =
-                    data.title;
+
+                        data.title;
 
                     document.getElementById(
 
                         "authors" + number
 
                     ).innerHTML =
-                    data.authors;
+
+                        data.authors;
 
                     document.getElementById(
 
                         "publisher" + number
 
                     ).innerHTML =
-                    data.publisher;
+
+                        data.publisher;
 
                     document.getElementById(
 
                         "year" + number
 
                     ).innerHTML =
-                    data.year;
+
+                        data.year;
 
                     document.getElementById(
 
                         "language" + number
 
                     ).innerHTML =
-                    data.language;
+
+                        data.language;
+
+                    // ημερομηνιες δανεισμου
 
                     let today = new Date();
 
@@ -456,9 +476,11 @@ function setupBookRow(number){
 
                     ).innerHTML =
 
-                    today.toLocaleDateString(
-                        "el-GR"
-                    );
+                        today.toLocaleDateString(
+
+                            "el-GR"
+
+                        );
 
                     document.getElementById(
 
@@ -466,9 +488,13 @@ function setupBookRow(number){
 
                     ).innerHTML =
 
-                    due.toLocaleDateString(
-                        "el-GR"
-                    );
+                        due.toLocaleDateString(
+
+                            "el-GR"
+
+                        );
+
+                    // εμφανιση επομενης γραμμης
 
                     let nextRow = document.getElementById(
 
@@ -498,6 +524,8 @@ function setupBookRow(number){
 
 }
 
+// ενεργοποιηση και των 10 γραμμων
+
 for(
 
     let i = 1;
@@ -514,6 +542,9 @@ for(
 
 </script>
 
+
+<!-- αποθηκευση δανεισμου -->
+
 <script>
 
 document.getElementById(
@@ -527,6 +558,8 @@ document.getElementById(
     function(){
 
         let books = [];
+
+        // συλλογη isbn
 
         for(
 
@@ -623,8 +656,10 @@ document.getElementById(
                         "Ο δανεισμός αποθηκεύτηκε!"
 
                     );
-                    
-                    window.location.href = "{{ url_for('home') }}";
+
+                    window.location.href =
+
+                    "{{ url_for('home') }}";
 
                 }
 
@@ -647,6 +682,5 @@ document.getElementById(
 );
 
 </script>
-
 
 {% endblock %}
