@@ -94,12 +94,10 @@ def add_book():
 
         if cover_file and cover_file.filename != "":
 
-            filepath = os.path.join(
-
+            upload_folder = os.path.join(
+                app.root_path,
                 "static",
-
-                "uploads",
-
+                "uploads"
             )
 
             os.makedirs(upload_folder, exist_ok=True)
@@ -109,11 +107,7 @@ def add_book():
                 cover_file.filename
             )
 
-            cover_file.save(
-
-                filepath
-
-            )
+            cover_file.save(filepath)
 
             cover_url = "/static/uploads/" + cover_file.filename
 
