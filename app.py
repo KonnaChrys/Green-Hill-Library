@@ -100,8 +100,13 @@ def add_book():
 
                 "uploads",
 
-                cover_file.filename
+            )
 
+            os.makedirs(upload_folder, exist_ok=True)
+
+            filepath = os.path.join(
+                upload_folder,
+                cover_file.filename
             )
 
             cover_file.save(
@@ -110,13 +115,7 @@ def add_book():
 
             )
 
-            cover_url = "/" + filepath.replace(
-
-                "\\",
-
-                "/"
-
-            )
+            cover_url = "/static/uploads/" + cover_file.filename
 
         # δημιουργια νεου βιβλιου
 
