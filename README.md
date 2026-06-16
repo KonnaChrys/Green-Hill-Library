@@ -1,9 +1,12 @@
-# library_system
 # 📚 Green Hill Library
 
 A modern Library Management System developed with **Flask**, **SQLAlchemy** and **MySQL**.
 
 The application provides a complete environment for managing books, members, borrowings and returns, while also integrating with the **Open Library API** for automatic book information retrieval through ISBN.
+
+🌐 **Live Demo**
+
+https://konnachrys.pythonanywhere.com
 
 ---
 
@@ -11,11 +14,11 @@ The application provides a complete environment for managing books, members, bor
 
 * Features
 * Technologies
+* API Integration
 * Screenshots
 * Installation
-* Project Structure
-* API Integration
 * Future Improvements
+* Author
 
 ---
 
@@ -38,23 +41,11 @@ The application provides a complete environment for managing books, members, bor
 * Edit member information
 * Delete members
 * Automatic library card number generation
+* Library card barcode support
+* Loan history
+* Outstanding balance tracking
 * Search by card number
 * Search by first and last name
-
-# 🌐 API Integration
-
-The application uses the **Open Library API** to automatically retrieve:
-
-* Book title
-* Author
-* Publisher
-* Categories
-* Description
-* Cover image
-* Publication year
-* Language
-
-using only the ISBN number.
 
 ## 📷 Barcode Support
 
@@ -69,8 +60,7 @@ using only the ISBN number.
 * Borrow multiple books at once
 * Automatic due date calculation
 * Automatic availability update
-* Barcode scanner support
-* Library card scanner support
+* Automatic member balance update
 
 ## 📥 Return System
 
@@ -95,6 +85,7 @@ Depending on the current page:
 * Responsive Bootstrap components
 * Custom CSS styling
 
+  
 ---
 
 # 🛠 Technologies
@@ -121,6 +112,29 @@ Depending on the current page:
 ## Development Tools
 
 * Visual Studio Code
+* Git
+* GitHub
+
+## Deployment
+
+* PythonAnywhere
+
+---
+
+# 🌐 API Integration
+
+The application uses the **Open Library API** to automatically retrieve:
+
+* Book title
+* Author
+* Publisher
+* Categories
+* Description
+* Cover image
+* Publication year
+* Language
+
+using only the ISBN number.
 
 ---
 
@@ -147,12 +161,14 @@ Depending on the current page:
 # 🚀 Getting Started
 
 ```bash
-git clone https://github.com/USERNAME/library_system.git
+git clone https://github.com/KonnaChrys/Green-Hill-Library.git
 
 pip install -r requirements.txt
 
 python app.py
 ```
+
+Configure your MySQL database connection before running the application.
 
 ---
 
@@ -163,6 +179,7 @@ python app.py
 * Dashboard with statistics
 * Email notifications
 * Export reports
+* Mobile friendly interface
 
 ---
 
@@ -170,4 +187,6 @@ python app.py
 
 Developed as a personal software development project.
 
+---
 
+⭐ If you like this project, feel free to give it a star!
